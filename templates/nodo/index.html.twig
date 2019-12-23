@@ -1,0 +1,61 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Nodo{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Nodo</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="d-none">Número</th>
+                            <th>Nombre</th>
+                            <th>Color</th>
+                            <th>Dirección</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for nodo in nodos %}
+                            <tr>
+                                <td class="d-none">{{ nodo.number }}</td>
+                                <td>{{ nodo.name }}</td>
+                                <td><div style="display:block;width:30px;height:30px;background-color:{{ nodo.color }};"></div></td>
+                                <td>
+                                    <ul>
+                                        {% for address in nodo.addresses %}
+                                            <li>{{ address }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>
+                                    <a href="{{ path('nodo_show', {'id': nodo.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('nodo_edit', {'id': nodo.id}) }}" class="btn btn-secondary btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {{ include('nodo/_delete_form.html.twig') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6">No se encontraron registros</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('nodo_new') }}" class="btn btn-primary">Nuevo Nodo</a>
+    {% endif %}
+{% endblock %}

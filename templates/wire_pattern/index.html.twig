@@ -1,0 +1,52 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Patrón de cable{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Patrón de cable</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Tamaño</th>
+                            <th>Color</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for wire_pattern in wire_patterns %}
+                            <tr>
+                                <td>{{ wire_pattern.name }}</td>
+                                <td>{{ wire_pattern.weight }}</td>
+                                <td><div style="display:block;width:30px;height:30px;background-color:{{ wire_pattern.hexaColor }};"></div></td>
+                                <td>
+                                    <a href="{{ path('wire_pattern_show', {'id': wire_pattern.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('wire_pattern_edit', {'id': wire_pattern.id}) }}" class="btn btn-secondary btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {{ include('wire_pattern/_delete_form.html.twig') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">No se encontraron registros</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('wire_pattern_new') }}" class="btn btn-primary">Nuevo patrón</a>
+    {% endif %}
+{% endblock %}

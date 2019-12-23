@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DistributionBoxSignal{% endblock %}
+
+{% block body %}
+    <h1>DistributionBoxSignal</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Tv (1550)</th>
+                <td>{{ distribution_box_signal.tv }}</td>
+            </tr>
+            <tr>
+                <th>Bajada (1490)</th>
+                <td>{{ distribution_box_signal.down }}</td>
+            </tr>
+            <tr>
+                <th>Subida (1310)</th>
+                <td>{{ distribution_box_signal.up }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('distribution_box_signal_index') }}">back to list</a>
+
+    <a href="{{ path('distribution_box_signal_edit', {'id': distribution_box_signal.id}) }}">edit</a>
+
+    {{ include('distribution_box_signal/_delete_form.html.twig') }}
+{% endblock %}

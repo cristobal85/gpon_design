@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WirePattern{% endblock %}
+
+{% block body %}
+    <h1>WirePattern</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ wire_pattern.id }}</td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>{{ wire_pattern.weight }}</td>
+            </tr>
+            <tr>
+                <th>HexaColor</th>
+                <td>{{ wire_pattern.hexaColor }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('wire_pattern_index') }}">back to list</a>
+
+    <a href="{{ path('wire_pattern_edit', {'id': wire_pattern.id}) }}">edit</a>
+
+    {{ include('wire_pattern/_delete_form.html.twig') }}
+{% endblock %}
+
+
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Patrón de cable{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Patrón de cable</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Tamaño</th>
+                        <td>{{ wire_pattern.weight }}</td>
+                    </tr>
+                    <tr>
+                        <th>HexaColor</th>
+                        <td><div style="display:block;width:30px;height:30px;background-color:{{ wire_pattern.hexaColor }};"></div></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            {% if wire_pattern.tubes is not empty %}
+                <div class="card mt-3">
+                    <div class="card-header">
+                        Patrón de tubos
+                    </div>
+                    <div class="card-body">
+                        <table>
+                            {% for tube in wire_pattern.tubes %}
+                                <tr>
+                                    <th>Color</th>
+                                    <td><div style="display:block;width:30px;height:30px;background-color:{{ tube.hexaColor }};"></div></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}

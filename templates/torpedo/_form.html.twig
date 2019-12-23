@@ -1,0 +1,32 @@
+{% form_theme form 'jquery.collection.html.twig' %}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<button class="btn btn-success btn-icon-split">
+    <span class="icon text-white-50">
+        <i class="fas fa-cloud-upload-alt"></i>
+    </span>
+    <span class="text">{{ button_label|default('Guardar') }}</span>
+</button>
+{{ form_end(form) }}
+
+
+{% block javascripts %}
+    <script>
+        function addElementListener() {
+            setTimeout(function () {
+                var addElements = document.querySelectorAll(".torpedo_torpedoFusions-collection-action");
+                for (var addElement of addElements) {
+                    addElement.addEventListener('click', function (event) {
+                        setTimeout(function () {
+                            $('select').select2();
+                            addElementListener();
+                        }, 500);
+                    });
+                }
+            }, 1000);
+        }
+        
+        addElementListener();
+
+    </script>
+{% endblock %}

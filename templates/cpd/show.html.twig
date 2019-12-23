@@ -1,0 +1,30 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Cpd{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">CPD</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Dirección</th>
+                        <td>{{ cpd.location }}</td>
+                    </tr>
+                    <tr>
+                        <th>Latitud</th>
+                        <td>{{ cpd.latitude }}</td>
+                    </tr>
+                    <tr>
+                        <th>Longitud</th>
+                        <td>{{ cpd.longitude }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

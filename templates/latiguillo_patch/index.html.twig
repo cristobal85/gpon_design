@@ -1,0 +1,49 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Latiguillo Patch Panel{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Latiguillo Patch Panel</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Patch Panel</th>
+                            <th>EDFA</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for latiguillo_patch in latiguillo_patches %}
+                            <tr>
+                                <td>{{ latiguillo_patch.name }}</td>
+                                <td>{{ latiguillo_patch.patchPanelSlotConector }}</td>
+                                <td>{{ latiguillo_patch.edfaPort }}</td>
+                                <td>
+                                    <a href="{{ path('latiguillo_patch_show', {'id': latiguillo_patch.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    <a href="{{ path('latiguillo_patch_edit', {'id': latiguillo_patch.id}) }}" class="btn btn-secondary btn-circle">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    {{ include('latiguillo_patch/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">No se encontraron registros.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ path('latiguillo_patch_new') }}" class="btn btn-primary">Nuevo latiguillo</a>
+{% endblock %}

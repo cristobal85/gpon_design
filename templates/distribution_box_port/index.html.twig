@@ -1,0 +1,51 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Puerto de caja de distribución{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Puerto</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Number</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for distribution_box_port in distribution_box_ports %}
+                            <tr>
+                                <td>{{ distribution_box_port.id }}</td>
+                                <td>{{ distribution_box_port.number }}</td>
+                                <td>
+                                    <a href="{{ path('distribution_box_port_show', {'id': distribution_box_port.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('distribution_box_port_edit', {'id': distribution_box_port.id}) }}" class="btn btn-secondary btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {{ include('distribution_box/_delete_form.html.twig') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">No se encontraron registros</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('distribution_box_port_new') }}" class="btn btn-primary">Nuevo puerto</a>
+    {% endif %}
+{% endblock %}

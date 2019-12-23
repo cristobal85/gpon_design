@@ -1,0 +1,26 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Tarjeta{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tarjeta</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Número</th>
+                        <td>{{ olt_slot.number }}</td>
+                    </tr>
+                    <tr>
+                        <th>OLT</th>
+                        <td>{{ olt_slot.olt }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

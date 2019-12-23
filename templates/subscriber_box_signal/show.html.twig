@@ -1,0 +1,34 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Señal{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Señal</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Tv (1550)</th>
+                        <td>{{ subscriber_box_signal.tv }}</td>
+                    </tr>
+                    <tr>
+                        <th>Bajada (1490)</th>
+                        <td>{{ subscriber_box_signal.down }}</td>
+                    </tr>
+                    <tr>
+                        <th>Subida (1310)</th>
+                        <td>{{ subscriber_box_signal.up }}</td>
+                    </tr>
+                    <tr>
+                        <th>Día</th>
+                        <td>{{ subscriber_box_signal.day ? subscriber_box_signal.day|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

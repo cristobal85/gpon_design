@@ -1,0 +1,53 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Icono{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Icono</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Elemento</th>
+                            <th>Altura de icono (pixeles)</th>
+                            <th>Icono</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for icon in icons %}
+                            <tr>
+                                <td>{{ icon.element|trans }}</td>
+                                <td>{{ icon.height }}</td>
+                                <td><img src="{{ vich_uploader_asset(icon, 'file') }}" alt="{{ icon.element }}"></td>
+                                <td>
+                                    <a href="{{ path('icon_show', {'id': icon.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('icon_edit', {'id': icon.id}) }}" class="btn btn-secondary btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {{ include('icon/_delete_form.html.twig') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">No se encontraron registros</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+                    
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('icon_new') }}" class="btn btn-primary">Nuevo icono</a>
+    {% endif %}
+{% endblock %}

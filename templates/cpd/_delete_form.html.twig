@@ -1,0 +1,7 @@
+<form method="post" action="{{ path('cpd_delete', {'id': cpd.id}) }}" onsubmit="return confirm('¿Estás seguro?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cpd.id) }}">
+    <button class="btn btn-danger btn-circle">
+        <i class="fas fa-trash"></i>
+    </button>
+</form>

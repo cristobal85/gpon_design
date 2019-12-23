@@ -1,0 +1,38 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Dirección{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Dirección</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Dirección</th>
+                        <td>{{ address.location }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cajas de distribución</th>
+                        <td>{%  for dBox in address.distributionBoxes %}{{ dBox }}{% if loop.index < loop.length %}, {% endif %}{% endfor %}</td>
+                    </tr>
+                    <tr>
+                        <th>Cajas de abonado</th>
+                        <td>{%  for sBox in address.subscriberBoxes %}{{ sBox }}{% if loop.index < loop.length %}, {% endif %}{% endfor %}</td>
+                    </tr>
+                    <tr>
+                        <th>Cajas de extensión</th>
+                        <td>{%  for sBoxExt in address.subscriberBoxesExt %}{{ sBoxExt }}{% if loop.index < loop.length %}, {% endif %}{% endfor %}</td>
+                    </tr>
+                    <tr>
+                        <th>Nodos</th>
+                        <td>{%  for nodo in address.nodos %}{{ sBox }}{% if loop.index < loop.length %}, {% endif %}{% endfor %}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

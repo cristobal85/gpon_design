@@ -1,0 +1,14 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Nuevo EDFA{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Nuevo EDFA</h6>
+        </div>
+        <div class="card-body">
+            {{ include('edfa/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

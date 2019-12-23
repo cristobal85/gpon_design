@@ -1,0 +1,24 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Tarjeta EDFA{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tarjeta EDFA</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">">
+                <tbody>
+                    <tr>
+                        <th>Type</th>
+                        <td>{{ edfa_slot.type }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}

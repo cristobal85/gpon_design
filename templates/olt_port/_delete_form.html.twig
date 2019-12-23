@@ -1,0 +1,7 @@
+<form method="post" action="{{ path('olt_port_delete', {'id': olt_port.id}) }}" onsubmit="return confirm('¿Estás seguro?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ olt_port.id) }}">
+    <button class="btn btn-danger btn-circle">
+        <i class="fas fa-trash"></i>
+    </button>
+</form>

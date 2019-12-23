@@ -1,0 +1,447 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block body %}
+    <div id="loader" class="loader text-center">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <p id="loader-message"></p>
+    </div>
+
+    <div id="render" class="loader text-center">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <p id="render-message"></p>
+    </div>
+
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ path('dash') }}">
+                {% if COMPANY is not empty %}
+                    <img src="{{ asset(images_upload ~ COMPANY.logo) | imagine_filter('height_60') }}">
+                {% else %}
+                    <div class="sidebar-brand-text mx-3">GPON Design</div>
+                {% endif %}
+            </a>
+            <hr class="sidebar-divider">
+
+
+            <div class="sidebar-heading">
+                Mapa
+            </div>
+            <li class="nav-item {% if app.request.get('_route') starts with  'map' %}active{% endif %}">
+                <a class="nav-link" href="{{ path('map') }}">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Mapa</span></a>
+            </li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item {% if app.request.get('_route') starts with  'layer_group' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('layer_group_index') }}">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Capas</span></a>
+                </li>
+                <hr class="sidebar-divider">
+
+                <div class="sidebar-heading">
+                    CPD
+                </div>
+                <li class="nav-item {% if app.request.get('_route') starts with  'cpd' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('cpd_index') }}">
+                        <i class="far fa-building"></i>
+                        <span>CPD</span></a>
+                </li>
+                <li class="nav-item {% if app.request.get('_route') starts with  'rack' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('rack_index') }}">
+                        <i class="fas fa-bars"></i>
+                        <span>Rack</span></a>
+                </li>
+                <li class="nav-item {% if app.request.get('_route') starts with  'edfa' or app.request.get('_route') starts with  'latiguillo_patch'  %}active{% endif %}">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#edfa" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-server"></i>
+                        <span>EDFA</span>
+                    </a>
+                    <div id="edfa" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">EDFAs:</h6>
+                            <a class="collapse-item {% if app.request.get('_route') matches '{^edfa_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('edfa_index') }}">EDFA</a>
+                            <a class="collapse-item {% if app.request.get('_route') matches '{^edfa_slot_}' %}active{% endif %}" href="{{ path('edfa_slot_index') }}">Tarjeta</a>
+                            <a class="collapse-item {% if app.request.get('_route') starts with  'edfa_port_' %}active{% endif %}" href="{{ path('edfa_port_index') }}">Puerto</a>
+                            <a class="collapse-item {% if app.request.get('_route') starts with  'latiguillo_patch_' %}active{% endif %}" href="{{ path('latiguillo_patch_index') }}">Latiguillo Patch Panel</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item {% if app.request.get('_route') starts with  'olt' or app.request.get('_route') starts with  'latiguillo_edfa' %}active{% endif %}">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#olt" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-network-wired"></i>
+                        <span>OLT</span>
+                    </a>
+                    <div id="olt" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">OLTs:</h6>
+                            <a class="collapse-item {% if app.request.get('_route') matches '{^olt_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('olt_index') }}">OLT</a>
+                            <a class="collapse-item {% if app.request.get('_route') starts with  'olt_slot_' %}active{% endif %}" href="{{ path('olt_slot_index') }}">Tarjeta</a>
+                            <a class="collapse-item {% if app.request.get('_route') starts with  'olt_port_' %}active{% endif %}" href="{{ path('olt_port_index') }}">Puerto</a>
+                            <a class="collapse-item {% if app.request.get('_route') starts with  'latiguillo_edfa_' %}active{% endif %}" href="{{ path('latiguillo_edfa_index') }}">Latiguillo EDFA</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item {% if app.request.get('_route') starts with  'patch_panel' %}active{% endif %}">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#patch-panel" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-ethernet"></i>
+                        <span>Patch panel</span>
+                    </a>
+                    <div id="patch-panel" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Patch panel:</h6>
+                            <a class="collapse-item {% if app.request.get('_route') matches '{^patch_panel_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('patch_panel_index') }}">Patch panel</a>
+                            <a class="collapse-item {% if app.request.get('_route') matches '{^patch_panel_slot_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('patch_panel_slot_index') }}">Slot</a>
+                            <a class="collapse-item {% if app.request.get('_route') starts with  'patch_panel_slot_conector' %}active{% endif %}" href="{{ path('patch_panel_slot_conector_index') }}">Puerto</a>
+                        </div>
+                    </div>
+                </li>
+                <hr class="sidebar-divider">
+            {% endif %}
+
+            <div class="sidebar-heading">
+                Red física
+            </div>
+            <li class="nav-item {% if app.request.get('_route') starts with  'nodo' %}active{% endif %}">
+                <a class="nav-link" href="{{ path('nodo_index') }}">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Nodo</span></a>
+            </li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item {% if app.request.get('_route') starts with  'torpedo' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('torpedo_index') }}">
+                        <i class="fas fa-rocket"></i>
+                        <span>Torpedo</span></a>
+                </li>
+                <li class="nav-item {% if app.request.get('_route') starts with  'wire' %}active{% endif %}">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#wire-menu" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-route"></i>
+                        <span>Cables</span>
+                    </a>
+                    <div id="wire-menu" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Cables:</h6>
+                            <a class="collapse-item {% if app.request.get('_route') matches '{^wire_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('wire_index') }}">Cable</a>
+                            <a class="collapse-item {% if app.request.get('_route') matches '{^wire_pattern_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('wire_pattern_index') }}">Patrones</a>
+                        </div>
+                    </div>
+                </li>
+            {% endif %}
+            <li class="nav-item {% if app.request.get('_route') starts with  'distribution_box' %}active{% endif %}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#distribution-box" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-th-large"></i>
+                    <span>Caja de distribución</span>
+                </a>
+                <div id="distribution-box" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Distribución:</h6>
+                        <a class="collapse-item {% if app.request.get('_route') matches '{^distribution_box_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('distribution_box_index') }}">Caja</a>
+                        <a class="collapse-item {% if app.request.get('_route') matches '{^distribution_box_signal_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('distribution_box_signal_index') }}">Señal</a>
+                        <a class="collapse-item {% if app.request.get('_route') matches '{^address_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('address_index') }}">Dirección</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item {% if app.request.get('_route') starts with  'subscriber_box' %}active{% endif %}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#subscriber-box" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="far fa-id-badge"></i>
+                    <span>Caja de abonado</span>
+                </a>
+                <div id="subscriber-box" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Abonado:</h6>
+                        <a class="collapse-item {% if app.request.get('_route') matches '{^subscriber_box_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('subscriber_box_index') }}">Caja</a>
+                        <a class="collapse-item {% if app.request.get('_route') matches '{^subscriber_box_signal_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('subscriber_box_signal_index') }}">Señal</a>
+                        <a class="collapse-item {% if app.request.get('_route') matches '{^address_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('address_index') }}">Dirección</a>
+                        <a class="collapse-item {% if app.request.get('_route') matches '{^subscriber_box_ext_[index|edit|show|new]+$}' %}active{% endif %}" href="{{ path('subscriber_box_ext_index') }}">Caja Extensión</a>
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Alertas
+            </div>
+
+            <li class="nav-item {% if app.request.get('_route') starts with  'note' %}active{% endif %}">
+                <a class="nav-link" href="{{ path('note_index') }}">
+                    <i class="fas fa-users"></i>
+                    <span>Notas</span></a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="sidebar-heading">
+                    Configuración
+                </div>
+
+                <li class="nav-item {% if app.request.get('_route') starts with  'user' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('user_index') }}">
+                        <i class="fas fa-users"></i>
+                        <span>Usuarios</span></a>
+                </li>
+
+                <li class="nav-item {% if app.request.get('_route') starts with  'company' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('company_index') }}">
+                        <i class="fas fa-city"></i>
+                        <span>Empresa</span></a>
+                </li>
+
+                <li class="nav-item {% if app.request.get('_route') starts with  'icon' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('icon_index') }}">
+                        <i class="far fa-images"></i>
+                        <span>Iconos</span></a>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+            {% endif %}
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    {#<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Buscar por ..." aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>#}
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        {#<li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>#}
+
+                        {#<!-- Nav Item - Alerts -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Alerts Center
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 12, 2019</div>
+                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-success">
+                                            <i class="fas fa-donate text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 7, 2019</div>
+                                        $290.29 has been deposited into your account!
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fas fa-exclamation-triangle text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 2, 2019</div>
+                                        Spending Alert: We've noticed unusually high spending for your account.
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                            </div>
+                        </li>#}
+
+                        {% if NOTES|length %}
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="far fa-bell"></i>
+                                    <!-- Counter - Messages -->
+                                    <span class="badge badge-danger badge-counter">{{ NOTES|length }}</span>
+                                </a>
+                                <!-- Dropdown - Messages -->
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                                    <h6 class="dropdown-header">
+                                        Notas
+                                    </h6>
+                                    {% for note in NOTES %}
+                                        <a class="dropdown-item d-flex align-items-center" href="{{ path('note_show', {'id':note.id}) }}">
+                                            <div class="dropdown-list-image mr-3">
+                                                <img class="rounded-circle" src="{{ asset(images_upload ~ note.user.image) }}" alt="{{ note.user }}">
+                                                <div class="status-indicator bg-success"></div>
+                                            </div>
+                                            <div class="font-weight-bold">
+                                                <div class="text-truncate">{{ note }}</div>
+                                                <div class="small text-gray-500">{{ note.user }} · {{ note.elapsedTime }}</div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                    <a class="dropdown-item text-center small text-gray-500" href="{{ path('note_new') }}">Nueva nota</a>
+                                </div>
+                            </li>
+                        {% endif %}
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ app.user }}</span>
+                                <img class="img-profile rounded-circle" src="{{ asset(images_upload ~ app.user.image) }}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{ path('profile') }}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                {#<a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Activity Log
+                                </a>#}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('app_logout') }}" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    {{ include('flashMessages.html.twig') }}
+
+                    {% block content %}{% endblock %}
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Comunicaciones e Infraestructuras del Sur S.L. {{ 'now'|date('Y') }}</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Haz clic en "Logout" si quieres cerrar la sesión.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

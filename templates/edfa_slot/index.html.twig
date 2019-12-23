@@ -1,0 +1,46 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Tarjeta EDFA{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tarjeta EDFA</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>EDFA</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for edfa_slot in edfa_slots %}
+                            <tr>
+                                <td>{{ edfa_slot.type }}</td>
+                                <td>{{ edfa_slot.edfa }}</td>
+                                <td>
+                                    <a href="{{ path('edfa_slot_show', {'id': edfa_slot.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    <a href="{{ path('edfa_slot_edit', {'id': edfa_slot.id}) }}" class="btn btn-secondary btn-circle">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    {{ include('edfa_slot/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">No se encontraron registros.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('edfa_slot_new') }}" class="btn btn-primary">Nueva Tarjeta</a>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Cable{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Cable</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Nombre</th>
+                        <td>{{ wire.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Coordenadas</th>
+                        <td>
+                            <ul>
+                                {% for coordinate in wire.coordinates %}
+                                    <li>{{ coordinate|join(', ') }}</li>
+                                {% endfor %}
+                            </ul>
+                    </tr>
+                    <tr>
+                        <th>Longitud</th>
+                        <td>{{ wire.longitude }}</td>
+                    </tr>
+                    <tr>
+                        <th>Color</th>
+                        <td><div style="display:block;width:30px;height:30px;background-color:{{ wire.hexaColor }};"></div></td>
+                    </tr>
+                    <tr>
+                        <th>Tamaño</th>
+                        <td>{{ wire.weight }}</td>
+                    </tr>
+                    <tr>
+                        <th>Capa</th>
+                        <td>{{ wire.layerGroup }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            {% if wire.tubes is not empty %}
+                <div class="card mt-3">
+                    <div class="card-header">
+                        Tubos y fibras
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                        {% for tube in wire.tubes %}
+                            <li>
+                                <span style="display:inline-block;width:20px;height:20px;background-color:{{ tube.hexaColor }};"></span> Tubo <strong>{{ tube }}</strong>
+                                <ul>
+                                    {% for fiber in tube.fibers %}
+                                        <li>
+                                            <span style="display:inline-block;width:20px;height:20px;background-color:{{ fiber.hexaColor }};"></span> Fibra <strong>{{ fiber }}</strong>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+          
+        </div>
+    </div>
+{% endblock %}

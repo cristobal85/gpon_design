@@ -1,0 +1,23 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Puerto{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Puerto</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Número</th>
+                        <td>{{ edfa_port.number }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Latiguillo EDFA{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Latiguillo EDFA</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Puerto EDFA</th>
+                            <th>PON</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for latiguillo_edfa in latiguillo_edfas %}
+                            <tr>
+                                <td>{{ latiguillo_edfa.name }}</td>
+                                <td>{{ latiguillo_edfa.edfaPort }}</td>
+                                <td>{{ latiguillo_edfa.oltPort }}</td>
+                                <td>
+                                    <a href="{{ path('latiguillo_edfa_show', {'id': latiguillo_edfa.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    <a href="{{ path('latiguillo_edfa_edit', {'id': latiguillo_edfa.id}) }}" class="btn btn-secondary btn-circle">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    {{ include('latiguillo_edfa/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">No se encontraron registros.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ path('latiguillo_edfa_new') }}" class="btn btn-primary">Nuevo latiguillo</a>
+{% endblock %}

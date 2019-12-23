@@ -1,0 +1,247 @@
+/***** GENERAL */
+img {
+    max-width: 100%;
+}
+
+.menu-btn {
+    position: fixed;
+    float: left;
+    bottom: 100px;
+    right: 20px;
+}
+
+.menu-btn > * {
+    float: left;
+    margin-right: 5px;
+}
+
+td > form {
+    display: inline-block;
+}
+
+td img {
+    max-height: 40px;
+}
+
+.vich-image a > img {
+    width: 100px;
+    margin-top: 20px;
+}
+
+.loader {
+    background-color: white;
+    position: fixed;
+    width: 170px;
+    height: 70px;
+    margin: 80px auto; /* Will not center vertically and won't work in IE6/7. */
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    display: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.customer-active-led {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+}
+
+
+/*********************** FUSIONS */
+.fusion-options {
+    position: relative;
+    top: -10px;
+    margin-left: 15px;
+}
+.fusion-options > * {
+    cursor: pointer;
+}
+ul.fusions {
+    line-height: 0;
+    list-style: none;
+}
+.fusion {
+    display: inline-block;
+}
+
+.fusion.wire-left {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #777;
+}
+
+.fusion.tube-left {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-left: -15px;
+    top: -5px;
+    border: 1px solid #777;
+}
+
+.fusion.fiber-left {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    top: -10px;
+    border: 1px solid #777;
+}
+
+.fusion.wire-right {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #777;
+}
+
+.fusion.tube-right {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: -15px;
+    top: -5px;
+    border: 1px solid #777;
+}
+
+.fusion.fiber-right {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    margin-right: -5px;
+    top: -10px;
+    border: 1px solid #777;
+}
+
+.fusion.signal-loss {
+    top: -12px;
+    position: relative;
+    display: inline-block;
+    width: 170px;
+    text-align: center;
+}
+
+/*********************** FORM FUSIONS */
+.flowchart-operator-connector {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.flowchart-operator-connector-label {
+    height: 30px;
+    width: 30px;
+}
+.flowchart-operator-connector-label > i {
+    position: absolute;
+    left: -20px;
+    top: 7px;
+}
+.flowchart-operator-outputs .flowchart-operator-connector-arrow, .flowchart-operator-inputs .flowchart-operator-connector-arrow, .flowchart-operator-inputs .flowchart-operator-connector-small-arrow {
+    margin-top: 5px;
+}
+.flowchart-operator-inputs .flowchart-operator-connector-label {
+    margin-left: 40px !important;
+}
+.flowchart-operator-outputs .flowchart-operator-connector-small-arrow {
+    margin-top: 5px;
+}
+.fusions .wire1 {
+    float:left;
+}
+.fusions .fusions {
+    display: inline-block;
+}
+.fusions .wire2 {
+    float:right;
+}
+.form-fusion.tube-left {
+    float: left;
+    width: 20px; 
+    clear: both;
+}
+
+.form-fusion.fiber-left {
+    float: left;
+    width: 20px;
+    clear: both;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.form-fusion.tube-right {
+    float: right;
+    width: 30px; 
+    clear: both;
+}
+.form-fusion.fiber {
+    border: 1px solid #777;
+}
+.form-fusion.fiber-right {
+    float: right;
+    width: 20px;
+    clear: both;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.fusion-input-group {
+    display: block;
+    max-width: 240px;
+}
+
+.fusion-input-group .fusion-input {
+    float:left;
+    width: 60px;
+    margin-right: 5px;
+}
+
+.fusion-input.signal-loss {
+    margin-left: 15px;
+}
+
+/********************** MARKERS */
+.leaflet-marker-icon.selectedMarker {
+    box-shadow: 0px 0px 20px green;
+    border: 2px solid green;
+}
+
+
+/********************** PATCH PANEL */
+.wire {
+    display: inline-block;
+}
+
+.wire.wire-left {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #777;
+}
+
+.wire.tube-left {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    border: 1px solid #777;
+}
+
+.wire.fiber-left {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    top: -5px;
+    border: 1px solid #777;
+}
+
+a > i.jstree-icon {
+    background-size: 24px !important;
+}
+
+/********************** POPUP */
+.tab-content>.active {
+    display: block;
+    max-height: 250px;
+    overflow-y: auto;
+}

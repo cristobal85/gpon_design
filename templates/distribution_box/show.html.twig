@@ -1,0 +1,70 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Caja de distribución{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Caja de distribución</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Nombre</th>
+                        <td>{{ distribution_box.name }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            {% if distribution_box.pdfs is not empty %}
+                <div class="card mt-3">
+                    <div class="card-header">
+                        Archivos
+                    </div>
+                    <div class="card-body">
+                        {% for pdf in distribution_box.pdfs %}
+                            <p>
+                                <b><a href="{{ asset(fies_upload ~ pdf.filePath) }}" title="Descargar" target="_blank">{{ pdf.filePath }}</a></b>
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+
+            {% if distribution_box.images is not empty %}
+                <div class="card mt-3">
+                    <div class="card-header">
+                        Imágenes
+                    </div>
+                    <div class="card-body">
+                        <div id="distribution-carousel" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                {% for image in distribution_box.images %}
+                                    <li data-target="#distribution-carousel" data-slide-to="{{ loop.index }}" {% if loop.first %}class="active"{% endif %}></li>
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner">
+                                {% for image in distribution_box.images %}
+                                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                        <img class="d-block w-100" src="{{ asset(images_upload ~ image.filePath) }}">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#distribution-carousel" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Anterior</span>
+                            </a>
+                            <a class="carousel-control-next" href="#distribution-carousel" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Siguiente</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

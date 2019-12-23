@@ -1,0 +1,295 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use App\Serializer\CircularSerializer;
+use App\Repository\DistributionBoxRepository;
+use App\Repository\SubscriberBoxRepository;
+use App\Repository\SubscriberBoxExtRepository;
+use App\Repository\WireRepository;
+use App\Repository\TorpedoRepository;
+use App\Repository\NoteRepository;
+
+class MapController extends AbstractController {
+
+    /**
+     * @Route("/map", name="map")
+     */
+    public function index() {
+        return $this->render('map/index.html.twig');
+    }
+
+    /**
+     * @Route("/map/layers", name="map-layers")
+     */
+    public function getLayersAction(
+            EntityManagerInterface $em, 
+            CircularSerializer $serializer
+            ) {
+        $layerGroupModels = $em->getRepository(\App\Entity\LayerGroup::class)->findBy(
+                [],
+                ['position' => 'ASC']
+        );
+        
+        $jsonObject = $serializer->serialize($layerGroupModels, ['map']);
+
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @Route("/map/cpd", name="map-cpd")
+     */
+    public function getCpdAction(
+            EntityManagerInterface $em, 
+            CircularSerializer $serializer) {
+        $cpd = $em->getRepository(\App\Entity\Cpd::class)->findAll()[0];
+
+        $jsonObject = $serializer->serialize($cpd, ['map']);
+
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @Route("/map/distribution-box", name="map-get-distribution-box", methods={"GET"})
+     */
+    public function getDistributionBoxAction(
+            DistributionBoxRepository $dsRep,
+            CircularSerializer $serializer) {
+        $distributionBoxes = $dsRep->findBy(array(
+            'latitude' => null
+        ));
+
+        $jsonObject = $serializer->serialize($distributionBoxes, ['distribution-box']);
+
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @Route("/map/subscriber-box", name="map-get-subscriber-box", methods={"GET"})
+     */
+    public function getSubscriberBoxAction(
+            SubscriberBoxRepository $subsRep,
+            CircularSerializer $serializer) {
+        $subscriberBoxes = $subsRep->findBy(array(
+            'latitude' => null
+        ));
+
+        $jsonObject = $serializer->serialize($subscriberBoxes, ['subscriber-box']);
+
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @Route("/map/wire", name="map-get-wire", methods={"GET"})
+     */
+    public function getWireAction(
+            WireRepository $wireRep,
+            CircularSerializer $serializer) {
+        $wires = $wireRep->findAll();
+
+        $jsonObject = $serializer->serialize($wires, ['map']);
+
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @Route("/map/subscriber-box-ext", name="map-get-subscriber-box-ext", methods={"GET"})
+     */
+    public function getSubscriberBoxExtAction(
+            SubscriberBoxExtRepository $subBoxExtRep,
+            SerializerInterface $serializer) {
+        $subscriberBoxesExt = $subBoxExtRep->findBy(array(
+            'latitude' => null
+        ));
+
+        $jsonObject = $serializer->serialize($subscriberBoxesExt, ['subscriber-box-ext']);
+
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+    }
+    
+    /**
+     * @Route("/map/torpedo", name="map-get-torpedo", methods={"GET"})
+     */
+    public function getTorpedoAction(
+            TorpedoRepository $torpedoRep, 
+            SerializerInterface $serializer) {
+        $torpedos = $torpedoRep->findAll();
+
+        $jsonObject = $serializer->serialize($torpedos, 'json', ['torpedo']);
+
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+    }
+    
+    /**
+     * @Route("/map/notes", name="map-get-notes", methods={"GET"})
+     */
+    public function getNotesAction(
+            NoteRepository $noteRep, 
+            CircularSerializer $serializer) {
+        $notes = $noteRep->findBy(['closed' => false]);
+        
+        $jsonObject = $serializer->serialize($notes, ['map']);
+
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+    }
+    
+
+    /**
+     * @Route("/map/update-subscriber-box", name="map-update-subscriber-box", methods={"POST"})
+     */
+    public function updateSubscriberBoxAction(EntityManagerInterface $em, Request $request) {
+
+        $data = json_decode($request->getContent(), true)['data'];
+
+        $subscriber = $em->getRepository(\App\Entity\SubscriberBox::class)->findOneBy(array(
+            "id" => $data['id']
+        ));
+        $subscriber
+                ->setLatitude(floatval($data['latitude']))
+                ->setLongitude(floatval($data['longitude']));
+
+        $em->persist($subscriber);
+        $em->flush();
+
+        return new \Symfony\Component\HttpFoundation\JsonResponse([
+            'message' => "Caja de abonado modificada correctamente."
+        ]);
+    }
+
+    /**
+     * @Route("/map/update-subscriber-box-ext", name="map-update-subscriber-box-ext", methods={"POST"})
+     */
+    public function updateSubscriberBoxExtAction(EntityManagerInterface $em, Request $request) {
+
+        $data = json_decode($request->getContent(), true)['data'];
+
+        $subscriberExt = $em->getRepository(\App\Entity\SubscriberBoxExt::class)->findOneBy(array(
+            "id" => $data['id']
+        ));
+        $subscriberExt
+                ->setLatitude(floatval($data['latitude']))
+                ->setLongitude(floatval($data['longitude']));
+
+        $em->persist($subscriberExt);
+        $em->flush();
+
+        return new \Symfony\Component\HttpFoundation\JsonResponse([
+            'message' => "Caja de extensión modificada correctamente."
+        ]);
+    }
+
+    /**
+     * @Route("/map/update-distribution-box", name="map-update-distribution-box", methods={"POST"})
+     */
+    public function updateDistributionBoxAction(EntityManagerInterface $em, Request $request) {
+
+        $data = json_decode($request->getContent(), true)['data'];
+
+        $ds = $em->getRepository(\App\Entity\DistributionBox::class)->findOneBy(array(
+            "id" => $data['id']
+        ));
+        $ds
+                ->setLatitude(floatval($data['latitude']))
+                ->setLongitude(floatval($data['longitude']));
+
+        $em->persist($ds);
+        $em->flush();
+
+        return new \Symfony\Component\HttpFoundation\JsonResponse([
+            'message' => "Caja de distribución modificada correctamente."
+        ]);
+    }
+
+    /**
+     * @Route("/map/update-layer", name="map-update-layer", methods={"POST"})
+     */
+    public function updateLayerAction(EntityManagerInterface $em, Request $request) {
+
+        $data = json_decode($request->getContent(), true)['data'];
+
+        $layer = $em->getRepository(\App\Entity\LayerGroup::class)->findOneBy(array(
+            "id" => $data['id']
+        ));
+        $layer
+                ->setCoordinates($data['coordinates']);
+
+        $em->persist($layer);
+        $em->flush();
+
+        return new \Symfony\Component\HttpFoundation\JsonResponse([
+            'message' => "Capa modificada correctamente."
+        ]);
+    }
+
+    /**
+     * @Route("/map/update-wire", name="map-update-wire", methods={"POST"})
+     */
+    public function updateWireAction(EntityManagerInterface $em, Request $request) {
+
+        $data = json_decode($request->getContent(), true)['data'];
+
+        $wire = $em->getRepository(\App\Entity\Wire::class)->findOneBy(array(
+            "id" => $data['id']
+        ));
+        $wire
+                ->setCoordinates($data['coordinates']);
+
+        $em->persist($wire);
+        $em->flush();
+
+        return new \Symfony\Component\HttpFoundation\JsonResponse([
+            'message' => "Cable modificado correctamente."
+        ]);
+    }
+
+    /**
+     * @Route("/map/update-cpd", name="map-update-cpd", methods={"POST"})
+     */
+    public function updateCpdAction(EntityManagerInterface $em, Request $request) {
+
+        $data = json_decode($request->getContent(), true)['data'];
+
+        $cpd = $em->getRepository(\App\Entity\Cpd::class)->findOneBy(array(
+            "id" => $data['id']
+        ));
+        $cpd
+                ->setLatitude(floatval($data['latitude']))
+                ->setLongitude(floatval($data['longitude']));
+
+        $em->persist($cpd);
+        $em->flush();
+
+        return new \Symfony\Component\HttpFoundation\JsonResponse([
+            'message' => "CPD modificado correctamente."
+        ]);
+    }
+    
+    /**
+     * @Route("/map/update-torpedo", name="map-update-torpedo", methods={"POST"})
+     */
+    public function updateTorpedoAction(EntityManagerInterface $em, Request $request) {
+
+        $data = json_decode($request->getContent(), true)['data'];
+
+        $torpedo = $em->getRepository(\App\Entity\Torpedo::class)->findOneBy(array(
+            "id" => $data['id']
+        ));
+        $torpedo
+                ->setLatitude(floatval($data['latitude']))
+                ->setLongitude(floatval($data['longitude']));
+
+        $em->persist($torpedo);
+        $em->flush();
+
+        return new \Symfony\Component\HttpFoundation\JsonResponse([
+            'message' => "Torpedo modificado correctamente."
+        ]);
+    }
+
+}

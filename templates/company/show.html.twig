@@ -1,0 +1,31 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Empresa{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Empresa</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ company.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>City</th>
+                        <td>{{ company.city }}</td>
+                    </tr>
+                    <tr>
+                        <th>Logo</th>
+                        <td>{{ company.logo }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

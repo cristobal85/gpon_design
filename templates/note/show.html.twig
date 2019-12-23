@@ -1,0 +1,62 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Nota{% endblock %}
+
+{% block content %}
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Nota</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Título</th>
+                        <td>{{ note.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Descripción</th>
+                        <td>{{ note.description|raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Creada</th>
+                        <td>{{ note.createdAt ? note.createdAt|date('d/m/Y H:i') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Actualizada</th>
+                        <td>{{ note.updatedAt ? note.updatedAt|date('d/m/Y H:i') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Creada por</th>
+                        <td>{{ note.user }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cerrada por</th>
+                        <td>{{ note.closedBy }}</td>
+                    </tr>
+                    <tr>
+                        <th>¿Cerrada?</th>
+                        <td>{{ note.closed ? 'Si' : 'No' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% if note.image is not empty %}
+        <div class="card mt-3">
+            <div class="card-header">
+                Imagen
+            </div>
+            <div class="card-body text-center">
+                <img src="{{ asset(images_upload ~ note.image) }}">
+            </div>
+        </div>
+    {% endif %}
+
+    {% if is_granted('ROLE_ADMIN') or note.user == app.user %}
+        <a class="btn btn-primary mt-3 mb-3" href="{{ path('note_edit', {'id': note.id}) }}"><i class="far fa-edit"></i> Editar</a>
+    {% endif %}
+{% endblock %}

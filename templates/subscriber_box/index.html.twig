@@ -1,0 +1,60 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Caja de abonado{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Caja de abonado</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Caja distribución</th>
+                            <th>Clientes</th>
+                            <th>Dirección</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subscriber_box in subscriber_boxes %}
+                            <tr>
+                                <td>{{ subscriber_box.name }}</td>
+                                <td>{{ subscriber_box.distributionBox }}</td>
+                                <td>
+                                    <ul>
+                                        {% for customer in subscriber_box.customers %} 
+                                            <li>{{ customer }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>{{ subscriber_box.address }}</td>
+                                <td>
+                                    <a href="{{ path('subscriber_box_show', {'id': subscriber_box.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('subscriber_box_edit', {'id': subscriber_box.id}) }}" class="btn btn-secondary btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {{ include('subscriber_box/_delete_form.html.twig') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">No se encontraron registros</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('subscriber_box_new') }}" class="btn btn-primary">Nueva caja</a>
+    {% endif %}
+{% endblock %}

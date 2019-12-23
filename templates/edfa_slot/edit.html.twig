@@ -1,0 +1,15 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Edit Tarjeta EDFA{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Editar Tarjeta EDFA</h6>
+        </div>
+        <div class="card-body">
+
+            {{ include('edfa_slot/_form.html.twig', {'button_label': 'Guardar'}) }}
+        </div>
+    </div>
+{% endblock %}

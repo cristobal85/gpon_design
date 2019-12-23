@@ -1,0 +1,82 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Caja de extensión{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Caja de extensión</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ subscriber_box_ext.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ subscriber_box_ext.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Latitude</th>
+                        <td>{{ subscriber_box_ext.latitude }}</td>
+                    </tr>
+                    <tr>
+                        <th>Longitude</th>
+                        <td>{{ subscriber_box_ext.longitude }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            {#{% if subscriber_box_ext.pdfs is not empty %}
+                <div class="card mt-3">
+                    <div class="card-header">
+                        Archivos
+                    </div>
+                    <div class="card-body">
+                        {% for pdf in subscriber_box_ext.pdfs %}
+                            <p>
+                                <b><a href="{{ asset(fies_upload ~ pdf.filePath) }}" title="Descargar" target="_blank">{{ pdf.filePath }}</a></b>
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+
+            {% if subscriber_box_ext.images is not empty %}
+                <div class="card mt-3">
+                    <div class="card-header">
+                        Imágenes
+                    </div>
+                    <div class="card-body">
+                        <div id="subscriber-carousel" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                {% for image in subscriber_box_ext.images %}
+                                    <li data-target="#subscriber-carousel" data-slide-to="{{ loop.index }}" {% if loop.first %}class="active"{% endif %}></li>
+                                    {% endfor %}
+                            </ol>
+                            <div class="carousel-inner">
+                                {% for image in subscriber_box_ext.images %}
+                                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                        <img class="d-block w-100" src="{{ asset(images_upload ~ image.filePath) }}">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#subscriber-carousel" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Anterior</span>
+                            </a>
+                            <a class="carousel-control-next" href="#subscriber-carousel" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Siguiente</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}#}
+        </div>
+    </div>
+{% endblock %}

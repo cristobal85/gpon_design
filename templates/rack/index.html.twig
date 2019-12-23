@@ -1,0 +1,45 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Rack{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Rack</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rack in racks %}
+                            <tr>
+                                <td>{{ rack.name }}</td>
+                                <td>
+                                    <a href="{{ path('rack_show', {'id': rack.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    <a href="{{ path('rack_edit', {'id': rack.id}) }}" class="btn btn-secondary btn-circle">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    {{ include('rack/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">No se encontraron registros</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ path('rack_new') }}" class="btn btn-primary">Nuevo Rack</a>
+{% endblock %}

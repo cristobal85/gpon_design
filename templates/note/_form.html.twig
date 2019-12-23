@@ -1,0 +1,33 @@
+{% form_theme form 'jquery.collection.html.twig' %}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<button class="btn btn-success btn-icon-split">
+    <span class="icon text-white-50">
+        <i class="fas fa-cloud-upload-alt"></i>
+    </span>
+    <span class="text">{{ button_label|default('Guardar') }}</span>
+</button>
+<a href="#" class="btn btn-info btn-icon-split" onclick="getPosition()">
+    <span class="icon text-white-50">
+        <i class="fas fa-map-marked-alt"></i>
+    </span>
+    <span class="text">{{ button_label|default('Obtener coordenadas') }}</span>
+</a>
+{{ form_end(form) }}
+
+{% block javascripts %}
+    <script src="{{ asset('js/app/adapter/GeoAdapter.js') }}"></script>
+    <script>
+        function getPosition() {
+            GeoAdapter.getLocation()
+                    .then(function (position) {
+                        var coordinates = position.coords;
+{#                        self.map.setView([coordinates.latitude, coordinates.longitude]);#}
+                        var latitude = document.getElementById('note_latitude');
+                        var longitude = document.getElementById('note_longitude');
+                        latitude.value = coordinates.latitude;
+                        longitude.value = coordinates.longitude;
+                    });
+        }
+    </script>
+{% endblock %}

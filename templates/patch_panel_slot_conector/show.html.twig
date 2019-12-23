@@ -1,0 +1,65 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Slot{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Slot</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Número</th>
+                        <td>{{ patch_panel_slot_conector.number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Slot</th>
+                        <td>{{ patch_panel_slot_conector.patchPanelSlot }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            {% if patch_panel_slot_conector.fiber is not empty %}
+                <div class="card mt-3">
+                    <div class="card-header">
+                        Recorrido de fibra
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            {# TODO: Refactoring este código.                            #}
+                            <li>Fibra: {{ patch_panel_slot_conector.fiber }} <strong>({{ patch_panel_slot_conector.fiber.tube.wire.longitude|number_format(2, ',', '.') }}m)</strong></li>
+                            <ul>
+                                {% for iFusion in patch_panel_slot_conector.fiber.torpedoFusions %}
+                                    <li>Torpedo: {{ iFusion.torpedo }} <strong>({{ iFusion.torpedo.address }})</strong></li>
+                                    <ul>
+                                        {% for iFiber in iFusion.fibers if iFiber != patch_panel_slot_conector.fiber %}
+                                            <li>Fusión con fibra: {{ iFiber }} <strong>({{ iFiber.tube.wire.longitude|number_format(2, ',', '.') }}m)</strong></li>
+                                            <ul>
+                                                {% for jFusion in iFiber.torpedoFusions if jFusion != iFusion %}
+                                                    <li>Torpedo: {{ jFusion.torpedo }} <strong>({{ jFusion.torpedo.address }})</strong></li>
+                                                    <ul>
+                                                        {% for jFiber in jFusion.fibers if jFiber != iFiber %}
+                                                            <li>Fusión con fibra: {{ jFiber }} <strong>({{ jFiber.tube.wire.longitude|number_format(2, ',', '.') }}m)</strong></li>
+                                                            <ul>
+                                                                {% if jFiber.distributionBoxPort is not empty %}
+                                                                    <li>Caja de distribución: {{ jFiber.distributionBoxPort }} <strong>({{ jFiber.distributionBoxPort.distributionBox.address }})</strong></li>
+                                                                {% endif %}
+                                                            </ul>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endfor %}
+                                    </ul>
+                                {% endfor %}
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Torpedo{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Torpedo</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Capa</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for torpedo in torpedos %}
+                            <tr>
+                                <td>{{ torpedo.name }}</td>
+                                <td>{{ torpedo.layerGroup }}</td>
+                                <td>
+                                    <a href="{{ path('torpedo_show', {'id': torpedo.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('torpedo_edit', {'id': torpedo.id}) }}" class="btn btn-secondary btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {{ include('torpedo/_delete_form.html.twig') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">No se encontraron registros</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('torpedo_new') }}" class="btn btn-primary">Nuevo torpedo</a>
+    {% endif %}
+{% endblock %}

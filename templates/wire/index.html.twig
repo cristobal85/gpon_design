@@ -1,0 +1,54 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Cable{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Cable</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Longitud</th>
+                            <th>Color</th>
+                            <th>Tamaño</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for wire in wires %}
+                            <tr>
+                                <td>{{ wire.name }}</td>
+                                <td>{{ wire.longitude }}</td>
+                                <td><div style="display:block;width:30px;height:30px;background-color:{{ wire.hexaColor }};"></div></td>
+                                <td>{{ wire.weight }}</td>
+                                <td>
+                                    <a href="{{ path('wire_show', {'id': wire.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('wire_edit', {'id': wire.id}) }}" class="btn btn-secondary btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {{ include('wire/_delete_form.html.twig') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">No se encontraron registros</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('wire_new') }}" class="btn btn-primary">Nuevo cable</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Fusión{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Fusión</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Fusión</th>
+                            <th>Pérdida</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for torpedo_fusion in torpedo_fusions %}
+                            <tr>
+                                <td>{{ torpedo_fusion }}</td>
+                                <td>{{ torpedo_fusion.signalLoss }}</td>
+                                <td>
+                                    <a href="{{ path('torpedo_fusion_show', {'id': torpedo_fusion.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('torpedo_fusion_edit', {'id': torpedo_fusion.id}) }}" class="btn btn-secondary btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {{ include('torpedo_fusion/_delete_form.html.twig') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">No se encontraron registros</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('torpedo_fusion_new') }}" class="btn btn-primary">Nueva fusión</a>
+    {% endif %}
+{% endblock %}

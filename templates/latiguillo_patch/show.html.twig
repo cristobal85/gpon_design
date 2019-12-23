@@ -1,0 +1,30 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Latiguillo Patch Panel{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Latiguillo Patch Panel</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ latiguillo_patch.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Conector Patch Panel</th>
+                        <td>{{ latiguillo_patch.patchPanelSlotConector }}</td>
+                    </tr>
+                    <tr>
+                        <th>EDFA</th>
+                        <td>{{ latiguillo_patch.edfaPort }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

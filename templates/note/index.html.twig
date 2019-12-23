@@ -1,0 +1,65 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Notas{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Notas</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Creada</th>
+                            <th>Actualizada</th>
+                            <th>Creada por</th>
+                            <th>Cerrada por</th>
+                            <th>¿Cerrada?</th>
+                            <th>Imagen</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for note in notes %}
+                            <tr>
+                                <td>{{ note.title }}</td>
+                                <td>{{ note.createdAt ? note.createdAt|date('d/m/Y H:i') : '' }}</td>
+                                <td>{{ note.updatedAt ? note.updatedAt|date('d/m/Y H:i') : '' }}</td>
+                                <td>{{ note.user }}</td>
+                                <td>{{ note.closedBy }}</td>
+                                <td>{{ note.closed ? 'Si' : 'No' }}</td>
+                                <td>
+                                    {% if note.image is not empty %}
+                                        <a href="{{ asset(images_upload ~ note.image) }}" data-lightbox="image" data-title="Imagen de nota">
+                                            <img src="{{ asset(images_upload ~ note.image) }}">
+                                        </a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ path('note_show', {'id': note.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    {% if is_granted('ROLE_ADMIN') or note.user == app.user %}
+                                        <a href="{{ path('note_edit', {'id': note.id}) }}" class="btn btn-secondary btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        {{ include('note/_delete_form.html.twig') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6">No se encontraron registros</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ path('note_new') }}" class="btn btn-primary">Nueva nota</a>
+{% endblock %}

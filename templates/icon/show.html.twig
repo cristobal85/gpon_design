@@ -1,0 +1,30 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Icono{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Icono</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Elemento</th>
+                        <td>{{ icon.element }}</td>
+                    </tr>
+                    <tr>
+                        <th>Altura de icono (pixeles)</th>
+                        <td>{{ icon.height }}</td>
+                    </tr>
+                    <tr>
+                        <th>Icono</th>
+                        <td><img src="{{ vich_uploader_asset(icon, 'file') }}" alt="{{ icon.element }}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}EDFA{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">EDFA</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for edfa in edfas %}
+                            <tr>
+                                <td>{{ edfa.name }}</td>
+                                <td>
+                                    <a href="{{ path('edfa_show', {'id': edfa.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    <a href="{{ path('edfa_edit', {'id': edfa.id}) }}" class="btn btn-secondary btn-circle">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    {{ include('edfa/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">No se encontraron registros</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ path('edfa_new') }}" class="btn btn-primary">Nuevo EDFA</a>
+{% endblock %}

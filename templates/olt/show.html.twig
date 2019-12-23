@@ -1,0 +1,35 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}OLT{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">OLT</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Nombre</th>
+                        <td>{{ olt.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Rack</th>
+                        <td>{{ olt.rack }}</td>
+                    </tr>
+                    <tr>
+                        <th>Imágenes</th>
+                        <td>
+                            {% for image in olt.images %}
+                                <img src="{{ asset(images_upload ~ image.filePath) | imagine_filter('height_120') }}" alt="{{ olt }}">
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

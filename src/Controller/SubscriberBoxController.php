@@ -1,0 +1,134 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\SubscriberBox;
+use App\Form\SubscriberBoxType;
+use App\Repository\SubscriberBoxRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Serializer\CircularSerializer;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+/**
+ * @Route("/subscriber-box")
+ */
+class SubscriberBoxController extends AbstractController
+{
+    /**
+     * @Route("/", name="subscriber_box_index", methods={"GET"})
+     */
+    public function index(SubscriberBoxRepository $subscriberBoxRepository): Response
+    {
+        return $this->render('subscriber_box/index.html.twig', [
+            'subscriber_boxes' => $subscriberBoxRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/new", name="subscriber_box_new", methods={"GET","POST"})
+     */
+    public function new(Request $request): Response
+    {
+        $subscriberBox = new SubscriberBox();
+        $form = $this->createForm(SubscriberBoxType::class, $subscriberBox);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($subscriberBox);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('subscriber_box_index');
+        }
+
+        return $this->render('subscriber_box/new.html.twig', [
+            'subscriber_box' => $subscriberBox,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="subscriber_box_show", methods={"GET"})
+     */
+    public function show(
+            SubscriberBox $subscriberBox,
+            Request $request,
+            CircularSerializer $serializer): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $jsonObject = $serializer->serialize($subscriberBox, ['subscriber-box']);
+            return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+        }
+        
+        return $this->render('subscriber_box/show.html.twig', [
+            'subscriber_box' => $subscriberBox,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="subscriber_box_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, SubscriberBox $subscriberBox): Response
+    {
+        $form = $this->createForm(SubscriberBoxType::class, $subscriberBox);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('subscriber_box_index', [
+                'id' => $subscriberBox->getId(),
+            ]);
+        }
+
+        return $this->render('subscriber_box/edit.html.twig', [
+            'subscriber_box' => $subscriberBox,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="subscriber_box_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, SubscriberBox $subscriberBox): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$subscriberBox->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($subscriberBox);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('subscriber_box_index');
+    }
+    
+    
+        /**
+     * @Route("/save-subscriber-box", name="map-save-subscriber-box", methods={"POST"})
+     */
+    public function saveSubscriberBoxAction(
+            EntityManagerInterface $em,
+            Request $request,
+            CircularSerializer $serializer) {
+
+        $subscriber = $em->getRepository(\App\Entity\SubscriberBox::class)->findOneBy(array(
+            "id" => $request->get('subscriber-box')
+        ));
+        $subscriber
+                ->setLatitude($request->get('latitude'))
+                ->setLongitude($request->get('longitude'))
+                ->setIcon('caja_abonado.png');
+
+        $em->persist($subscriber);
+        $em->flush();
+
+        return new JsonResponse([
+            'type' => SubscriberBox::class,
+            'message' => "Caja de abonado guardada correctamente.",
+            'data' => json_decode($serializer->serialize($subscriber, ['map']))
+        ]);
+    }
+}

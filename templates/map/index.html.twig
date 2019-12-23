@@ -1,0 +1,170 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Mapa{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{{ asset('css/jquery.flowchart.min.css') }}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css"/>
+    
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        .item-popup {
+            width: 300px;
+            height: 150px;
+        }
+        .card-body {
+            padding: 0 !important;
+        }
+        .container-fluid {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .navbar {
+            margin: 0 !important;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {#<div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Mapa</h6>
+        </div>
+        <div class="card-body">
+            <div id="app">#}
+    <div id="map"></div>
+    {#        </div>
+        </div>
+    </div>#}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+            integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+    crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-editable/1.2.0/Leaflet.Editable.min.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('js/bootbox-tabindex.all.min.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/alertify.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>{# JQUERY-UI for drabable    #}
+    <script src="{{ asset('js/jquery.flowchart.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/jstree.min.js"></script>
+
+    {################################## ENUMS    #}
+    <script src="{{ asset('js/app/enum/Path.js') }}"></script>
+    <script src="{{ asset('js/app/enum/ApiUrl.js') }}"></script>
+    <script src="{{ asset('js/app/enum/HttpCode.js') }}"></script>
+    <script src="{{ asset('js/app/enum/MapUrl.js') }}"></script>
+    <script src="{{ asset('js/app/enum/HtmlID.js') }}"></script>
+    <script src="{{ asset('js/app/enum/ElementEnum.js') }}"></script>
+    <script src="{{ asset('js/app/element/enum/PopupEnum.js') }}"></script>
+    <script src="{{ asset('js/app/element/enum/EntityTypeEnum.js') }}"></script>
+    <script src="{{ asset('js/app/enum/ResourceUrl.js') }}"></script>
+    {################################## LISTENERS    #}
+    <script src="{{ asset('js/app/form/listener/TorpedoFusionListener.js') }}"></script>
+    <script src="{{ asset('js/app/form/listener/ElementFormListener.js') }}"></script>
+    <script src="{{ asset('js/app/form/listener/DsBoxConectorFormListener.js') }}"></script>
+    <script src="{{ asset('js/app/form/listener/PatchConectorFormListener.js') }}"></script>
+    <script src="{{ asset('js/app/element/listener/PatchPanelListener.js') }}"></script>
+    <script src="{{ asset('js/app/element/listener/DistributionBoxListener.js') }}"></script>
+    <script src="{{ asset('js/app/form/listener/TorpedoPassantListener.js') }}"></script>
+    <script src="{{ asset('js/app/element/listener/ElementActionListener.js') }}"></script>
+    <script src="{{ asset('js/app/form/listener/DistributionBoxPassantListener.js') }}"></script>
+    {################################## MODELS    #}
+    <script src="{{ asset('js/app/element/model/AddressModel.js') }}"></script>
+    {################################## ADAPTERS    #}
+    <script src="{{ asset('js/app/adapter/AlertAdapter.js') }}"></script>
+    <script src="{{ asset('js/app/adapter/AjaxAdapter.js') }}"></script>
+    <script src="{{ asset('js/app/adapter/GeoAdapter.js') }}"></script>
+    <script src="{{ asset('js/app/adapter/LControlAdapter.js') }}"></script>
+    <script src="{{ asset('js/app/adapter/LoaderAdapter.js') }}"></script>
+    <script src="{{ asset('js/app/adapter/LocalStorageAdapter.js') }}"></script>
+    <script src="{{ asset('js/app/adapter/ModalAdapter.js') }}"></script>
+    {################################## FORM BUILDERS    #}
+    <script src="{{ asset('js/app/form/builder/ElementFormBuilder.js') }}"></script>
+    <script src="{{ asset('js/app/form/builder/DistributionBoxFormBuilder.js') }}"></script>
+    <script src="{{ asset('js/app/form/builder/SubscriberBoxFormBuilder.js') }}"></script>
+    <script src="{{ asset('js/app/form/builder/SubscriberBoxExtFormBuilder.js') }}"></script>
+    <script src="{{ asset('js/app/form/builder/WireFormBuilder.js') }}"></script>
+    <script src="{{ asset('js/app/form/builder/DelimiterFormBuilder.js') }}"></script>
+    <script src="{{ asset('js/app/form/builder/TorpedoFormBuilder.js') }}"></script>
+    <script src="{{ asset('js/app/form/builder/TorpedoFusionFormBuilder.js') }}"></script>
+    <script src="{{ asset('js/app/form/builder/TorpedoPassantFormBuilder.js') }}"></script>
+    <script src="{{ asset('js/app/form/builder/DistributionBoxPassantFormBuilder.js') }}"></script>
+    <script src="{{ asset('js/app/form/builder/PatchFormBuilder.js') }}"></script>
+    {################################## POPUP BUILDER    #}
+    <script src="{{ asset('js/app/element/builder/PopupBuilder.js') }}"></script>
+    {################################## LAYER FACTORY    #}
+    <script src="{{ asset('js/app/layer/factory/LayerFactory.js') }}"></script>
+    <script src="{{ asset('js/app/layer/factory/MarkerFactory.js') }}"></script>
+    <script src="{{ asset('js/app/layer/factory/CpdMarkerFactory.js') }}"></script>
+    <script src="{{ asset('js/app/layer/factory/PolygonFactory.js') }}"></script>
+    <script src="{{ asset('js/app/layer/factory/PolylineFactory.js') }}"></script>
+    {################################## FORM FACTORY    #}
+    <script src="{{ asset('js/app/form/factory/FormBuilderFactory.js') }}"></script>
+    <script src="{{ asset('js/app/form/factory/TitleFormFactory.js') }}"></script>
+    {################################## ELEMENT FACTORY    #}
+    <script src="{{ asset('js/app/element/factory/ElementFactory.js') }}"></script>
+    {################################## ELEMENTS    #}
+    <script src="{{ asset('js/app/element/Element.js') }}"></script>
+    <script src="{{ asset('js/app/element/DistributionBox.js') }}"></script>
+    <script src="{{ asset('js/app/element/SubscriberBox.js') }}"></script>
+    <script src="{{ asset('js/app/element/SubscriberBoxExt.js') }}"></script>
+    <script src="{{ asset('js/app/element/Wire.js') }}"></script>
+    <script src="{{ asset('js/app/element/Torpedo.js') }}"></script>
+    <script src="{{ asset('js/app/element/Layer.js') }}"></script>
+    <script src="{{ asset('js/app/element/Cpd.js') }}"></script>
+    <script src="{{ asset('js/app/element/Map.js') }}"></script>
+    <script src="{{ asset('js/app/element/Note.js') }}"></script>
+    {################################## TYPES   #}
+    <script src="{{ asset('js/app/element/type/ElementType.js') }}"></script>
+    <script src="{{ asset('js/app/element/type/CpdType.js') }}"></script>
+    <script src="{{ asset('js/app/element/type/DistributionBoxType.js') }}"></script>
+    <script src="{{ asset('js/app/element/type/SubscriberBoxType.js') }}"></script>
+    <script src="{{ asset('js/app/element/type/SubscriberBoxExtType.js') }}"></script>
+    <script src="{{ asset('js/app/element/type/WireType.js') }}"></script>
+    <script src="{{ asset('js/app/element/type/TorpedoType.js') }}"></script>
+    <script src="{{ asset('js/app/element/type/LayerType.js') }}"></script>
+    <script src="{{ asset('js/app/element/type/NoteType.js') }}"></script>
+    {################################## SERVICE #}
+    <script src="{{ asset('js/app/service/CpdService.js') }}"></script>
+    <script src="{{ asset('js/app/service/MapService.js') }}"></script>
+    <script src="{{ asset('js/app/service/LayerService.js') }}"></script>
+    <script src="{{ asset('js/app/service/NoteService.js') }}"></script>
+    {################################## EVENTS    #}
+    <script src="{{ asset('js/app/listener/ElementListener.js') }}"></script>
+    <script src="{{ asset('js/app/listener/CreateElementListener.js') }}"></script>
+    {################################## VIEWS    #}
+    <script src="{{ asset('js/app/view/MapView.js') }}"></script>
+    {################################## CONTROLLERS    #}
+    <script src="{{ asset('js/app/controller/MapController.js') }}"></script>
+
+    {################################## MAIN    #}
+    <script src="{{ asset('js/app/app.js') }}"></script>
+    
+    
+
+{% endblock %}

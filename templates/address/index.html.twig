@@ -1,0 +1,54 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Dirección{% endblock %}
+
+{% block content %}
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Dirección</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Dirección</th>
+                            <th>Cajas de distribución</th>
+                            <th>Cajas de abonado</th>
+                            <th>Cajas de extensión</th>
+                            <th>Nodos</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for address in addresses %}
+                            <tr>
+                                <td>{{ address.location }}</td>
+                                <td>{%  for dBox in address.distributionBoxes %}{{ dBox }}{% if loop.index < loop.length %}, {% endif %}{% endfor %}</td>
+                                <td>{%  for sBox in address.subscriberBoxes %}{{ sBox }}{% if loop.index < loop.length %}, {% endif %}{% endfor %}</td>
+                                <td>{%  for sBoxExt in address.subscriberBoxesExt %}{{ sBoxExt }}{% if loop.index < loop.length %}, {% endif %}{% endfor %}</td>
+                                <td>{%  for nodo in address.nodos %}{{ nodo }}{% if loop.index < loop.length %}, {% endif %}{% endfor %}</td>
+                                <td>
+                                    <a href="{{ path('address_show', {'id': address.id}) }}" class="btn btn-primary btn-circle">
+                                        <i class="fas fa-search-plus"></i>
+                                    </a>
+                                    <a href="{{ path('address_edit', {'id': address.id}) }}" class="btn btn-secondary btn-circle">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    {{ include('address/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">No se encontraron registros.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ path('address_new') }}" class="btn btn-primary">Nueva dirección</a>
+{% endblock %}

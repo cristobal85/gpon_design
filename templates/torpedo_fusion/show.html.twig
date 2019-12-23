@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TorpedoFusion{% endblock %}
+
+{% block body %}
+    <h1>TorpedoFusion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ torpedo_fusion.id }}</td>
+            </tr>
+            <tr>
+                <th>SignalLoss</th>
+                <td>{{ torpedo_fusion.signalLoss }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('torpedo_fusion_index') }}">back to list</a>
+
+    <a href="{{ path('torpedo_fusion_edit', {'id': torpedo_fusion.id}) }}">edit</a>
+
+    {{ include('torpedo_fusion/_delete_form.html.twig') }}
+{% endblock %}
