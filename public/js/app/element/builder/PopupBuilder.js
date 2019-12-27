@@ -149,7 +149,7 @@ var PopupBuilder = (function () {
 
             /**
              * @param {{ id:string, label:string}} tab
-             * @param {{filePath:string}[]} images
+             * @param {{filePath:string}} image
              * @param {boolean} active
              * @returns {PopupBuilder}
              */
@@ -159,7 +159,7 @@ var PopupBuilder = (function () {
                     var html = "<div class='tab-pane " + (active ? "show active" : "fade") + " p-2' id='" + tab.id + "' role='tabpanel' aria-labelledby='" + tab.id + "-tab'>";
                     html += "<a href='" + Path.IMAGE_UPLOADS + image + "' data-lightbox='" + image + "'>\
                             <img src='" + Path.IMAGE_UPLOADS + image + "' style='max-height:150px;'>\
-                        </a>"
+                        </a>";
                     html += "</div>";
 
                     content[tab.id] = {
@@ -214,15 +214,15 @@ var PopupBuilder = (function () {
                             html += "<li>";
                             html += "<span style='position:relative;top:-10px;'>" + fusion.fibers[0].tube.wire.name + " </span>";
                             html += "<div class='fusion wire-left' title='" + fusion.fibers[0].tube.wire.name + "' style='background-color:" + fusion.fibers[0].tube.wire.hexaColor + "'></div>";
-                            html += "<div class='fusion tube-left' style='background-color:" + fusion.fibers[0].tube.hexaColor + "'></div>";
-                            html += "<div class='fusion fiber-left' style='background-color:" + fusion.fibers[0].hexaColor + "'></div>";
+                            html += "<div class='fusion tube-left' style='background-color:" + fusion.fibers[0].tube.hexaColor + "' title='Layer " + fusion.fibers[0].tube.layer + "'></div>";
+                            html += "<div class='fusion fiber-left' style='background-color:" + fusion.fibers[0].hexaColor + "' title='Layer " + fusion.fibers[0].tube.layer + "'></div>";
                             html += "<div class='fusion signal-loss'>";
                             html += "<span>------------- </span>";
                             html += fusion.signalLoss + " dBm";
                             html += "<span> -------------</span>";
                             html += "</div>";
-                            html += "<div class='fusion fiber-right' style='background-color:" + fusion.fibers[1].hexaColor + "'></div>";
-                            html += "<div class='fusion tube-right' style='background-color:" + fusion.fibers[1].tube.hexaColor + "'></div>";
+                            html += "<div class='fusion fiber-right' style='background-color:" + fusion.fibers[1].hexaColor + "' title='Layer " + fusion.fibers[1].tube.layer + "'></div>";
+                            html += "<div class='fusion tube-right' style='background-color:" + fusion.fibers[1].tube.hexaColor + "' title='Layer " + fusion.fibers[1].tube.layer + "'></div>";
                             html += "<div class='fusion wire-right' title='" + fusion.fibers[1].tube.wire.name + "' style='background-color:" + fusion.fibers[1].tube.wire.hexaColor + "'></div>";
                             html += "<span style='position:relative;top:-10px;'> " + fusion.fibers[1].tube.wire.name + "</span>";
                             html += "<span class='fusion-options'><i class='far fa-trash-alt text-danger' title='Eliminar fusión' onclick='TorpedoFusionListener.deleteFusion(" + fusion.id + ", this)'></i></span>";

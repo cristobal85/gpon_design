@@ -47,7 +47,7 @@ class Tube
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"form"})
+     * @Groups({"form", "torpedo"})
      */
     private $layer;
 
