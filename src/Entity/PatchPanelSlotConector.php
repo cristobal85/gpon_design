@@ -39,7 +39,7 @@ class PatchPanelSlotConector
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Fiber", inversedBy="patchPanelSlotConector", cascade={"persist"})
-     * @Groups({"cpd","path"})
+     * @Groups({"cpd","path","patch-panel"})
      */
     private $fiber;
 
