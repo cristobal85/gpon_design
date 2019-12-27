@@ -80,7 +80,7 @@ TorpedoFusionFormBuilder.prototype.addSelectedWires = function (wire1, wire2, to
         tube.fibers.forEach(function (fiber) {
             data.operators.operator1.properties.outputs[fiber.id] = {};
             data.operators.operator1.properties.outputs[fiber.id]['label'] = "<div class='form-fusion tube-left' style='background-color:" + tube.hexaColor + ";height:inherit;'>";
-            data.operators.operator1.properties.outputs[fiber.id]['label'] += "<div class='form-fusion fiber-left fiber' style='background-color:" + fiber.hexaColor + ";height:10px;' id='" + fiber.id + "'></div>";
+            data.operators.operator1.properties.outputs[fiber.id]['label'] += "<div class='form-fusion fiber-left fiber' style='background-color:" + fiber.hexaColor + ";height:10px;' id='" + fiber.id + "' title='Layer " + tube.layer + "'></div>";
             data.operators.operator1.properties.outputs[fiber.id]['label'] += "</div>";
             data.operators.operator1.properties.outputs[fiber.id]['label'] += "</div>";
         });
@@ -90,7 +90,7 @@ TorpedoFusionFormBuilder.prototype.addSelectedWires = function (wire1, wire2, to
         tube.fibers.forEach(function (fiber) {
             data.operators.operator2.properties.inputs[fiber.id] = {};
             data.operators.operator2.properties.inputs[fiber.id]['label'] = "<div class='form-fusion tube-right' style='background-color:" + tube.hexaColor + ";height:inherit;'>";
-            data.operators.operator2.properties.inputs[fiber.id]['label'] += "<div class='form-fusion fiber-right fiber' style='background-color:" + fiber.hexaColor + ";height:10px;' id='" + fiber.id + "'></div>";
+            data.operators.operator2.properties.inputs[fiber.id]['label'] += "<div class='form-fusion fiber-right fiber' style='background-color:" + fiber.hexaColor + ";height:10px;' id='" + fiber.id + "' title='Layer " + tube.layer + "'></div>";
             data.operators.operator2.properties.inputs[fiber.id]['label'] += "</div>";
             data.operators.operator2.properties.inputs[fiber.id]['label'] += "</div>";
         });

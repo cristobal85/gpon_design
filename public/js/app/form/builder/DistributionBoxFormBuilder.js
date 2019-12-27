@@ -88,7 +88,7 @@ DistributionBoxFormBuilder.prototype.addSelectedWires = function (wire, distribu
         tube.fibers.forEach(function (fiber) {
             data.operators.operator1.properties.outputs[fiber.id] = {};
             data.operators.operator1.properties.outputs[fiber.id]['label'] = "<div class='form-fusion tube-left' style='background-color:" + tube.hexaColor + ";height:inherit;'>";
-            data.operators.operator1.properties.outputs[fiber.id]['label'] += "<div class='form-fusion fiber-left fiber' style='background-color:" + fiber.hexaColor + ";height:10px;' id='" + fiber.id + "'></div>";
+            data.operators.operator1.properties.outputs[fiber.id]['label'] += "<div class='form-fusion fiber-left fiber' style='background-color:" + fiber.hexaColor + ";height:10px;' id='" + fiber.id + "' title='Layer " + tube.layer + "'></div>";
             data.operators.operator1.properties.outputs[fiber.id]['label'] += "</div>";
             if (fiber.distributionBoxPort) {
                 data.operators.operator1.properties.outputs[fiber.id]['label'] += "<i class='far fa-check-circle text-success' title='Esta fibra está conectada a un puerto'></i> ";
