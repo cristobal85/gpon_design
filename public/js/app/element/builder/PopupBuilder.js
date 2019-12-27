@@ -258,13 +258,13 @@ var PopupBuilder = (function () {
                                 html += "<li>";
                                 html += "<span style='position:relative;top:-10px;'>" + passant.fibers[0].tube.wire.name + " </span>";
                                 html += "<div class='fusion wire-left' title='" + passant.fibers[0].tube.wire.name + "' style='background-color:" + passant.fibers[0].tube.wire.hexaColor + "'></div>";
-                                html += "<div class='fusion tube-left' style='background-color:" + passant.fibers[0].tube.hexaColor + "'></div>";
-                                html += "<div class='fusion fiber-left' style='background-color:" + passant.fibers[0].hexaColor + "'></div>";
+                                html += "<div class='fusion tube-left' style='background-color:" + passant.fibers[0].tube.hexaColor + "' title='Layer " + passant.fibers[0].tube.layer + "'></div>";
+                                html += "<div class='fusion fiber-left' style='background-color:" + passant.fibers[0].hexaColor + "' title='Layer " + passant.fibers[0].tube.layer + "'></div>";
                                 html += "<div class='fusion signal-loss'>";
                                 html += "<span>------------- </span>";
                                 html += "</div>";
-                                html += "<div class='fusion fiber-right' style='background-color:" + passant.fibers[1].hexaColor + "'></div>";
-                                html += "<div class='fusion tube-right' style='background-color:" + passant.fibers[1].tube.hexaColor + "'></div>";
+                                html += "<div class='fusion fiber-right' style='background-color:" + passant.fibers[1].hexaColor + "' title='Layer " + passant.fibers[1].tube.layer + "'></div>";
+                                html += "<div class='fusion tube-right' style='background-color:" + passant.fibers[1].tube.hexaColor + "' title='Layer " + passant.fibers[1].tube.layer + "'></div>";
                                 html += "<div class='fusion wire-right' title='" + passant.fibers[1].tube.wire.name + "' style='background-color:" + passant.fibers[1].tube.wire.hexaColor + "'></div>";
                                 html += "<span style='position:relative;top:-10px;'> " + passant.fibers[1].tube.wire.name + "</span>";
                                 html += "</li>";
