@@ -43,6 +43,12 @@ class PatchPanelSlotConector
      */
     private $fiber;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"cpd","path","patch-panel"})
+     */
+    private $description;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -101,6 +107,18 @@ class PatchPanelSlotConector
     public function setFiber(?Fiber $fiber): self
     {
         $this->fiber = $fiber;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
