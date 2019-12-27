@@ -1,4 +1,4 @@
-/* global Path, bootbox, ApiUrl, AjaxAdapter */
+/* global Path, ApiUrl, AjaxAdapter, TreeAdapter, ModalAdapter */
 
 /**
  * @type DistributionBoxListener
@@ -22,12 +22,9 @@ var DistributionBoxListener = {
                 html += "</div>";
             }
 
-            bootbox.dialog({
-                title: 'Trayectoria',
-                message: html
-            });
+            ModalAdapter.showModal('Trayectoria', html);
 
-            $('#tree').jstree();
+            TreeAdapter.showTree('tree');
         });
     },
 

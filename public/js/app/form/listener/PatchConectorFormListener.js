@@ -1,4 +1,4 @@
-/* global bootbox, ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter */
+/* global ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter, ModalAdapter */
 
 /**
  * @type PatchConectorFormListener
@@ -13,35 +13,33 @@ var PatchConectorFormListener = {
         AjaxAdapter.get(ApiUrl.GET_FORM_WIRE).then(function (response) {
             var wires = response.data;
 
-            bootbox.dialog({
-                title: 'Nueva conexión',
-                message: new PatchFormBuilder()
-                        .addSelectWires(wires)
-                        .build(),
-                buttons: {
-                    ok: {
-                        label: "Siguiente",
-                        className: 'btn-info',
-                        callback: function () {
-                            var wireId = document.getElementById(HtmlID.DSBOX_CONECTOR_WIRE).value;
-                            AjaxAdapter.get(ApiUrl.GET_WIRE_ID + wireId).then(function (response) {
-                                var wire = response.data;
-                                AjaxAdapter.get(ApiUrl.GET_SLOT_ID + slotId).then(function (response) {
-                                    var slot = response.data;
-                                    bootbox.dialog({
-                                        title: 'Conexiones',
-                                        scrollable: true,
-                                        message: new PatchFormBuilder()
+            ModalAdapter.showModal(
+                    'Nueva conexión',
+                    new PatchFormBuilder()
+                    .addSelectWires(wires)
+                    .build(),
+                    {
+                        ok: {
+                            label: "Siguiente",
+                            className: 'btn-info',
+                            callback: function () {
+                                var wireId = document.getElementById(HtmlID.DSBOX_CONECTOR_WIRE).value;
+                                AjaxAdapter.get(ApiUrl.GET_WIRE_ID + wireId).then(function (response) {
+                                    var wire = response.data;
+                                    AjaxAdapter.get(ApiUrl.GET_SLOT_ID + slotId).then(function (response) {
+                                        var slot = response.data;
+                                        ModalAdapter.showModal(
+                                                'Conexiones',
+                                                new PatchFormBuilder()
                                                 .addSelectedWires(wire, slot)
                                                 .build()
+                                                );
                                     });
-
                                 });
-                            });
+                            }
                         }
                     }
-                }
-            });
+            );
 
             $('select').select2({width: '100%'});
 

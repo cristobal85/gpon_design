@@ -1,4 +1,4 @@
-/* global L, bootbox, AjaxAdapter, ApiUrl, HtmlID, FormBuilderFactory, TitleFormFactory */
+/* global L, AjaxAdapter, ApiUrl, HtmlID, FormBuilderFactory, TitleFormFactory, ModalAdapter */
 
 /**
  * TODO: CREAR UN LISTENER POR CADA ELEMENTO
@@ -33,14 +33,14 @@ CreateElementListener.prototype.listen = function (e) {
                 coordinates.push([latLangs[0][i].lat, latLangs[0][i].lng]);
             }
 
-            bootbox.dialog({
-                title: 'Nuevo delimitador',
-                message: new DelimiterFormBuilder() // TODO: Change for Singleton
-                        .addLayerList(layers)
-                        .addCoordinates(coordinates)
-                        .addSubmitBtn()
-                        .build()
-            });
+            ModalAdapter.showModal(
+                    'Nuevo delimitador',
+                    new DelimiterFormBuilder() // TODO: Change for Singleton
+                    .addLayerList(layers)
+                    .addCoordinates(coordinates)
+                    .addSubmitBtn()
+                    .build()
+                    );
 
             $('select').select2({width: '100%'});
 
@@ -60,18 +60,17 @@ CreateElementListener.prototype.listen = function (e) {
 
         AjaxAdapter.get(ApiUrl.GET_FORM_WIRE_PATTERN).then(function (response) {
 
-
-            bootbox.dialog({
-                title: 'Nuevo cable',
-                message: new WireFormBuilder() // TODO: Change for Singleton
-                        .addName()
-                        .addLayers(response.data.layers)
-                        .addWirePatterns(response.data.wirePatterns)
-                        .addCoordinates(coordinates)
-                        .addDistance(mDistance)
-                        .addSubmitBtn()
-                        .build()
-            });
+            ModalAdapter.showModal(
+                    'Nuevo cable',
+                    new WireFormBuilder() // TODO: Change for Singleton
+                    .addName()
+                    .addLayers(response.data.layers)
+                    .addWirePatterns(response.data.wirePatterns)
+                    .addCoordinates(coordinates)
+                    .addDistance(mDistance)
+                    .addSubmitBtn()
+                    .build()
+                    );
 
             $('select').select2({width: '100%'});
         });
@@ -81,30 +80,28 @@ CreateElementListener.prototype.listen = function (e) {
         var latitude = layer.getLatLng().lat,
                 longitude = layer.getLatLng().lng;
 
-        bootbox.dialog({
-            title: 'Nuevo elemento',
-            message: new ElementFormBuilder() // TODO: Change for Singleton
-                    .addTypes()
-                    .build(),
-            buttons: {
-                ok: {
-                    label: "Siguiente",
-                    className: 'btn-info',
-                    callback: function () {
-                        var type = document.getElementById(HtmlID.ELEMENT_TYPE).value;
-                        FormBuilderFactory.createBuilder(type, latitude, longitude)
-                                .then(function (formBuilder) {
-                                    bootbox.dialog({
-                                        title: TitleFormFactory.createTitle(type),
-                                        message: formBuilder.build()
+        ModalAdapter.showModal(
+                'Nuevo elemento',
+                new ElementFormBuilder().addTypes().build(),
+                {
+                    ok: {
+                        label: "Siguiente",
+                        className: 'btn-info',
+                        callback: function () {
+                            var type = document.getElementById(HtmlID.ELEMENT_TYPE).value;
+                            FormBuilderFactory.createBuilder(type, latitude, longitude)
+                                    .then(function (formBuilder) {
+                                        ModalAdapter.showModal(
+                                            TitleFormFactory.createTitle(type), 
+                                            formBuilder.build()
+                                        );
+                                        $('select').select2({width: '100%'});
                                     });
-                                    $('select').select2({width: '100%'});
-                                });
 
+                        }
                     }
                 }
-            }
-        });
+        );
         $('select').select2({width: '100%'});
     }
 };

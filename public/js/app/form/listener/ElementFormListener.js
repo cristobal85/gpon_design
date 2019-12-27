@@ -1,4 +1,4 @@
-/* global AlertAdapter, mapView, EntityTypeEnum, reponse, WireType, DistributionBoxType, SubscriberBoxType, SubscriberBoxExtType, LayerType, TorpedoType, ElementFactory, bootbox */
+/* global AlertAdapter, mapView, EntityTypeEnum, reponse, WireType, DistributionBoxType, SubscriberBoxType, SubscriberBoxExtType, LayerType, TorpedoType, ElementFactory */
 
 var ElementFormListener = {
 
@@ -23,7 +23,7 @@ var ElementFormListener = {
                         .getLayer()
                     );
             AlertAdapter.success(response.message);
-            bootbox.hideAll();
+            ModalAdapter.hideAll();
         });
     }
 };

@@ -5,12 +5,15 @@ var ModalAdapter = {};
 /**
  * @param {string} title
  * @param {string} html
+ * @param {Object} buttons
+ * @param {callback} callback
  * @returns {undefined}
  */
-ModalAdapter.showModal = function (title, html) {
+ModalAdapter.showModal = function (title, html, buttons, callback) {
     bootbox.dialog({
         title: title,
-        message: html
+        message: html,
+        buttons: buttons,
     });
 };
 
@@ -34,10 +37,14 @@ ModalAdapter.showConfirm = function(title, message, callback) {
                     label: '<i class="fa fa-check"></i> Si'
                 }
             },
-            callback: function (result) {
-                if (result) {
-                    callback();
-                }
-            }
+            callback: callback
         });
+};
+
+
+/**
+ * @returns {undefined}
+ */
+ModalAdapter.hideAll = function() {
+    bootbox.hideAll();
 };

@@ -1,4 +1,4 @@
-/* global Path, bootbox, ApiUrl, AjaxAdapter, self */
+/* global Path, ApiUrl, AjaxAdapter, self, ModalAdapter, TreeAdapter */
 
 /**
  * @type PatchPanelListener
@@ -14,9 +14,7 @@ var PatchPanelListener = {
 
         AjaxAdapter.get(ApiUrl.GET_CONECTOR_ID + patchPanelConectorId).then(function (response) {
             var patchPanelConector = response.data;
-
             var conectorFiber = patchPanelConector.fiber;
-
             var html = "";
             if (conectorFiber) {
                 html += "<div id='tree'>";
@@ -24,69 +22,8 @@ var PatchPanelListener = {
                 html += "</div>";
             }
 
-
-            // TODO: Aplicar refactoring a todo este código. Composite?
-//            var html = "<div id='tree'>";
-//            html += "<ul>";
-//            html += "<li data-jstree='{\"icon\":\"" + Path.IMAGE_UPLOADS + conectorFiber.tube.wire.image + "\"}'>";
-//            html += "Fibra: " + conectorFiber.tube.wire.name + " <strong>(" + conectorFiber.tube.wire.longitude.toFixed(2) + "m)</strong>";
-//            html += "<div class='wire tube-left' style='background-color:" + conectorFiber.tube.hexaColor + "'></div>";
-//            html += "<div class='wire fiber-left' style='background-color:" + conectorFiber.hexaColor + "'></div>";
-//            conectorFiber.torpedoFusions.forEach(function (iFusion) {
-//                html += "<ul>";
-//                html += "<li data-jstree='{\"icon\":\"" + Path.IMAGE_UPLOADS + iFusion.torpedo.icon + "\"}'>";
-//                html += "Torpedo: " + iFusion.torpedo.name + " <strong>(" + iFusion.torpedo.address.location + ")</strong>";
-//                iFusion.fibers.forEach(function (iFiber) {
-//                    if (iFiber) {
-//                        html += "<ul>";
-//                        html += "<li data-jstree='{\"icon\":\"" + Path.IMAGE_UPLOADS + iFiber.tube.wire.image + "\"}'>";
-//                        html += "Fibra: " + iFiber.tube.wire.name + " <strong>(" + iFiber.tube.wire.longitude.toFixed(2) + "m)</strong>";
-//                        html += "<div class='wire tube-left' style='background-color:" + iFiber.tube.hexaColor + "'></div>";
-//                        html += "<div class='wire fiber-left' style='background-color:" + iFiber.hexaColor + "'></div>";
-//                        iFiber.torpedoFusions.forEach(function (iFusion) {
-//                            if (iFusion) {
-//                                html += "<ul>";
-//                                html += "<li data-jstree='{\"icon\":\"" + Path.IMAGE_UPLOADS + iFusion.torpedo.icon + "\"}'>";
-//                                html += "Torpedo: " + iFusion.torpedo.name + " <strong>(" + iFusion.torpedo.address.location + ")</strong>";
-//                                iFusion.fibers.forEach(function (jFiber) {
-//                                    if (jFiber) {
-//                                        html += "<ul>";
-//                                        html += "<li data-jstree='{\"icon\":\"" + Path.IMAGE_UPLOADS + jFiber.tube.wire.image + "\"}'>";
-//                                        html += "Fibra: " + jFiber.tube.wire.name + " <strong>(" + jFiber.tube.wire.longitude.toFixed(2) + "m)</strong>";
-//                                        html += "<div class='wire tube-left' style='background-color:" + jFiber.tube.hexaColor + "'></div>";
-//                                        html += "<div class='wire fiber-left' style='background-color:" + jFiber.hexaColor + "'></div>";
-//                                        if (jFiber.distributionBoxPort) {
-//                                            html += "<ul>";
-//                                            html += "<li data-jstree='{\"icon\":\"" + Path.IMAGE_UPLOADS + jFiber.distributionBoxPort.distributionBox.icon + "\"}'>";
-//                                            html += "Caja distribución: " + jFiber.distributionBoxPort.distributionBox.name + " <strong>(" + jFiber.distributionBoxPort.distributionBox.address.location + ")</strong>";
-//                                            html += "</li>";
-//                                            html += "</ul>";
-//                                        }
-//                                        html += "</li>";
-//                                        html += "</ul>";
-//                                    }
-//                                });
-//                                html += "</li>";
-//                                html += "</ul>";
-//                            }
-//                        });
-//                        html += "</li>";
-//                        html += "</ul>";
-//                    }
-//                });
-//                html += "</li>";
-//                html += "</ul>";
-//            });
-//            html += "</li>";
-//            html += "</ul>";
-//            html += "</div>";
-
-            bootbox.dialog({
-                title: 'Trayectoria',
-                message: html
-            });
-
-            $('#tree').jstree();
+            ModalAdapter.showModal('Trayectoria', html);
+            TreeAdapter.showTree('tree');
         });
     },
 
@@ -125,7 +62,7 @@ var PatchPanelListener = {
             if (passant) {
                 html += "<ul>";
                 html += "<li data-jstree='{\"icon\":\"" + Path.IMAGE_UPLOADS + passant.torpedo.icon + "\"}'>";
-                html += "Pasante en torpedo: " + passant.torpedo.name; 
+                html += "Pasante en torpedo: " + passant.torpedo.name;
                 if (passant.torpedo.address) {
                     html += " <strong>(" + passant.torpedo.address.location + ")</strong>";
                 }
@@ -138,7 +75,7 @@ var PatchPanelListener = {
                 html += "</ul>";
             }
         });
-        
+
         fiber.distributionBoxPassants.forEach(function (passant) {
             if (passant) {
                 html += "<ul>";

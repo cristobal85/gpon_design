@@ -38,7 +38,6 @@ PatchFormBuilder.prototype.addSelectWires = function (wires) {
  * @returns {PatchFormBuilder.prototype}
  */
 PatchFormBuilder.prototype.addSelectedWires = function (wire, slot) {
-    console.log(slot);
     var self = this;
     var data = {
         operators: {

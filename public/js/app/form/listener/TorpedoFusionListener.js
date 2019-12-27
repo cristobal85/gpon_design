@@ -1,4 +1,4 @@
-/* global bootbox, ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter */
+/* global ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter, ModalAdapter */
 
 /**
  * @type TorpedoFusionListener
@@ -13,36 +13,34 @@ var TorpedoFusionListener = {
         AjaxAdapter.get(ApiUrl.GET_FORM_WIRE).then(function (response) {
             var wires = response.data;
 
-            bootbox.dialog({
-                title: 'Nueva fusión',
-                message: new TorpedoFusionFormBuilder()
-                        .addSelectWires(wires)
-                        .build(),
-                buttons: {
-                    ok: {
-                        label: "Siguiente",
-                        className: 'btn-info',
-                        callback: function () {
-                            var wire1Id = document.getElementById(HtmlID.FUSION_WIRE_1).value;
-                            var wire2Id = document.getElementById(HtmlID.FUSION_WIRE_2).value;
-                            AjaxAdapter.get(ApiUrl.GET_WIRE_ID + wire1Id).then(function (response) {
-                                var wire1 = response.data;
-                                AjaxAdapter.get(ApiUrl.GET_WIRE_ID + wire2Id).then(function (response) {
-                                    var wire2 = response.data;
-                                    bootbox.dialog({
-                                        title: 'Fusiones',
-                                        scrollable: true,
-                                        message: new TorpedoFusionFormBuilder()
+            ModalAdapter.showModal(
+                    'Nueva fusión',
+                    new TorpedoFusionFormBuilder()
+                    .addSelectWires(wires)
+                    .build(),
+                    {
+                        ok: {
+                            label: "Siguiente",
+                            className: 'btn-info',
+                            callback: function () {
+                                var wire1Id = document.getElementById(HtmlID.FUSION_WIRE_1).value;
+                                var wire2Id = document.getElementById(HtmlID.FUSION_WIRE_2).value;
+                                AjaxAdapter.get(ApiUrl.GET_WIRE_ID + wire1Id).then(function (response) {
+                                    var wire1 = response.data;
+                                    AjaxAdapter.get(ApiUrl.GET_WIRE_ID + wire2Id).then(function (response) {
+                                        var wire2 = response.data;
+                                        ModalAdapter.showModal(
+                                                'Fusiones',
+                                                new TorpedoFusionFormBuilder()
                                                 .addSelectedWires(wire1, wire2, torpedoId)
-                                                .build(),
+                                                .build()
+                                                );
                                     });
-
                                 });
-                            });
+                            }
                         }
                     }
-                }
-            });
+            );
 
             $('select').select2({width: '100%'});
 
@@ -57,31 +55,23 @@ var TorpedoFusionListener = {
      * @returns {undefined}
      */
     deleteFusion(id, el) {
-        bootbox.confirm({
-            title: "Fusiones",
-            message: "¿Seguro que quiere eliminar la fusion?",
-            buttons: {
-                cancel: {
-                    label: '<i class="fa fa-times"></i> No'
-                },
-                confirm: {
-                    label: '<i class="fa fa-check"></i> Si'
+        ModalAdapter.showConfirm(
+                'Fusiones',
+                '¿Seguro que quiere eliminar la fusión?',
+                function (result) {
+                    if (result) {
+                        AjaxAdapter
+                                .delete(ApiUrl.DELETE_TORPEDO_FUSION + "/" + id)
+                                .then(function (response) {
+                                    el.parentNode.parentNode.remove();
+                                    AlertAdapter.success(response.data.message);
+                                })
+                                .catch(function (error) {
+                                    AlertAdapter.error(error.response.data.message);
+                                });
+                    }
                 }
-            },
-            callback: function (result) {
-                if (result) {
-                    AjaxAdapter
-                            .delete(ApiUrl.DELETE_TORPEDO_FUSION + "/" + id)
-                            .then(function (response) {
-                                el.parentNode.parentNode.remove();
-                                AlertAdapter.success(response.data.message);
-                            })
-                            .catch(function (error) {
-                                AlertAdapter.error(error.response.data.message);
-                            });
-                }
-            }
-        });
+        );
     }
 
 };
