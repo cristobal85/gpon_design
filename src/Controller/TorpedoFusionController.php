@@ -13,8 +13,7 @@ use \Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Torpedo;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use \Psr\Log\LoggerInterface;
+use App\Repository\TorpedoPassantRepository;
 
 /**
  * @Route("/torpedo-fusion")
@@ -114,7 +113,7 @@ class TorpedoFusionController extends AbstractController {
             Torpedo $torpedo,
             EntityManagerInterface $em,
             ValidatorInterface $validator,
-            LoggerInterface $logger) {
+            TorpedoPassantRepository $torpedoRep) {
         if (!$this->getUser()->isAdmin()) {
             return new JsonResponse([
                 'message' => "No tiene permisos para realizar esta acción."
@@ -141,8 +140,18 @@ class TorpedoFusionController extends AbstractController {
             }
         }
         // Delete from pasants
-        $fiber1->setTorpedoPassants(null);
-        $fiber2->setTorpedoPassants(null);
+        $torpedoPassants = $fiber1->getTorpedoPassants();
+        foreach ($torpedoPassants as $torpedoPassant) {
+            if ($torpedoPassant->getTorpedo() === $torpedo) {
+                $em->remove($torpedoPassant);
+            }
+        }
+        $torpedoPassants = $fiber2->getTorpedoPassants();
+        foreach ($torpedoPassants as $torpedoPassant) {
+            if ($torpedoPassant->getTorpedo() === $torpedo) {
+                $em->remove($torpedoPassant);
+            }
+        }
         
         // Generate torpedo fusion
         $torpedoFusion = new TorpedoFusion();
