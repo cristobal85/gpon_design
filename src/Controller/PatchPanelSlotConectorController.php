@@ -130,5 +130,32 @@ class PatchPanelSlotConectorController extends AbstractController {
                     'patch_panel_slot_conector' => $patchPanelSlotConector,
         ]);
     }
+    
+    /**
+     * @Route("/{id}", name="patch_panel_slot_conector_description", methods={"PUT"})
+     */
+    public function saveDescription(
+            PatchPanelSlotConector $patchPanelSlotConector,
+            Request $request,
+            EntityManagerInterface $em): Response {
+        if ($request->isXmlHttpRequest()) {
+            $data = json_decode($request->getContent(), true)['data'];
+
+            $description = $data['description'];
+
+
+            $patchPanelSlotConector->setDescription($description);
+            $em->persist($patchPanelSlotConector);
+            $em->flush();
+
+            return new JsonResponse([
+                'message' => "Descripción guardada correctamente."
+            ]);
+        }
+
+        return $this->render('patch_panel_slot_conector/show.html.twig', [
+                    'patch_panel_slot_conector' => $patchPanelSlotConector,
+        ]);
+    }
 
 }

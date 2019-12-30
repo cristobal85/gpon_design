@@ -306,7 +306,7 @@ var PopupBuilder = (function () {
                             if (conector.fiber) {
                                 classes += "bg-success";
                             }
-                            html += "<a href='#' class='" + classes + "' style='display:block;' onclick='PatchPanelListener.showModal(" + conector.id + ")'>" + conector.number + "</a>";
+                            html += "<a href='#' title='" + (conector.description || 'No definido') + "' class='" + classes + "' style='display:block;' onclick='PatchPanelListener.showModal(" + conector.id + ")' oncontextmenu='PatchPanelListener.showPromptDescription(" + conector.id + ");return false;'>" + conector.number + "</a>";
                         });
                         html += "<a href='#' class='mt-2' onclick='PatchConectorFormListener.showModal(" + slot.id + ")'><i class='fas fa-link'></i></a>";
                         html += "</div>";

@@ -1,4 +1,4 @@
-/* global Path, ApiUrl, AjaxAdapter, self, ModalAdapter, TreeAdapter */
+/* global Path, ApiUrl, AjaxAdapter, self, ModalAdapter, TreeAdapter, AlertAdapter */
 
 /**
  * @type PatchPanelListener
@@ -25,6 +25,8 @@ var PatchPanelListener = {
             ModalAdapter.showModal('Trayectoria', html);
             TreeAdapter.showTree('tree');
         });
+
+        return false;
     },
 
     /**
@@ -119,5 +121,33 @@ var PatchPanelListener = {
         html += "</ul>";
 
         return html;
+    },
+
+    /**
+     * @param {Number} patchPanelConectorId ID from database
+     * @returns {undefined}
+     */
+    showPromptDescription: function (patchPanelConectorId) {
+        AjaxAdapter.get(ApiUrl.GET_CONECTOR_ID + patchPanelConectorId).then(function (response) {
+            var patchPanelConector = response.data;
+            ModalAdapter.showPromptDescription(
+                    'Puerto de patch panel ' + patchPanelConector.number,
+                    function (result) {
+                        if (result) {
+                            AjaxAdapter.put(ApiUrl.PUT_PATCHPORT_DESCRIPTION + patchPanelConector.id,
+                                    {
+                                        'description': result
+                                    })
+                                    .then(function (response) {
+                                        AlertAdapter.success(response.data.message);
+                                    })
+                                    .catch(function (error) {
+                                        console.error(error);
+                                    });
+                        }
+                    }, patchPanelConector.description);
+        });
+
+        return false;
     }
 };

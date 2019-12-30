@@ -25,26 +25,41 @@ ModalAdapter.showModal = function (title, html, buttons, callback) {
  * @param {callback} callback
  * @returns {undefined}
  */
-ModalAdapter.showConfirm = function(title, message, callback) {
+ModalAdapter.showConfirm = function (title, message, callback) {
     bootbox.confirm({
-            title: title,
-            message: message,
-            buttons: {
-                cancel: {
-                    label: '<i class="fa fa-times"></i> No'
-                },
-                confirm: {
-                    label: '<i class="fa fa-check"></i> Si'
-                }
+        title: title,
+        message: message,
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> No'
             },
-            callback: callback
-        });
+            confirm: {
+                label: '<i class="fa fa-check"></i> Si'
+            }
+        },
+        callback: callback
+    });
 };
 
 
 /**
  * @returns {undefined}
  */
-ModalAdapter.hideAll = function() {
+ModalAdapter.hideAll = function () {
     bootbox.hideAll();
+};
+
+
+/**
+ * @param {string} title
+ * @param {callback} callback
+ * @param {string} defaultValue
+ * @returns {undefined}
+ */
+ModalAdapter.showPromptDescription = function (title, callback, defaultValue) {
+    bootbox.prompt({
+        title: title,
+        callback: callback,
+        value: defaultValue
+    });
 };
