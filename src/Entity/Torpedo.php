@@ -11,10 +11,15 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Entity\Interfaces\EntityIconable;
 use App\Entity\Fiber;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TorpedoRepository")
  * @Vich\Uploadable
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     message="El nombre del torpedo ya ha sido usado."
+ * )
  */
 class Torpedo implements EntityIconable
 {
@@ -27,7 +32,7 @@ class Torpedo implements EntityIconable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=191, unique=true)
      * @Groups({"map","torpedo","path"})
      */
     private $name;

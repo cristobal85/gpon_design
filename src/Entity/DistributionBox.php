@@ -10,11 +10,16 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Entity\Interfaces\EntityIconable;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DistributionBoxRepository")
  * @Vich\Uploadable
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     message="El nombre de la caja ya ha sido usado."
+ * )
  */
 class DistributionBox implements EntityIconable
 {
@@ -27,7 +32,7 @@ class DistributionBox implements EntityIconable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=191, unique=true)
      * @Groups({"distribution-box","path"})
      */
     private $name;
@@ -44,7 +49,7 @@ class DistributionBox implements EntityIconable
     private $distributionBoxSignals;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\SubscriberBox", mappedBy="distributionBox", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\SubscriberBox", mappedBy="distributionBox", cascade={"persist","remove"})
      * @Groups({"map"})
      */
     private $subscriberBoxes;
@@ -56,14 +61,14 @@ class DistributionBox implements EntityIconable
     private $address;
     
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DistributionBoxPdf", mappedBy="distributionBox", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\DistributionBoxPdf", mappedBy="distributionBox", cascade={"persist","remove"})
      * @Assert\Valid
      * @Groups({"distribution-box"})
      */
     private $pdfs;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DistributionBoxImage", mappedBy="distributionBox", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\DistributionBoxImage", mappedBy="distributionBox", cascade={"persist","remove"})
      * @Assert\Valid
      * @Groups({"distribution-box"})
      */

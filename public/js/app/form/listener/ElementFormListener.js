@@ -24,6 +24,8 @@ var ElementFormListener = {
                     );
             AlertAdapter.success(response.message);
             ModalAdapter.hideAll();
+        }).fail(function(jqXHR) {
+            AlertAdapter.error(jqXHR.responseJSON.message);
         });
     }
 };

@@ -15,7 +15,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SubscriberBoxRepository")
  * @Vich\Uploadable
- * @UniqueEntity("name")
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     message="El nombre de la caja ya ha sido usado."
+ * )
  */
 class SubscriberBox implements EntityIconable
 {

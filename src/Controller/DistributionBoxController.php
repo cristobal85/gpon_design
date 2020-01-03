@@ -51,9 +51,9 @@ class DistributionBoxController extends AbstractController
         ]);
     }
     
-    /**
-     * @Route("/generate-ports", name="distribution_box_create_ports", methods={"GET"})
-     */
+//    /**
+//     * @Route("/generate-ports", name="distribution_box_create_ports", methods={"GET"})
+//     */
 //    public function generatePorts(
 //            DistributionBoxRepository $distributionBoxRepository,
 //            EntityManagerInterface $em) {

@@ -10,10 +10,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Entity\Interfaces\EntityIconable;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SubscriberBoxExtRepository")
  * @Vich\Uploadable
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     message="El nombre de la caja ya ha sido usado."
+ * )
  */
 class SubscriberBoxExt implements EntityIconable
 {
@@ -26,7 +31,7 @@ class SubscriberBoxExt implements EntityIconable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=191, unique=true)
      * @Groups({"subscriber-box-ext"})
      */
     private $name;

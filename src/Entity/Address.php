@@ -6,9 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AddressRepository")
+ * @UniqueEntity(
+ *     fields={"location"},
+ *     message="El nombre de la dirección ya ha sido usado."
+ * )
  */
 class Address
 {
@@ -21,7 +26,7 @@ class Address
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=191, unique=true)
      * @Groups({"map","torpedo","distribution-box","subscriber-box","path"})
      */
     private $location;

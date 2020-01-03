@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Serializer\CircularSerializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/torpedo")
@@ -104,7 +105,8 @@ class TorpedoController extends AbstractController {
     public function saveTorpedoAction(
             EntityManagerInterface $em,
             Request $request,
-            CircularSerializer $serializer) {
+            CircularSerializer $serializer,
+            ValidatorInterface $validator) {
 
         $layer = $em->getRepository(\App\Entity\LayerGroup::class)->findOneBy(array(
             "id" => $request->get('layer')
@@ -125,6 +127,10 @@ class TorpedoController extends AbstractController {
                 ->setLayerGroup($layer)
                 ->setIcon($icon->getIcon());
 
+        $errors = $validator->validate($torpedo);
+        if (count($errors)) {
+            return new JsonResponse(['message' => $errors[0]->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
+        }
         $em->persist($torpedo);
         $em->flush();
 
