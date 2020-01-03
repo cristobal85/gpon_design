@@ -14,6 +14,7 @@
                         <tr>
                             <th>Número</th>
                             <th>Slot</th>
+                            <th>Nombre completo</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -22,6 +23,7 @@
                             <tr>
                                 <td>{{ patch_panel_slot_conector.number }}</td>
                                 <td>{{ patch_panel_slot_conector.patchPanelSlot }}</td>
+                                <td>{{ patch_panel_slot_conector }}</td>
                                 <td>
                                     <a href="{{ path('patch_panel_slot_conector_show', {'id': patch_panel_slot_conector.id}) }}" class="btn btn-primary btn-circle">
                                         <i class="fas fa-search-plus"></i>

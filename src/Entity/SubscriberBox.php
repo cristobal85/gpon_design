@@ -10,10 +10,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Entity\Interfaces\EntityIconable;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SubscriberBoxRepository")
  * @Vich\Uploadable
+ * @UniqueEntity("name")
  */
 class SubscriberBox implements EntityIconable
 {
@@ -21,12 +23,12 @@ class SubscriberBox implements EntityIconable
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"map"})
+     * @Groups({"map","subscriber-box"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=191, unique=true)
      * @Groups({"subscriber-box"})
      */
     private $name;
@@ -127,6 +129,7 @@ class SubscriberBox implements EntityIconable
         $this->addresses = new ArrayCollection();
         $this->subscriberBoxExts = new ArrayCollection();
         $this->customers = new ArrayCollection();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int

@@ -1,4 +1,4 @@
-/* global AlertAdapter, mapView, EntityTypeEnum, reponse, WireType, DistributionBoxType, SubscriberBoxType, SubscriberBoxExtType, LayerType, TorpedoType, ElementFactory */
+/* global AlertAdapter, mapView, EntityTypeEnum, reponse, WireType, DistributionBoxType, SubscriberBoxType, SubscriberBoxExtType, LayerType, TorpedoType, ElementFactory, ModalAdapter */
 
 var ElementFormListener = {
 

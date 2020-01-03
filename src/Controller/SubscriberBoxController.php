@@ -106,13 +106,14 @@ class SubscriberBoxController extends AbstractController
     }
     
     
-        /**
+    /**
      * @Route("/save-subscriber-box", name="map-save-subscriber-box", methods={"POST"})
      */
     public function saveSubscriberBoxAction(
             EntityManagerInterface $em,
             Request $request,
-            CircularSerializer $serializer) {
+            CircularSerializer $serializer
+            ) {
 
         $subscriber = $em->getRepository(\App\Entity\SubscriberBox::class)->findOneBy(array(
             "id" => $request->get('subscriber-box')
