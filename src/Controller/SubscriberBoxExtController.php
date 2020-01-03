@@ -113,13 +113,21 @@ class SubscriberBoxExtController extends AbstractController
             Request $request,
             CircularSerializer $serializer) {
 
-        $subscriberExt = $em->getRepository(\App\Entity\SubscriberBoxExt::class)->findOneBy(array(
+        $subscriberExt = $em->getRepository(SubscriberBoxExt::class)->findOneBy(array(
             "id" => $request->get('subscriber-box-ext')
         ));
+        $icon = $em->getRepository(\App\Entity\Icon::class)->findOneBy(array(
+            'element' => SubscriberBoxExt::class
+        ));
+        if (!$icon) {
+            return new JsonResponse([
+                'message'   =>  "Debe definir un icono para la caja de extensión antes de añadirla al mapa."
+            ], 400);
+        }
         $subscriberExt
                 ->setLatitude($request->get('latitude'))
                 ->setLongitude($request->get('longitude'))
-                ->setIcon('5db2df158a4ec_caja_extensión.png');
+                ->setIcon($icon->getIcon());
 
         $em->persist($subscriberExt);
         $em->flush();

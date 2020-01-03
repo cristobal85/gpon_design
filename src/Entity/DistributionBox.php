@@ -132,6 +132,7 @@ class DistributionBox implements EntityIconable
         $this->images = new ArrayCollection();
         $this->ports = new ArrayCollection();
         $this->passants = new ArrayCollection();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int

@@ -14,6 +14,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class LayerGroup
 {
+    
+    public const DEFAULT_WEIGHT = 2;
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

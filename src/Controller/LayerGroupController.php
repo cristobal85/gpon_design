@@ -110,7 +110,7 @@ class LayerGroupController extends AbstractController
         ));
         $layer
                 ->setCoordinates(json_decode($request->get('coordinates')))
-                ->setWeight(2);
+                ->setWeight(LayerGroup::DEFAULT_WEIGHT);
 
         $em->persist($layer);
         $em->flush();

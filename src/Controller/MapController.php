@@ -103,7 +103,7 @@ class MapController extends AbstractController {
      */
     public function getSubscriberBoxExtAction(
             SubscriberBoxExtRepository $subBoxExtRep,
-            SerializerInterface $serializer) {
+            CircularSerializer $serializer) {
         $subscriberBoxesExt = $subBoxExtRep->findBy(array(
             'latitude' => null
         ));

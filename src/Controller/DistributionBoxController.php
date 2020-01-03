@@ -138,10 +138,18 @@ class DistributionBoxController extends AbstractController
         $ds = $em->getRepository(\App\Entity\DistributionBox::class)->findOneBy(array(
             "id" => $request->get('distribution-box')
         ));
+        $icon = $em->getRepository(\App\Entity\Icon::class)->findOneBy(array(
+            'element' => DistributionBox::class
+        ));
+        if (!$icon) {
+            return new JsonResponse([
+                'message'   =>  "Debe definir un icono para la caja de distribución antes de añadirla al mapa."
+            ], 400);
+        }
         $ds
                 ->setLatitude($request->get('latitude'))
                 ->setLongitude($request->get('longitude'))
-                ->setIcon('5d94ad3c5da6d_caja_distribucion.png');
+                ->setIcon($icon->getIcon());
 
         $em->persist($ds);
         $em->flush();

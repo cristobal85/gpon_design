@@ -109,13 +109,21 @@ class TorpedoController extends AbstractController {
         $layer = $em->getRepository(\App\Entity\LayerGroup::class)->findOneBy(array(
             "id" => $request->get('layer')
         ));
+        $icon = $em->getRepository(\App\Entity\Icon::class)->findOneBy(array(
+            'element' => Torpedo::class
+        ));
+        if (!$icon) {
+            return new JsonResponse([
+                'message'   =>  "Debe definir un icono para el torpedo antes de añadirlo al mapa."
+            ], 400);
+        }
         $torpedo = new \App\Entity\Torpedo();
         $torpedo
                 ->setLatitude($request->get('latitude'))
                 ->setLongitude($request->get('longitude'))
                 ->setName($request->get('name'))
                 ->setLayerGroup($layer)
-                ->setIcon('torpedo-fibra.png');
+                ->setIcon($icon->getIcon());
 
         $em->persist($torpedo);
         $em->flush();

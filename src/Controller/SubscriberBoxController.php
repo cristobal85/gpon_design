@@ -115,13 +115,22 @@ class SubscriberBoxController extends AbstractController
             CircularSerializer $serializer
             ) {
 
-        $subscriber = $em->getRepository(\App\Entity\SubscriberBox::class)->findOneBy(array(
+        $subscriber = $em->getRepository(SubscriberBox::class)->findOneBy(array(
             "id" => $request->get('subscriber-box')
         ));
+        $icon = $em->getRepository(\App\Entity\Icon::class)->findOneBy(array(
+            'element' => SubscriberBox::class
+        ));
+        if (!$icon) {
+            return new JsonResponse([
+                'message'   =>  "Debe definir un icono para la caja de abonado antes de añadirla al mapa."
+            ], 400);
+        }
+        
         $subscriber
                 ->setLatitude($request->get('latitude'))
                 ->setLongitude($request->get('longitude'))
-                ->setIcon('caja_abonado.png');
+                ->setIcon($icon->getIcon());
 
         $em->persist($subscriber);
         $em->flush();

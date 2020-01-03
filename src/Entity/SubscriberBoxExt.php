@@ -21,7 +21,7 @@ class SubscriberBoxExt implements EntityIconable
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"map"})
+     * @Groups({"map","subscriber-box-ext"})
      */
     private $id;
 
@@ -112,6 +112,7 @@ class SubscriberBoxExt implements EntityIconable
         $this->images = new ArrayCollection();
         $this->pdfs = new ArrayCollection();
         $this->customers = new ArrayCollection();
+        $this->updatedAt = new \DateTime();
     }
     
 
