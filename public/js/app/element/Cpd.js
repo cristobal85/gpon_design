@@ -79,7 +79,7 @@ Cpd.prototype = {
                                         {id: 'rack-' + rack.id, label: rack.name},
                                         rack,
                                         false)
-                                ;
+                                        ;
                             }
                         });
                         var html = popupBuilder.build(500, 240);
@@ -113,7 +113,16 @@ Cpd.prototype = {
 
     subscribeToEvents: function () {
         var self = this;
+
         this.marker.on('contextmenu', function (e) {
+              // PRUEBAS REALIZADAS CON plugin Leaflet.contextMenu
+//            // TODO: Add builder for contextMenu
+//            self.marker.options.contextmenuItems = [{
+//                text: 'Mover',
+//                callback: function() {
+//                    self.edit(e);
+//                }
+//            }];
             self.edit(e);
         });
         this.marker.on('click', function (e) {

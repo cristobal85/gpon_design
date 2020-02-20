@@ -245,3 +245,8 @@ a > i.jstree-icon {
     max-height: 250px;
     overflow-y: auto;
 }
+
+/********************** TREE JS */
+.jstree-default .jstree-node {
+    margin-left: 10px !important;
+}

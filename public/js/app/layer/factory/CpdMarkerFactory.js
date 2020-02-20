@@ -18,7 +18,9 @@ CpdMarkerFactory.createLayer = function (element) {
                 icon: L.icon({
                     iconUrl: Path.IMAGE_UPLOADS + element.icon,
                     iconSize: [50, 50]
-                })
+                }),
+//                contextmenu: true,
+//                contextmenuInheritItems: false
             });
     }
     

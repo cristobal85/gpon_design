@@ -349,7 +349,7 @@ var PopupBuilder = (function () {
                             classes += "bg-success";
                         }
                         html += "<div class='col text-center " + classes + "'>";
-                        html += "<a href='#' style='display:block;' onclick='DistributionBoxListener.showModal(" + ports[i].id + ")'>" + ports[i].number + "</a>";
+                        html += "<a href='#' style='display:block;' onclick='DistributionBoxListener.showModal(" + ports[i].id + ")' oncontextmenu=\"javascript:alert('success!');return false;\">" + ports[i].number + "</a>";
                         html += "</div>";
                     }
                     html += "</div>";

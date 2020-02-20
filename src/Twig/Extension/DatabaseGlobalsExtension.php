@@ -16,7 +16,7 @@ class DatabaseGlobalsExtension extends AbstractExtension implements GlobalsInter
       $this->em = $em;
    }
 
-   public function getGlobals(): array
+   public function getGlobals()
    {
       return [
           'COMPANY' => $this->em->getRepository(\App\Entity\Company::class)->findOneBy(array(), array('id' => 'ASC'), 1),

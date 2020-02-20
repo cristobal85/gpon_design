@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/bootstrap.min.css"/>
     <link rel="stylesheet" href="{{ asset('css/jquery.flowchart.min.css') }}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css"/>
+    <link rel="stylesheet" href="{{ asset('css/leaflet.contextmenu.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/ctxmenu.min.css') }}"/>
     
     <style>
         html,
@@ -58,6 +60,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    {################################## EXTERNAL LIBRARIES    #}
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
             integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
     crossorigin=""></script>
@@ -72,6 +75,8 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>{# JQUERY-UI for drabable    #}
     <script src="{{ asset('js/jquery.flowchart.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/jstree.min.js"></script>
+    <script src="{{ asset('js/leaflet.contextmenu.min.js') }}"></script>
+    <script src="{{ asset('js/ctxmenu.min.js') }}"></script>
 
     {################################## ENUMS    #}
     <script src="{{ asset('js/app/enum/Path.js') }}"></script>

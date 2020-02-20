@@ -80,6 +80,7 @@ class User implements UserInterface, EquatableInterface
     public function __construct()
     {
         $this->notes = new ArrayCollection();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
