@@ -1,4 +1,4 @@
-/* global Path, ApiUrl, AjaxAdapter, TreeAdapter, ModalAdapter */
+/* global Path, ApiUrl, AjaxAdapter, TreeAdapter, ModalAdapter, AttributeEnum, tippy, AlertAdapter */
 
 /**
  * @type DistributionBoxListener
@@ -13,7 +13,7 @@ var DistributionBoxListener = {
         var self = this;
         AjaxAdapter.get(ApiUrl.GET_DSBOX_PORT_ID + dsBoxPortId).then(function (response) {
             var dsBoxConector = response.data;
-            
+
             var conectorFiber = dsBoxConector.fiber;
             var html = "";
             if (conectorFiber) {
@@ -76,7 +76,7 @@ var DistributionBoxListener = {
                 html += "</ul>";
             }
         });
-        
+
         fiber.distributionBoxPassants.forEach(function (passant) {
             if (passant) {
                 html += "<ul>";
@@ -102,7 +102,7 @@ var DistributionBoxListener = {
             html += "</li>";
             html += "</ul>";
         }
-        
+
         if (fiber.patchPanelSlotConector) {
             html += "<ul>";
             html += "<li>";
@@ -120,6 +120,29 @@ var DistributionBoxListener = {
         html += "</ul>";
 
         return html;
+    },
+
+    /**
+     * @param {HTMLElement} element
+     * @returns {void}
+     */
+    dissconectPort: function (element) {
+        var dsBoxId = $(element).attr(AttributeEnum.DATA_DS_BOX_ID);
+        ModalAdapter.showConfirm(
+                'Desconectar puerto Caja Distribución',
+                '¿Estás seguro que quieres desconectar el puerto <strong>' + element.innerHTML + '</strong>?',
+                function (confirmed) {
+                    if (confirmed) {
+                        AjaxAdapter.put(ApiUrl.PUT_DISTRIBUTION_PORT + '/' + dsBoxId + '/disconeect')
+                                .then(function (response) {
+                                    AlertAdapter.success(response.data.message);
+                                })
+                                .catch(function (error) {
+                                    console.error(error);
+                                });
+                    }
+                }
+        );
     }
 
 };

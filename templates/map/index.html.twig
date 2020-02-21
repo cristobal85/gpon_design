@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="{{ asset('css/jquery.flowchart.min.css') }}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css"/>
     <link rel="stylesheet" href="{{ asset('css/leaflet.contextmenu.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('css/ctxmenu.min.css') }}"/>
-    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+
     <style>
         html,
         body {
@@ -64,19 +64,18 @@
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
             integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
     crossorigin=""></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-editable/1.2.0/Leaflet.Editable.min.js"></script>
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet-editable/1.2.0/Leaflet.Editable.min.js"></script>
+    <script src="//unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+    <script src="//unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{ asset('js/bootbox-tabindex.all.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/alertify.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>{# JQUERY-UI for drabable    #}
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>{# JQUERY-UI for drabable    #}
     <script src="{{ asset('js/jquery.flowchart.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/jstree.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/jstree.min.js"></script>
     <script src="{{ asset('js/leaflet.contextmenu.min.js') }}"></script>
-    <script src="{{ asset('js/ctxmenu.min.js') }}"></script>
 
     {################################## ENUMS    #}
     <script src="{{ asset('js/app/enum/Path.js') }}"></script>
@@ -88,6 +87,7 @@
     <script src="{{ asset('js/app/element/enum/PopupEnum.js') }}"></script>
     <script src="{{ asset('js/app/element/enum/EntityTypeEnum.js') }}"></script>
     <script src="{{ asset('js/app/enum/ResourceUrl.js') }}"></script>
+    <script src="{{ asset('js/app/element/enum/AttributeEnum.js') }}"></script>
     {################################## LISTENERS    #}
     <script src="{{ asset('js/app/form/listener/TorpedoFusionListener.js') }}"></script>
     <script src="{{ asset('js/app/form/listener/ElementFormListener.js') }}"></script>
@@ -121,7 +121,7 @@
     <script src="{{ asset('js/app/form/builder/TorpedoPassantFormBuilder.js') }}"></script>
     <script src="{{ asset('js/app/form/builder/DistributionBoxPassantFormBuilder.js') }}"></script>
     <script src="{{ asset('js/app/form/builder/PatchFormBuilder.js') }}"></script>
-    {################################## POPUP BUILDER    #}
+    {################################## ELEMENT BUILDER    #}
     <script src="{{ asset('js/app/element/builder/PopupBuilder.js') }}"></script>
     {################################## LAYER FACTORY    #}
     <script src="{{ asset('js/app/layer/factory/LayerFactory.js') }}"></script>
@@ -170,7 +170,7 @@
 
     {################################## MAIN    #}
     <script src="{{ asset('js/app/app.js') }}"></script>
-    
-    
+
+
 
 {% endblock %}

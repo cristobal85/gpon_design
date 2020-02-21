@@ -25,6 +25,7 @@ var ApiUrl = {
     PUT_TORPEDO: '/map/update-torpedo',
     PUT_NOTE: '/note/update-position',
     PUT_PATCHPORT_DESCRIPTION: '/patch-panel-slot-conector/',
+    PUT_DISTRIBUTION_PORT: '/distribution-box-port',
     GET_FORM_WIRE: '/form/wire',
     GET_FORM_WIRE_PATTERN: '/form/wire-pattern',
     GET_FORM_LAYER: '/form/layer',

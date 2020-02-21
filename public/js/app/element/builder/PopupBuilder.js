@@ -1,4 +1,4 @@
-/* global Path */
+/* global Path, AttributeEnum */
 
 /**
  * @return {PopupBuilder.PopupBuilderAnonym$4}
@@ -343,13 +343,14 @@ var PopupBuilder = (function () {
                     html += "<div class='card-header'>Segundo 50%</div>";
                     html += "<div class='card-body'>";
                     html += "<div class='row'>";
+                    // TODO: Refactoring two for loop.
                     for (var i = (ports.length / 2); i < ports.length; i++) {
                         var classes = "";
                         if (ports[i].fiber) {
                             classes += "bg-success";
                         }
                         html += "<div class='col text-center " + classes + "'>";
-                        html += "<a href='#' style='display:block;' onclick='DistributionBoxListener.showModal(" + ports[i].id + ")' oncontextmenu=\"javascript:alert('success!');return false;\">" + ports[i].number + "</a>";
+                        html += "<a href='#' " + AttributeEnum.DATA_DS_BOX_ID + "='" + ports[i].id + "' style='display:block;' onclick='javascript:DistributionBoxListener.showModal(" + ports[i].id + ");return false;' oncontextmenu=\"javascript:DistributionBoxListener.dissconectPort(this);return false;\">" + ports[i].number + "</a>";
                         html += "</div>";
                     }
                     html += "</div>";
@@ -365,8 +366,8 @@ var PopupBuilder = (function () {
                         if (ports[i].fiber) {
                             classes += "bg-success";
                         }
-                        html += "<div class='col text-center'>";
-                        html += "<a href='#' class='" + classes + "' style='display:block;' onclick='DistributionBoxListener.showModal(" + ports[i].id + ")'>" + ports[i].number + "</a>";
+                        html += "<div class='col text-center " + classes + "'>";
+                        html += "<a href='#' " + AttributeEnum.DATA_DS_BOX_ID + "='" + ports[i].id + "' style='display:block;' onclick='javascript:DistributionBoxListener.showModal(" + ports[i].id + ");return false;' oncontextmenu=\"javascript:DistributionBoxListener.dissconectPort(this);return false;\">" + ports[i].number + "</a>";
                         html += "</div>";
                     }
                     html += "</div>";

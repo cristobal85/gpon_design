@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Serializer\CircularSerializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use \Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/distribution-box-port")
@@ -100,5 +103,22 @@ class DistributionBoxPortController extends AbstractController
         }
 
         return $this->redirectToRoute('distribution_box_port_index');
+    }
+    
+    /**
+     * @Route("/{id}/disconeect", name="distribution_box_port_disconnect_port", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function disconnectPort(
+            DistributionBoxPort $distributionBoxPort,
+            EntityManagerInterface $em): Response
+    {
+        $distributionBoxPort->setFiber(null);
+        $em->persist($distributionBoxPort);
+        $em->flush();
+
+        return new JsonResponse([
+            'message' => "Desconectado correctamente."
+        ]);
     }
 }
