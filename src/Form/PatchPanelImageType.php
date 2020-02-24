@@ -18,7 +18,6 @@ class PatchPanelImageType extends AbstractType
                     'allow_delete' => false,
                     'download_uri' => false,
                     'label' => 'Imagen',
-                    'imagine_pattern' => 'height_1080',
                 ])
         ;
     }

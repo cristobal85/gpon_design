@@ -19,7 +19,6 @@ class CompanyType extends AbstractType {
                     'allow_delete'  =>  false,
                     'download_uri'  =>  false,
                     'label'         =>  'Logo',
-                    'imagine_pattern' => 'height_1080',
                 ])
         ;
     }
