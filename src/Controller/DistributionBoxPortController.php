@@ -106,7 +106,7 @@ class DistributionBoxPortController extends AbstractController
     }
     
     /**
-     * @Route("/{id}/disconeect", name="distribution_box_port_disconnect_port", methods={"PUT"})
+     * @Route("/{id}/disconnect", name="distribution_box_port_disconnect_port", methods={"PUT"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function disconnectPort(
@@ -118,7 +118,7 @@ class DistributionBoxPortController extends AbstractController
         $em->flush();
 
         return new JsonResponse([
-            'message' => "Desconectado correctamente."
+            'message' => "Puerto desconectado correctamente."
         ]);
     }
 }

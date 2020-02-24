@@ -115,15 +115,25 @@ Cpd.prototype = {
         var self = this;
 
         this.marker.on('contextmenu', function (e) {
-              // PRUEBAS REALIZADAS CON plugin Leaflet.contextMenu
-//            // TODO: Add builder for contextMenu
-//            self.marker.options.contextmenuItems = [{
-//                text: 'Mover',
-//                callback: function() {
-//                    self.edit(e);
-//                }
-//            }];
-            self.edit(e);
+            self.marker.options.contextmenuItems = [{
+                    text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
+                    callback: function () {
+                        self.edit(e);
+                    }
+                }, '-', {
+                    text: '<i class="fas fa-unlink"></i> Desconectar puertos',
+                    callback: function () {
+                        AjaxAdapter.get(ApiUrl.GET_CPD_ID + self.id)
+                                .then(function (response) {
+                                    var cpd = response.data;
+                                    var popupBuilder = PopupBuilder.getInstance();
+                                    popupBuilder.addDissconectPortRom(cpd.racks);
+                                    var html = popupBuilder.build(500, 240);
+                                    
+                                    self.marker.bindPopup(html).openPopup();
+                                });
+                    }
+                }];
         });
         this.marker.on('click', function (e) {
             self.generatePopUp().then(function (html) {

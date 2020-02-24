@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Serializer\CircularSerializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 /**
@@ -155,6 +156,23 @@ class PatchPanelSlotConectorController extends AbstractController {
 
         return $this->render('patch_panel_slot_conector/show.html.twig', [
                     'patch_panel_slot_conector' => $patchPanelSlotConector,
+        ]);
+    }
+    
+    /**
+     * @Route("/{id}/disconnect", name="patch_panel_slot_conector_disconnect_port", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function disconnectPort(
+            PatchPanelSlotConector $patchPanelSlotConector,
+            EntityManagerInterface $em): Response
+    {
+        $patchPanelSlotConector->setFiber(null);
+        $em->persist($patchPanelSlotConector);
+        $em->flush();
+
+        return new JsonResponse([
+            'message' => "Puerto desconectado correctamente."
         ]);
     }
 

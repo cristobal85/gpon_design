@@ -244,6 +244,7 @@ a > i.jstree-icon {
     display: block;
     max-height: 250px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /********************** TREE JS */

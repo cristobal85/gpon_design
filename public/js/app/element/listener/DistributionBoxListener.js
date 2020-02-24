@@ -133,7 +133,7 @@ var DistributionBoxListener = {
                 '¿Estás seguro que quieres desconectar el puerto <strong>' + element.innerHTML + '</strong>?',
                 function (confirmed) {
                     if (confirmed) {
-                        AjaxAdapter.put(ApiUrl.PUT_DISTRIBUTION_PORT + '/' + dsBoxId + '/disconeect')
+                        AjaxAdapter.put(ApiUrl.PUT_DISTRIBUTION_PORT + '/' + dsBoxId + '/disconnect')
                                 .then(function (response) {
                                     AlertAdapter.success(response.data.message);
                                 })

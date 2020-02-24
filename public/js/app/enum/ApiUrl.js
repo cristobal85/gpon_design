@@ -26,6 +26,7 @@ var ApiUrl = {
     PUT_NOTE: '/note/update-position',
     PUT_PATCHPORT_DESCRIPTION: '/patch-panel-slot-conector/',
     PUT_DISTRIBUTION_PORT: '/distribution-box-port',
+    PUT_PATCH_PANEL_PORT: '/patch-panel-slot-conector',
     GET_FORM_WIRE: '/form/wire',
     GET_FORM_WIRE_PATTERN: '/form/wire-pattern',
     GET_FORM_LAYER: '/form/layer',

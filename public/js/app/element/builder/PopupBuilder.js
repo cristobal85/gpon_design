@@ -306,7 +306,7 @@ var PopupBuilder = (function () {
                             if (conector.fiber) {
                                 classes += "bg-success";
                             }
-                            html += "<a href='#' title='" + (conector.description || 'No definido') + "' class='" + classes + "' style='display:block;' onclick='PatchPanelListener.showModal(" + conector.id + ")' oncontextmenu='PatchPanelListener.showPromptDescription(" + conector.id + ");return false;'>" + conector.number + "</a>";
+                            html += "<a href='#' title='" + (conector.description || 'No definido') + "' class='" + classes + "' style='display:block;' onclick='PatchPanelListener.showModal(" + conector.id + ")' oncontextmenu='javascript:PatchPanelListener.showPromptDescription(" + conector.id + ");return false;'>" + conector.number + "</a>";
                         });
                         html += "<a href='#' class='mt-2' onclick='PatchConectorFormListener.showModal(" + slot.id + ")'><i class='fas fa-link'></i></a>";
                         html += "</div>";
@@ -324,6 +324,71 @@ var PopupBuilder = (function () {
                     html: html,
                     active: active
                 };
+
+                return this;
+            },
+            
+            /**
+             * @param {{ id:string, label:string}} tab
+             * @param {Object} rack
+             * @param {boolean} active
+             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
+             */
+            addDisconnectContentRom: function (tab, rack, active) {
+                var active = active || false;
+                var html = "<div class='tab-pane " + (active ? "show active" : "fade") + " p-2' id='" + tab.id + "' role='tabpanel' aria-labelledby='" + tab.id + "-tab'>";
+                rack.patchPanels.forEach(function (patchPanel) {
+                    html += "<div class='card mt-3'>";
+                    html += "<div class='card-header'>" + patchPanel.name + "</div>";
+                    html += "<div class='card-body'>";
+                    html += "<div class='row'>";
+                    html += "<div class='col-12 mt-4'>";
+                    html += "<div class='row'>";
+                    patchPanel.patchPanelSlots.forEach(function (slot) {
+                        html += "<div class='col text-center'>";
+                        slot.patchPanelSlotConectors.forEach(function (conector) {
+                            var classes = "";
+                            if (conector.fiber) {
+                                classes += "bg-success";
+                            }
+                            html += "<a href='#' title='" + (conector.description || 'No definido') + "' class='" + classes + "' style='display:block;' onclick='PatchPanelListener.disconnectPort(" + conector.id + ")'>" + conector.number + "</a>";
+                        });
+                        html += "</div>";
+                    });
+                    html += "</div>";
+                    html += "</div>";
+                    html += "</div>";
+                    html += "</div>";
+                    html += "</div>";
+                });
+                html += "</div>";
+
+                content[tab.id] = {
+                    tab: tab,
+                    html: html,
+                    active: active
+                };
+
+                return this;
+            },
+            
+            
+
+            /**
+             * @param {{id:Number, name:string}[]} racks
+             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
+             */
+            addDissconectPortRom: function (racks) {
+                var self = this;
+                racks.forEach(function (rack) {
+                    if (rack.patchPanels.length) {
+                        self.addDisconnectContentRom(
+                                {id: 'rack-' + rack.id, label: rack.name},
+                                rack,
+                                false)
+                                ;
+                    }
+                });
 
                 return this;
             },

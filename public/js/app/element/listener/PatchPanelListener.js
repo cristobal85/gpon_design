@@ -149,5 +149,25 @@ var PatchPanelListener = {
         });
 
         return false;
+    },
+
+    disconnectPort: function (patchPanelConectorId) {
+        AjaxAdapter.get(ApiUrl.GET_CONECTOR_ID + patchPanelConectorId).then(function (response) {
+            var patchPanelConector = response.data;
+            ModalAdapter.showConfirm(
+                    'Puerto patch panel (slot ' + patchPanelConector.patchPanelSlot.number + ')',
+                    '¿Desconectar puerto ' + patchPanelConector.number + '?',
+                    function (result) {
+                        if (result) {
+                            AjaxAdapter.put(ApiUrl.PUT_PATCH_PANEL_PORT + '/' + patchPanelConectorId + '/disconnect')
+                                .then(function (response) {
+                                    AlertAdapter.success(response.data.message);
+                                })
+                                .catch(function (error) {
+                                    console.error(error);
+                                });
+                        }
+                    });
+        });
     }
 };
