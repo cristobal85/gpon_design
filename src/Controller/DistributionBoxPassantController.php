@@ -74,7 +74,7 @@ class DistributionBoxPassantController extends AbstractController {
         $em->flush();
 
         return new JsonResponse([
-            'message' => 'Se han añadido (' . $passantsCount . ') pasantes en el torpedo.'
+            'message' => 'Se han añadido (' . $passantsCount . ') pasantes en la caja de distribución.'
         ]);
     }
 
