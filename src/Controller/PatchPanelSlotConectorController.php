@@ -31,6 +31,7 @@ class PatchPanelSlotConectorController extends AbstractController {
 
     /**
      * @Route("/new", name="patch_panel_slot_conector_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response {
         $patchPanelSlotConector = new PatchPanelSlotConector();
@@ -71,6 +72,7 @@ class PatchPanelSlotConectorController extends AbstractController {
 
     /**
      * @Route("/{id}/edit", name="patch_panel_slot_conector_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, PatchPanelSlotConector $patchPanelSlotConector): Response {
         $form = $this->createForm(PatchPanelSlotConectorType::class, $patchPanelSlotConector);
@@ -92,6 +94,7 @@ class PatchPanelSlotConectorController extends AbstractController {
 
     /**
      * @Route("/{id}", name="patch_panel_slot_conector_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, PatchPanelSlotConector $patchPanelSlotConector): Response {
         if ($this->isCsrfTokenValid('delete' . $patchPanelSlotConector->getId(), $request->request->get('_token'))) {
@@ -105,6 +108,7 @@ class PatchPanelSlotConectorController extends AbstractController {
 
     /**
      * @Route("/{id}", name="patch_panel_slot_conector_conexion", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function createConexion(
             PatchPanelSlotConector $patchPanelSlotConector,
@@ -134,6 +138,7 @@ class PatchPanelSlotConectorController extends AbstractController {
     
     /**
      * @Route("/{id}", name="patch_panel_slot_conector_description", methods={"PUT"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function saveDescription(
             PatchPanelSlotConector $patchPanelSlotConector,

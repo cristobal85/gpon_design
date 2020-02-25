@@ -13,6 +13,7 @@ use App\Serializer\CircularSerializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/torpedo")
@@ -30,6 +31,7 @@ class TorpedoController extends AbstractController {
 
     /**
      * @Route("/new", name="torpedo_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response {
         $torpedo = new Torpedo();
@@ -69,6 +71,7 @@ class TorpedoController extends AbstractController {
 
     /**
      * @Route("/{id}/edit", name="torpedo_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Torpedo $torpedo): Response {
         $form = $this->createForm(TorpedoType::class, $torpedo);
@@ -88,6 +91,7 @@ class TorpedoController extends AbstractController {
 
     /**
      * @Route("/{id}", name="torpedo_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Torpedo $torpedo): Response {
         if ($this->isCsrfTokenValid('delete' . $torpedo->getId(), $request->request->get('_token'))) {
@@ -101,6 +105,7 @@ class TorpedoController extends AbstractController {
 
     /**
      * @Route("/save-torpedo", name="map-save-torpedo", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function saveTorpedoAction(
             EntityManagerInterface $em,
@@ -108,8 +113,9 @@ class TorpedoController extends AbstractController {
             CircularSerializer $serializer,
             ValidatorInterface $validator) {
 
+        $data = json_decode($request->getContent(), true)['data'];
         $layer = $em->getRepository(\App\Entity\LayerGroup::class)->findOneBy(array(
-            "id" => $request->get('layer')
+            "id" => $data['layer']
         ));
         $icon = $em->getRepository(\App\Entity\Icon::class)->findOneBy(array(
             'element' => Torpedo::class
@@ -121,9 +127,9 @@ class TorpedoController extends AbstractController {
         }
         $torpedo = new \App\Entity\Torpedo();
         $torpedo
-                ->setLatitude($request->get('latitude'))
-                ->setLongitude($request->get('longitude'))
-                ->setName($request->get('name'))
+                ->setLatitude(floatval($data['latitude']))
+                ->setLongitude(floatval($data['longitude']))
+                ->setName($data['name'])
                 ->setLayerGroup($layer)
                 ->setIcon($icon->getIcon());
 

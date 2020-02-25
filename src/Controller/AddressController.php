@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/address")
@@ -27,6 +28,7 @@ class AddressController extends AbstractController
 
     /**
      * @Route("/new", name="address_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -60,6 +62,7 @@ class AddressController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="address_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Address $address): Response
     {
@@ -82,6 +85,7 @@ class AddressController extends AbstractController
 
     /**
      * @Route("/{id}", name="address_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Address $address): Response
     {

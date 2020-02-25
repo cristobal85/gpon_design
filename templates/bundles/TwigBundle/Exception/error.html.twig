@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block ">
+                                <img src="{{ asset('img/500.jpg') }}">
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4"><i class="fas fa-search"></i> Error {{ status_code }} ({{ status_text }})</h1>
+                                    </div>
+                                    <hr>
+                                    <p>Hubo un error inesperado en el servidor. Póngase en contacto con el administrador para más información.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

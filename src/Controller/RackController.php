@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/rack")
@@ -27,6 +28,7 @@ class RackController extends AbstractController
 
     /**
      * @Route("/new", name="rack_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -60,6 +62,7 @@ class RackController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="rack_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Rack $rack): Response
     {
@@ -82,6 +85,7 @@ class RackController extends AbstractController
 
     /**
      * @Route("/{id}", name="rack_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Rack $rack): Response
     {

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 /**
@@ -28,6 +29,7 @@ class NodoController extends AbstractController
 
     /**
      * @Route("/new", name="nodo_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -62,6 +64,7 @@ class NodoController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="nodo_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Nodo $nodo): Response
     {
@@ -84,6 +87,7 @@ class NodoController extends AbstractController
 
     /**
      * @Route("/{id}", name="nodo_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Nodo $nodo): Response
     {

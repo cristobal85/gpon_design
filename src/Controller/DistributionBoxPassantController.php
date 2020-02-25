@@ -11,11 +11,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\DistributionBox;
 use \Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class DistributionBoxPassantController extends AbstractController {
 
     /**
      * @Route("/distribution-box-passant/{distributionBox}", name="distribution_box_passant_new", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(
             Request $request,

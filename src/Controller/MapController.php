@@ -15,6 +15,7 @@ use App\Repository\SubscriberBoxExtRepository;
 use App\Repository\WireRepository;
 use App\Repository\TorpedoRepository;
 use App\Repository\NoteRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class MapController extends AbstractController {
 
@@ -142,6 +143,7 @@ class MapController extends AbstractController {
 
     /**
      * @Route("/map/update-subscriber-box", name="map-update-subscriber-box", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function updateSubscriberBoxAction(EntityManagerInterface $em, Request $request) {
 
@@ -164,6 +166,7 @@ class MapController extends AbstractController {
 
     /**
      * @Route("/map/update-subscriber-box-ext", name="map-update-subscriber-box-ext", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function updateSubscriberBoxExtAction(EntityManagerInterface $em, Request $request) {
 
@@ -186,6 +189,7 @@ class MapController extends AbstractController {
 
     /**
      * @Route("/map/update-distribution-box", name="map-update-distribution-box", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function updateDistributionBoxAction(EntityManagerInterface $em, Request $request) {
 
@@ -208,6 +212,7 @@ class MapController extends AbstractController {
 
     /**
      * @Route("/map/update-layer", name="map-update-layer", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function updateLayerAction(EntityManagerInterface $em, Request $request) {
 
@@ -229,6 +234,7 @@ class MapController extends AbstractController {
 
     /**
      * @Route("/map/update-wire", name="map-update-wire", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function updateWireAction(EntityManagerInterface $em, Request $request) {
 
@@ -250,6 +256,7 @@ class MapController extends AbstractController {
 
     /**
      * @Route("/map/update-cpd", name="map-update-cpd", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function updateCpdAction(EntityManagerInterface $em, Request $request) {
 
@@ -272,6 +279,7 @@ class MapController extends AbstractController {
     
     /**
      * @Route("/map/update-torpedo", name="map-update-torpedo", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function updateTorpedoAction(EntityManagerInterface $em, Request $request) {
 

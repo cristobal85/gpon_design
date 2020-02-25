@@ -14,6 +14,7 @@ use App\Entity\Torpedo;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\TorpedoPassantRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/torpedo-fusion")
@@ -31,6 +32,7 @@ class TorpedoFusionController extends AbstractController {
 
     /**
      * @Route("/new", name="torpedo_fusion_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response {
         $torpedoFusion = new TorpedoFusion();
@@ -62,6 +64,7 @@ class TorpedoFusionController extends AbstractController {
 
     /**
      * @Route("/{id}/edit", name="torpedo_fusion_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, TorpedoFusion $torpedoFusion): Response {
         $form = $this->createForm(TorpedoFusionType::class, $torpedoFusion);
@@ -81,6 +84,7 @@ class TorpedoFusionController extends AbstractController {
 
     /**
      * @Route("/{id}", name="torpedo_fusion_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, TorpedoFusion $torpedoFusion): Response {
         $entityManager = $this->getDoctrine()->getManager();
@@ -107,6 +111,7 @@ class TorpedoFusionController extends AbstractController {
 
     /**
      * @Route("/{id}", name="torpedo_fusion_create", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function createFusion(
             Request $request,

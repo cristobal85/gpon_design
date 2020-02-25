@@ -31,6 +31,7 @@ class DistributionBoxPortController extends AbstractController
 
     /**
      * @Route("/new", name="distribution_box_port_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -73,6 +74,7 @@ class DistributionBoxPortController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="distribution_box_port_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, DistributionBoxPort $distributionBoxPort): Response
     {
@@ -93,6 +95,7 @@ class DistributionBoxPortController extends AbstractController
 
     /**
      * @Route("/{id}", name="distribution_box_port_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, DistributionBoxPort $distributionBoxPort): Response
     {

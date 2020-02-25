@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Serializer\CircularSerializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/distribution-box")
@@ -30,6 +31,7 @@ class DistributionBoxController extends AbstractController
 
     /**
      * @Route("/new", name="distribution_box_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -93,6 +95,7 @@ class DistributionBoxController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="distribution_box_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, DistributionBox $distributionBox): Response
     {
@@ -115,6 +118,7 @@ class DistributionBoxController extends AbstractController
 
     /**
      * @Route("/{id}", name="distribution_box_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, DistributionBox $distributionBox): Response
     {
@@ -129,14 +133,16 @@ class DistributionBoxController extends AbstractController
     
     /**
      * @Route("/save-distribution-box", name="map-save-distribution-box", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function saveDistributionBoxAction(
             EntityManagerInterface $em,
             Request $request,
             CircularSerializer $serializer) {
 
+        $data = json_decode($request->getContent(), true)['data'];
         $ds = $em->getRepository(\App\Entity\DistributionBox::class)->findOneBy(array(
-            "id" => $request->get('distribution-box')
+            "id" => $data['distribution-box']
         ));
         $icon = $em->getRepository(\App\Entity\Icon::class)->findOneBy(array(
             'element' => DistributionBox::class
@@ -147,8 +153,8 @@ class DistributionBoxController extends AbstractController
             ], 400);
         }
         $ds
-                ->setLatitude($request->get('latitude'))
-                ->setLongitude($request->get('longitude'))
+                ->setLatitude($data['latitude'])
+                ->setLongitude($data['longitude'])
                 ->setIcon($icon->getIcon());
 
         $em->persist($ds);
@@ -163,6 +169,7 @@ class DistributionBoxController extends AbstractController
     
     /**
      * @Route("/{id}", name="distribution_box_create_conexion", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function createConexion(
             Request $request,

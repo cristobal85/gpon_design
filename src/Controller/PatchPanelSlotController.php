@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Serializer\CircularSerializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/patch-panel-slot")
@@ -28,6 +29,7 @@ class PatchPanelSlotController extends AbstractController
 
     /**
      * @Route("/new", name="patch_panel_slot_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -70,6 +72,7 @@ class PatchPanelSlotController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="patch_panel_slot_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, PatchPanelSlot $patchPanelSlot): Response
     {
@@ -92,6 +95,7 @@ class PatchPanelSlotController extends AbstractController
 
     /**
      * @Route("/{id}", name="patch_panel_slot_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, PatchPanelSlot $patchPanelSlot): Response
     {

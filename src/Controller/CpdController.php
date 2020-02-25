@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Serializer\CircularSerializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/cpd")
@@ -28,6 +29,7 @@ class CpdController extends AbstractController
 
     /**
      * @Route("/new", name="cpd_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -69,6 +71,7 @@ class CpdController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="cpd_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Cpd $cpd): Response
     {
@@ -91,6 +94,7 @@ class CpdController extends AbstractController
 
     /**
      * @Route("/{id}", name="cpd_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Cpd $cpd): Response
     {

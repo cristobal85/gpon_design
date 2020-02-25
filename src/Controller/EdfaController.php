@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/edfa")
@@ -27,6 +28,7 @@ class EdfaController extends AbstractController
 
     /**
      * @Route("/new", name="edfa_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -61,6 +63,7 @@ class EdfaController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="edfa_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Edfa $edfa): Response
     {
@@ -83,6 +86,7 @@ class EdfaController extends AbstractController
 
     /**
      * @Route("/{id}", name="edfa_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Edfa $edfa): Response
     {

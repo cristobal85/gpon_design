@@ -90,7 +90,7 @@ var mapView = new Vue({
                 attributionControl: false,
                 editable: true,
                 renderer: L.canvas()
-            }).setView([lat, long], zoom).addLayer(openStreetMapLayer); // Default MAP
+            }).setView([lat, long], zoom).addLayer(arcgisStreetSateliteLayer); // Default MAP
 
             this.lControl.addBaseLayer(openStreetMapLayer, MapUrl.OPEEN_STREET_MAP.name);
             this.lControl.addBaseLayer(arcgisStreetSateliteLayer, MapUrl.ARCGIS_STREET_SATELITE.name);
@@ -129,7 +129,7 @@ var mapView = new Vue({
             LControlAdapter.addCenterPositionControl(this.map, function () {
                 GeoAdapter.getLocation().then(function (location) {
                     var coordinates = location.coords;
-                    self.map.flyTo([coordinates.latitude, coordinates.longitude], MapUrl.OPEEN_STREET_MAP.maxZoom);
+                    self.map.flyTo([coordinates.latitude, coordinates.longitude], MapUrl.ARCGIS_STREET_SATELITE.maxZoom);
                 });
             });
         },

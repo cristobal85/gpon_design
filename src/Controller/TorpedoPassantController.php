@@ -11,11 +11,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Torpedo;
 use \Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class TorpedoPassantController extends AbstractController {
 
     /**
      * @Route("/torpedo-passant/{torpedo}", name="torpedo_passant_new", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(
             Request $request,

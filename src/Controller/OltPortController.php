@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/olt-port")
@@ -27,6 +28,7 @@ class OltPortController extends AbstractController
 
     /**
      * @Route("/new", name="olt_port_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -60,6 +62,7 @@ class OltPortController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="olt_port_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, OltPort $oltPort): Response
     {
@@ -82,6 +85,7 @@ class OltPortController extends AbstractController
 
     /**
      * @Route("/{id}", name="olt_port_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, OltPort $oltPort): Response
     {

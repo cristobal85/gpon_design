@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/olt-slot")
@@ -27,6 +28,7 @@ class OltSlotController extends AbstractController
 
     /**
      * @Route("/new", name="olt_slot_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -61,6 +63,7 @@ class OltSlotController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="olt_slot_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, OltSlot $oltSlot): Response
     {
@@ -83,6 +86,7 @@ class OltSlotController extends AbstractController
 
     /**
      * @Route("/{id}", name="olt_slot_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, OltSlot $oltSlot): Response
     {

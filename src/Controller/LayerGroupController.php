@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Serializer\CircularSerializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/layer-group")
@@ -30,6 +31,7 @@ class LayerGroupController extends AbstractController
 
     /**
      * @Route("/new", name="layer_group_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -63,6 +65,7 @@ class LayerGroupController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="layer_group_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, LayerGroup $layerGroup): Response
     {
@@ -97,19 +100,21 @@ class LayerGroupController extends AbstractController
         return $this->redirectToRoute('layer_group_index');
     }
     
-        /**
+    /**
      * @Route("/save-layer", name="map-save-layer", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function saveLayerAction(
             EntityManagerInterface $em,
             Request $request,
             CircularSerializer $serializer) {
 
+        $data = json_decode($request->getContent(), true)['data'];
         $layer = $em->getRepository(\App\Entity\LayerGroup::class)->findOneBy(array(
-            "id" => $request->get('layer')
+            "id" => $data['layer']
         ));
         $layer
-                ->setCoordinates(json_decode($request->get('coordinates')))
+                ->setCoordinates(json_decode($data['coordinates']))
                 ->setWeight(LayerGroup::DEFAULT_WEIGHT);
 
         $em->persist($layer);

@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Serializer\CircularSerializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/wire")
@@ -37,6 +38,7 @@ class WireController extends AbstractController {
 
     /**
      * @Route("/new", name="wire_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response {
         $wire = new Wire();
@@ -78,6 +80,7 @@ class WireController extends AbstractController {
 
     /**
      * @Route("/{id}/edit", name="wire_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Wire $wire): Response {
         $form = $this->createForm(WireType::class, $wire);
@@ -98,6 +101,7 @@ class WireController extends AbstractController {
 
     /**
      * @Route("/{id}", name="wire_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Wire $wire): Response {
 
@@ -128,23 +132,25 @@ class WireController extends AbstractController {
 
     /**
      * @Route("/save-wire", name="map-save-wire", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function saveWireAction(
             EntityManagerInterface $em,
             Request $request,
             CircularSerializer $serializer) {
 
+        $data = json_decode($request->getContent(), true)['data'];
         $layerGroup = $em->getRepository(\App\Entity\LayerGroup::class)->findOneBy(array(
-            "id" => $request->get('layer')
+            "id" => $data['layer']
         ));
         $wirePattern = $em->getRepository(\App\Entity\WirePattern::class)->findOneBy(array(
-            "id" => $request->get('wire-pattern')
+            "id" => $data['wire-pattern']
         ));
         $wire = new \App\Entity\Wire();
         $wire
-                ->setName($request->get('name'))
-                ->setCoordinates(json_decode($request->get('coordinates')))
-                ->setLongitude($request->get('distance'))
+                ->setName($data['name'])
+                ->setCoordinates(json_decode($data['coordinates']))
+                ->setLongitude($data['distance'])
                 ->setWirePattern($wirePattern)
                 ->setLayerGroup($layerGroup);
         \App\EntityPattern\PatternGeneratorFactory::make($em, $wire)->generate();

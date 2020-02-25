@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/wire-pattern")
@@ -27,6 +28,7 @@ class WirePatternController extends AbstractController
 
     /**
      * @Route("/new", name="wire_pattern_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -60,6 +62,7 @@ class WirePatternController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="wire_pattern_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, WirePattern $wirePattern): Response
     {
@@ -80,6 +83,7 @@ class WirePatternController extends AbstractController
 
     /**
      * @Route("/{id}", name="wire_pattern_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, WirePattern $wirePattern): Response
     {

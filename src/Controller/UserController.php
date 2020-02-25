@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/user")
@@ -30,6 +31,7 @@ class UserController extends AbstractController {
 
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response {
         $user = new User();
@@ -67,6 +69,7 @@ class UserController extends AbstractController {
 
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response {
         $form = $this->createForm(UserType::class, $user);
@@ -96,6 +99,7 @@ class UserController extends AbstractController {
 
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, User $user): Response {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {

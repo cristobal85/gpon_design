@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Serializer\CircularSerializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/subscriber-box-ext")
@@ -30,6 +31,7 @@ class SubscriberBoxExtController extends AbstractController
 
     /**
      * @Route("/new", name="subscriber_box_ext_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -70,6 +72,7 @@ class SubscriberBoxExtController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="subscriber_box_ext_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, SubscriberBoxExt $subscriberBoxExt): Response
     {
@@ -92,6 +95,7 @@ class SubscriberBoxExtController extends AbstractController
 
     /**
      * @Route("/{id}", name="subscriber_box_ext_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, SubscriberBoxExt $subscriberBoxExt): Response
     {
@@ -107,14 +111,16 @@ class SubscriberBoxExtController extends AbstractController
     
     /**
      * @Route("/save-subscriber-box-ext", name="map-save-subscriber-box-ext", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function saveSubscriberBoxExtAction(
             EntityManagerInterface $em,
             Request $request,
             CircularSerializer $serializer) {
 
+        $data = json_decode($request->getContent(), true)['data'];
         $subscriberExt = $em->getRepository(SubscriberBoxExt::class)->findOneBy(array(
-            "id" => $request->get('subscriber-box-ext')
+            "id" => $data['subscriber-box-ext']
         ));
         $icon = $em->getRepository(\App\Entity\Icon::class)->findOneBy(array(
             'element' => SubscriberBoxExt::class
@@ -125,8 +131,8 @@ class SubscriberBoxExtController extends AbstractController
             ], 400);
         }
         $subscriberExt
-                ->setLatitude($request->get('latitude'))
-                ->setLongitude($request->get('longitude'))
+                ->setLatitude($data['latitude'])
+                ->setLongitude($data['longitude'])
                 ->setIcon($icon->getIcon());
 
         $em->persist($subscriberExt);

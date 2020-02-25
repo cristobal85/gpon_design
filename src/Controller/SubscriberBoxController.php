@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Serializer\CircularSerializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/subscriber-box")
@@ -30,6 +31,7 @@ class SubscriberBoxController extends AbstractController
 
     /**
      * @Route("/new", name="subscriber_box_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -93,6 +95,7 @@ class SubscriberBoxController extends AbstractController
 
     /**
      * @Route("/{id}", name="subscriber_box_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, SubscriberBox $subscriberBox): Response
     {
@@ -108,6 +111,7 @@ class SubscriberBoxController extends AbstractController
     
     /**
      * @Route("/save-subscriber-box", name="map-save-subscriber-box", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function saveSubscriberBoxAction(
             EntityManagerInterface $em,
@@ -115,8 +119,9 @@ class SubscriberBoxController extends AbstractController
             CircularSerializer $serializer
             ) {
 
+        $data = json_decode($request->getContent(), true)['data'];
         $subscriber = $em->getRepository(SubscriberBox::class)->findOneBy(array(
-            "id" => $request->get('subscriber-box')
+            "id" => $data['subscriber-box']
         ));
         $icon = $em->getRepository(\App\Entity\Icon::class)->findOneBy(array(
             'element' => SubscriberBox::class
@@ -128,8 +133,8 @@ class SubscriberBoxController extends AbstractController
         }
         
         $subscriber
-                ->setLatitude($request->get('latitude'))
-                ->setLongitude($request->get('longitude'))
+                ->setLatitude($data['latitude'])
+                ->setLongitude($data['longitude'])
                 ->setIcon($icon->getIcon());
 
         $em->persist($subscriber);

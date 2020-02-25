@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Interfaces\EntityIconable;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/icon")
@@ -28,6 +29,7 @@ class IconController extends AbstractController
 
     /**
      * @Route("/new", name="icon_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -67,6 +69,7 @@ class IconController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="icon_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Icon $icon): Response
     {
@@ -95,6 +98,7 @@ class IconController extends AbstractController
 
     /**
      * @Route("/{id}", name="icon_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Icon $icon): Response
     {

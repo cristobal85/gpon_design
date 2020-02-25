@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/patch-panel")
@@ -27,6 +28,7 @@ class PatchPanelController extends AbstractController
 
     /**
      * @Route("/new", name="patch_panel_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -61,6 +63,7 @@ class PatchPanelController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="patch_panel_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, PatchPanel $patchPanel): Response
     {
@@ -83,6 +86,7 @@ class PatchPanelController extends AbstractController
 
     /**
      * @Route("/{id}", name="patch_panel_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, PatchPanel $patchPanel): Response
     {

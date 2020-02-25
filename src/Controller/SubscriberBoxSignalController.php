@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/subscriber-box-signal")
@@ -27,6 +28,7 @@ class SubscriberBoxSignalController extends AbstractController
 
     /**
      * @Route("/new", name="subscriber_box_signal_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -60,6 +62,7 @@ class SubscriberBoxSignalController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="subscriber_box_signal_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, SubscriberBoxSignal $subscriberBoxSignal): Response
     {
@@ -82,6 +85,7 @@ class SubscriberBoxSignalController extends AbstractController
 
     /**
      * @Route("/{id}", name="subscriber_box_signal_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, SubscriberBoxSignal $subscriberBoxSignal): Response
     {
