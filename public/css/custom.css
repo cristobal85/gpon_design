@@ -52,8 +52,10 @@ td img {
 /*********************** FUSIONS */
 .fusion-options {
     position: relative;
-    top: -10px;
+    /* top: -10px; */
     margin-left: 15px;
+    float: right;
+    margin-right: 15px;
 }
 .fusion-options > * {
     cursor: pointer;
