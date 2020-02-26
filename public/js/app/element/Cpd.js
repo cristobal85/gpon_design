@@ -115,6 +115,7 @@ Cpd.prototype = {
         var self = this;
 
         this.marker.on('contextmenu', function (e) {
+            // TODO: Create Builder 
             self.marker.options.contextmenuItems = [{
                     text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
                     callback: function () {

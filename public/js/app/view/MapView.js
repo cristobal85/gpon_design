@@ -5,9 +5,9 @@ var mapHeight = $(window).height() - ($(window).height() / 14);
 $(mapId).height(mapHeight);
 
 var mapView = new Vue({
-    
+
     el: mapId,
-    
+
     data: {
 
         /**
@@ -89,7 +89,8 @@ var mapView = new Vue({
             this.map = L.map('map', {
                 attributionControl: false,
                 editable: true,
-                renderer: L.canvas()
+                renderer: L.canvas(),
+                contextmenu: true, // Enable context menu on the map (enable / disable all contextmenus)
             }).setView([lat, long], zoom).addLayer(arcgisStreetSateliteLayer); // Default MAP
 
             this.lControl.addBaseLayer(openStreetMapLayer, MapUrl.OPEEN_STREET_MAP.name);
@@ -160,7 +161,7 @@ var mapView = new Vue({
         renderLayer: function (layer) {
             this.map.addLayer(layer);
         },
-        
+
         /**
          * @param {L} layer
          * @return {undefined}
