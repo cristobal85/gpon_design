@@ -93,10 +93,10 @@ Cpd.prototype = {
 
     edit: function (e) {
         var self = this;
-        this.marker.toggleEdit();
+        self.marker.toggleEdit();
+        var layer = e.relatedTarget;
         if (!this.marker.editEnabled()) {
-            e.target.editing.disable(); // for CSS 
-            var layer = e.target;
+            layer.editing.disable(); // for CSS 
             self.latitude = layer.getLatLng().lat;
             self.longitude = layer.getLatLng().lng;
             AjaxAdapter.post(ApiUrl.PUT_CPD, {
@@ -107,18 +107,17 @@ Cpd.prototype = {
                 AlertAdapter.success(response.data.message);
             });
         } else {
-            e.target.editing.enable();
+            layer.editing.enable(); // For CSS
         }
     },
 
     subscribeToEvents: function () {
         var self = this;
 
-        this.marker.on('contextmenu', function (e) {
-            // TODO: Create Builder 
-            self.marker.options.contextmenuItems = [{
+        this.marker.bindContextMenu({
+            contextmenuItems: [{
                     text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
-                    callback: function () {
+                    callback: function(e) {
                         self.edit(e);
                     }
                 }, '-', {
@@ -130,11 +129,11 @@ Cpd.prototype = {
                                     var popupBuilder = PopupBuilder.getInstance();
                                     popupBuilder.addDissconectPortRom(cpd.racks);
                                     var html = popupBuilder.build(500, 240);
-                                    
+
                                     self.marker.bindPopup(html).openPopup();
                                 });
                     }
-                }];
+                }]
         });
         this.marker.on('click', function (e) {
             self.generatePopUp().then(function (html) {
