@@ -213,7 +213,6 @@ var PopupBuilder = (function () {
                         if (fusion.fibers[0] && fusion.fibers[1]) {
                             html += "<li>";
                             html += "<span style='position:relative;top:-10px;'>" + fusion.fibers[0].tube.wire.name + " </span>";
-                            html += "<div class='fusion wire-left' title='" + fusion.fibers[0].tube.wire.name + "' style='background-color:" + fusion.fibers[0].tube.wire.hexaColor + "'></div>";
                             html += "<div class='fusion tube-left' style='background-color:" + fusion.fibers[0].tube.hexaColor + "' title='Layer " + fusion.fibers[0].tube.layer + "'></div>";
                             html += "<div class='fusion fiber-left' style='background-color:" + fusion.fibers[0].hexaColor + "' title='Layer " + fusion.fibers[0].tube.layer + "'></div>";
                             html += "<div class='fusion signal-loss'>";
@@ -223,7 +222,6 @@ var PopupBuilder = (function () {
                             html += "</div>";
                             html += "<div class='fusion fiber-right' style='background-color:" + fusion.fibers[1].hexaColor + "' title='Layer " + fusion.fibers[1].tube.layer + "'></div>";
                             html += "<div class='fusion tube-right' style='background-color:" + fusion.fibers[1].tube.hexaColor + "' title='Layer " + fusion.fibers[1].tube.layer + "'></div>";
-                            html += "<div class='fusion wire-right' title='" + fusion.fibers[1].tube.wire.name + "' style='background-color:" + fusion.fibers[1].tube.wire.hexaColor + "'></div>";
                             html += "<span style='position:relative;top:-10px;'> " + fusion.fibers[1].tube.wire.name + "</span>";
                             html += "<span class='fusion-options'><i class='far fa-trash-alt text-danger' title='Eliminar fusión' onclick='TorpedoFusionListener.deleteFusion(" + fusion.id + ", this)'></i></span>";
                             html += "</li>";
