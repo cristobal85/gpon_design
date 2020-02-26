@@ -17,15 +17,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * @Route("/distribution-box")
  */
-class DistributionBoxController extends AbstractController
-{
+class DistributionBoxController extends AbstractController {
+
     /**
      * @Route("/", name="distribution_box_index", methods={"GET"})
      */
-    public function index(DistributionBoxRepository $distributionBoxRepository): Response
-    {
+    public function index(DistributionBoxRepository $distributionBoxRepository): Response {
         return $this->render('distribution_box/index.html.twig', [
-            'distribution_boxes' => $distributionBoxRepository->findAll(),
+                    'distribution_boxes' => $distributionBoxRepository->findAll(),
         ]);
     }
 
@@ -33,14 +32,14 @@ class DistributionBoxController extends AbstractController
      * @Route("/new", name="distribution_box_new", methods={"GET","POST"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function new(Request $request): Response
-    {
+    public function new(Request $request): Response {
         $distributionBox = new DistributionBox();
         $form = $this->createForm(DistributionBoxType::class, $distributionBox);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            \App\EntityPattern\PatternGeneratorFactory::make($entityManager, $distributionBox)->generate();
             $entityManager->persist($distributionBox);
             $entityManager->flush();
 
@@ -48,28 +47,28 @@ class DistributionBoxController extends AbstractController
         }
 
         return $this->render('distribution_box/new.html.twig', [
-            'distribution_box' => $distributionBox,
-            'form' => $form->createView(),
+                    'distribution_box' => $distributionBox,
+                    'form' => $form->createView(),
         ]);
     }
-    
-//    /**
-//     * @Route("/generate-ports", name="distribution_box_create_ports", methods={"GET"})
-//     */
+
+    /**
+     * @Route("/generate-ports", name="distribution_box_create_ports", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
+     */
 //    public function generatePorts(
 //            DistributionBoxRepository $distributionBoxRepository,
 //            EntityManagerInterface $em) {
-//        $dsBoxs = $distributionBoxRepository->findAll();
-//        foreach ($dsBoxs as $dsBox) {
-//            for ($i = 1; $i <= 24; $i++) {
-//                $port = new \App\Entity\DistributionBoxPort();
-//                $port->setNumber($i);
-//                $port->setDistributionBox($dsBox);
-//                $em->persist($port);
-//            }
+//        $dsBox = $distributionBoxRepository->findOneBy(['id' => 100]);
+//
+//        for ($i = 1; $i <= DistributionBox::PORTS; $i++) {
+//            $port = new \App\Entity\DistributionBoxPort();
+//            $port->setNumber($i);
+//            $port->setDistributionBox($dsBox);
+//            $em->persist($port);
 //        }
 //        $em->flush();
-//        
+//
 //        return new JsonResponse([
 //            'message' => "Puertos creados correctamente."
 //        ]);
@@ -79,17 +78,16 @@ class DistributionBoxController extends AbstractController
      * @Route("/{id}", name="distribution_box_show", methods={"GET"})
      */
     public function show(
-            DistributionBox $distributionBox, 
+            DistributionBox $distributionBox,
             Request $request,
-            CircularSerializer $serializer): Response
-    {
+            CircularSerializer $serializer): Response {
         if ($request->isXmlHttpRequest()) {
             $jsonObject = $serializer->serialize($distributionBox, ['distribution-box']);
             return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
         }
-        
+
         return $this->render('distribution_box/show.html.twig', [
-            'distribution_box' => $distributionBox,
+                    'distribution_box' => $distributionBox,
         ]);
     }
 
@@ -97,8 +95,7 @@ class DistributionBoxController extends AbstractController
      * @Route("/{id}/edit", name="distribution_box_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function edit(Request $request, DistributionBox $distributionBox): Response
-    {
+    public function edit(Request $request, DistributionBox $distributionBox): Response {
         $form = $this->createForm(DistributionBoxType::class, $distributionBox);
         $form->handleRequest($request);
 
@@ -106,13 +103,13 @@ class DistributionBoxController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('distribution_box_index', [
-                'id' => $distributionBox->getId(),
+                        'id' => $distributionBox->getId(),
             ]);
         }
 
         return $this->render('distribution_box/edit.html.twig', [
-            'distribution_box' => $distributionBox,
-            'form' => $form->createView(),
+                    'distribution_box' => $distributionBox,
+                    'form' => $form->createView(),
         ]);
     }
 
@@ -120,9 +117,8 @@ class DistributionBoxController extends AbstractController
      * @Route("/{id}", name="distribution_box_delete", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function delete(Request $request, DistributionBox $distributionBox): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$distributionBox->getId(), $request->request->get('_token'))) {
+    public function delete(Request $request, DistributionBox $distributionBox): Response {
+        if ($this->isCsrfTokenValid('delete' . $distributionBox->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($distributionBox);
             $entityManager->flush();
@@ -130,7 +126,7 @@ class DistributionBoxController extends AbstractController
 
         return $this->redirectToRoute('distribution_box_index');
     }
-    
+
     /**
      * @Route("/save-distribution-box", name="map-save-distribution-box", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
@@ -149,8 +145,8 @@ class DistributionBoxController extends AbstractController
         ));
         if (!$icon) {
             return new JsonResponse([
-                'message'   =>  "Debe definir un icono para la caja de distribución antes de añadirla al mapa."
-            ], 400);
+                'message' => "Debe definir un icono para la caja de distribución antes de añadirla al mapa."
+                    ], 400);
         }
         $ds
                 ->setLatitude($data['latitude'])
@@ -166,7 +162,7 @@ class DistributionBoxController extends AbstractController
             'data' => json_decode($serializer->serialize($ds, ['map']))
         ]);
     }
-    
+
     /**
      * @Route("/{id}", name="distribution_box_create_conexion", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
@@ -184,7 +180,7 @@ class DistributionBoxController extends AbstractController
             "id" => intval($data['conectorId'])
         ));
 
-        
+
         $dsBoxPort->setFiber($fiber);
         $em->persist($dsBoxPort);
         $em->flush();
@@ -193,6 +189,5 @@ class DistributionBoxController extends AbstractController
             'message' => "Conexión realizada correctamente."
         ]);
     }
-    
-    
+
 }

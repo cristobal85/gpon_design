@@ -24,6 +24,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class DistributionBox implements EntityIconable
 {
     /**
+     * @var int Number of ports
+     * @todo Change this for dynamic database entity
+     */
+    public const PORTS = 24;
+    
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")

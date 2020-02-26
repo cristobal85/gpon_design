@@ -104,4 +104,12 @@ class TorpedoPassant
     public function delete() {
         $this->torpedo->removePassant($this);
     }
+    
+    public function __toString() {
+        $name = "Torpedo-". $this->torpedo;
+        foreach ($this->fibers as $fiber) {
+            $name .= "___Fibra-". $fiber;
+        }
+        return $name;
+    }
 }

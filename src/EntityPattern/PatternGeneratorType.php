@@ -13,4 +13,5 @@ class PatternGeneratorType {
     const OLT_SLOT = 'App\Entity\OltSlot';
     const PATCH_PANEL = 'App\Entity\PatchPanel';
     const WIRE = 'App\Entity\Wire';
+    const DISTRIBUTION_BOX = 'App\Entity\DistributionBox';
 }

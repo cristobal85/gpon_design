@@ -57,6 +57,16 @@
                                     {% for fiber in tube.fibers %}
                                         <li>
                                             <span style="display:inline-block;width:20px;height:20px;background-color:{{ fiber.hexaColor }};"></span> Fibra <strong>{{ fiber }}</strong>
+                                            <ul>
+                                                {% for torpedoFusion in fiber.torpedoFusions %}
+                                                    <li>Fusionada en: <strong>{{ torpedoFusion }}</strong></li>
+                                                {% endfor %}
+                                            </ul>
+                                            <ul>
+                                                {% for torpedoPassant in fiber.torpedoPassants %}
+                                                    <li>Pasante en: <strong>{{ torpedoPassant }}</strong></li>
+                                                {% endfor %}
+                                            </ul>
                                         </li>
                                     {% endfor %}
                                 </ul>

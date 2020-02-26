@@ -359,12 +359,29 @@ class Torpedo implements EntityIconable
     }
     
     public function isFiberInUse(Fiber $fiber) {
+        if ($this->isFiberInUseAsFusion($fiber)) {
+            return true;
+        }
+        
+        if ($this->isFiberInUseAsPassant($fiber)) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    
+    public function isFiberInUseAsFusion(Fiber $fiber) : bool {
         foreach ($this->torpedoFusions as $torpedoFusion) {
             if ($torpedoFusion->existFiber($fiber)) {
                 return true;
             }
         }
         
+        return false;
+    }
+    
+    public function isFiberInUseAsPassant(Fiber $fiber) : bool {
         foreach ($this->passants as $torpedoPassant) {
             if ($torpedoPassant->existFiber($fiber)) {
                 return true;

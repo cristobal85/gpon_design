@@ -26,6 +26,8 @@ class PatternGeneratorFactory {
                 return new PatchPanelPatternGenerator($em, $entity);
             case PatternGeneratorType::WIRE:
                 return new WirePatternGenerator($em, $entity);
+            case PatternGeneratorType::DISTRIBUTION_BOX:
+                return new DistributionBoxPatternGenerator($em, $entity);
         }
     }
 }

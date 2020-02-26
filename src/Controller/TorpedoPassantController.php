@@ -12,6 +12,7 @@ use App\Entity\Torpedo;
 use \Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Psr\Log\LoggerInterface;
 
 class TorpedoPassantController extends AbstractController {
 
@@ -24,7 +25,8 @@ class TorpedoPassantController extends AbstractController {
             WireRepository $wireRep,
             Torpedo $torpedo,
             EntityManagerInterface $em,
-            ValidatorInterface $validator
+            ValidatorInterface $validator,
+            LoggerInterface $logger
     ) {
         $data = json_decode($request->getContent(), true)['data'];
         $wire1 = $wireRep->findOneBy(['id' => intval($data['wire1Id'])]);
@@ -67,7 +69,35 @@ class TorpedoPassantController extends AbstractController {
                     $em->persist($torpedo);
 
                     $passantsCount++;
-                }
+                } 
+//                else 
+//                {
+//                    $logger->info('No entro la bola en: '. $fiber1);
+//                    $logger->info('¿Está fusionada? '. ($torpedo->isFiberInUseAsFusion($fiber1) ? 'SI' : 'NO'));
+//                    $logger->info('¿Está como pasante? '. ($torpedo->isFiberInUseAsPassant($fiber1) ? 'SI' : 'NO'));
+//                    $logger->info('Fusiones: ');
+//                    foreach ($fiber1->getTorpedoFusions() as $torpedoFusion) {
+//                        $logger->info($torpedoFusion);
+//                    }
+//                    $logger->info('Pasantes: ');
+//                    foreach ($fiber1->getTorpedoPassants() as $torpedoPassant) {
+//                        $logger->info($torpedoPassant);
+//                    }
+//                    $logger->info('--- o ---');
+//                    $logger->info('No entro la bola en: '. $fiber2);
+//                    $logger->info('¿Está fusionada? '. ($torpedo->isFiberInUseAsFusion($fiber2) ? 'SI' : 'NO'));
+//                    $logger->info('¿Está como pasante? '. ($torpedo->isFiberInUseAsPassant($fiber2) ? 'SI' : 'NO'));
+//                    $logger->info('Fusiones: ');
+//                    foreach ($fiber2->getTorpedoFusions() as $torpedoFusion) {
+//                        $logger->info($torpedoFusion);
+//                    }
+//                    $logger->info('Pasantes: ');
+//                    foreach ($fiber2->getTorpedoPassants() as $torpedoPassant) {
+//                        $logger->info($torpedoPassant);
+//                    }
+//                    $logger->info('----------------------------------------');
+//                    $logger->info('----------------------------------------');
+//                }
             }
         }
 
