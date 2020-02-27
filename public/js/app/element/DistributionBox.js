@@ -150,9 +150,6 @@ DistributionBox.prototype = {
 
     subscribeToEvents: function () {
         var self = this;
-//        this.marker.on('contextmenu', function (e) {
-//            self.edit(e);
-//        });
 
         this.marker.bindContextMenu({
             contextmenuItems: [{
@@ -168,7 +165,7 @@ DistributionBox.prototype = {
                         var url = "/" + ResourceUrl.DISTRIBUTION_BOX + "/" + self.id + "/edit";
                         newwindow = window.open(url, 'Editar caja', 'height=600,width=900');
                         if (window.focus) {
-                            newwindow.focus()
+                            newwindow.focus();
                         }
                         return false;
                     }
@@ -200,7 +197,7 @@ DistributionBox.prototype = {
                                             .build(500, 240);
 
                                     self.marker.bindPopup(html).openPopup();
-                                })
+                                });
                     }
                 }]
         });
