@@ -6,6 +6,7 @@
 var DistributionBoxListener = {
 
     /**
+     * Show Path to CPD
      * @param {Number} dsBoxPortId ID from database
      * @returns {undefined}
      */

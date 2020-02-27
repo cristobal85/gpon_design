@@ -2,7 +2,10 @@
 img {
     max-width: 100%;
 }
-
+.modal-body{
+    max-height: 600px;
+    overflow-y: auto;
+}
 .menu-btn {
     position: fixed;
     float: left;

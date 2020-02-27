@@ -1,4 +1,4 @@
-/* global L, Path, Element, element, MarkerFactory, ApiUrl, AjaxAdapter, AlertAdapter; SubsSubscriberBox, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl */
+/* global L, Path, Element, element, MarkerFactory, ApiUrl, AjaxAdapter, AlertAdapter; SubsSubscriberBox, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, DistributionBoxPassantListener, DsBoxConectorFormListener */
 
 /**
  * @param {Number} id
@@ -102,9 +102,6 @@ DistributionBox.prototype = {
                                         {id: 'passant', label: 'Pasantes'},
                                         dsBox.passants,
                                         false)
-                                .addEditButton(ResourceUrl.DISTRIBUTION_BOX, self.id)
-                                .addEditConectorBtn(self.id)
-                                .addDistributionPassantBtn(self.id)
                                 .build(500, 240);
 
                         resolve(html);
@@ -134,9 +131,9 @@ DistributionBox.prototype = {
     edit: function (e) {
         var self = this;
         this.marker.toggleEdit();
+        var layer = e.relatedTarget;
         if (!this.marker.editEnabled()) {
-            e.target.editing.disable(); // for CSS Class
-            var layer = e.target;
+            layer.editing.disable(); // for CSS Class
             self.latitude = layer.getLatLng().lat;
             self.longitude = layer.getLatLng().lng;
             AjaxAdapter.post(ApiUrl.PUT_DISTRIBUTION, {
@@ -147,14 +144,65 @@ DistributionBox.prototype = {
                 AlertAdapter.success(response.data.message);
             });
         } else {
-            e.target.editing.enable();
+            layer.editing.enable();
         }
     },
 
     subscribeToEvents: function () {
         var self = this;
-        this.marker.on('contextmenu', function (e) {
-            self.edit(e);
+//        this.marker.on('contextmenu', function (e) {
+//            self.edit(e);
+//        });
+
+        this.marker.bindContextMenu({
+            contextmenuItems: [{
+                    text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
+                    callback: function (e) {
+                        self.edit(e);
+                    }
+                },
+                '-',
+                {
+                    text: '<i class="far fa-edit"></i> Editar',
+                    callback: function () {
+                        var url = "/" + ResourceUrl.DISTRIBUTION_BOX + "/" + self.id + "/edit";
+                        newwindow = window.open(url, 'Editar caja', 'height=600,width=900');
+                        if (window.focus) {
+                            newwindow.focus()
+                        }
+                        return false;
+                    }
+                },
+                {
+                    text: '<i class="fas fa-plug"></i> Conectar puertos',
+                    callback: function () {
+                        DsBoxConectorFormListener.showModal(self.id);
+                    }
+                },
+                {
+                    text: '<i class="fas fa-network-wired"></i> Añadir pasantes',
+                    callback: function () {
+                        DistributionBoxPassantListener.showModal(self.id);
+                    }
+                },
+                '-',
+                {
+                    text: '<i class="fas fa-unlink"></i> Desconectar puertos',
+                    callback: function () {
+                        AjaxAdapter.get(ApiUrl.GET_DISTRIBUTION_BOX_ID + self.id)
+                                .then(function (response) {
+                                    var dsBox = response.data;
+                                    var html = PopupBuilder.getInstance()
+                                            .addDiscontentDsPorts(
+                                                    {id: 'ports', label: 'Desconectar puertos'},
+                                                    dsBox.ports,
+                                                    true)
+                                            .build(500, 240);
+
+                                    self.marker.bindPopup(html).openPopup();
+                                })
+                    }
+                }]
         });
 
         this.marker.on('dblclick', function (e) {

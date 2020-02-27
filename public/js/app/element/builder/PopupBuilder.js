@@ -449,6 +449,67 @@ var PopupBuilder = (function () {
 
                 return this;
             },
+            
+            /**
+             * @param {{ id:string, label:string}} tab
+             * @param {{id:Number, number:Number}[]} ports
+             * @param {boolean} active
+             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
+             */
+            addDiscontentDsPorts: function (tab, ports, active) {
+                var active = active || false;
+                if (ports.length) {
+                    var html = "<div class='tab-pane " + (active ? "show active" : "fade") + " p-2' id='" + tab.id + "' role='tabpanel' aria-labelledby='" + tab.id + "-tab'>";
+
+                    html += "<div class='card mt-3'>";
+                    html += "<div class='card-header'>Segundo 50%</div>";
+                    html += "<div class='card-body'>";
+                    html += "<div class='row'>";
+                    // TODO: Refactoring two for loop.
+                    for (var i = (ports.length / 2); i < ports.length; i++) {
+                        var classes = "";
+                        if (ports[i].fiber) {
+                            classes += "bg-success";
+                        }
+                        html += "<div class='col text-center " + classes + "'>";
+                        html += "<a href='#' " + AttributeEnum.DATA_DS_BOX_ID + "='" + ports[i].id + "' style='display:block;' onclick=\"javascript:DistributionBoxListener.dissconectPort(this);return false;\">" + ports[i].number + "</a>";
+                        html += "</div>";
+                    }
+                    html += "</div>";
+                    html += "</div>";
+                    html += "</div>";
+
+                    html += "<div class='card mt-3'>";
+                    html += "<div class='card-header'>Primer 50%</div>";
+                    html += "<div class='card-body'>";
+                    html += "<div class='row'>";
+                    for (var i = 0; i < (ports.length / 2); i++) {
+                        var classes = "";
+                        if (ports[i].fiber) {
+                            classes += "bg-success";
+                        }
+                        html += "<div class='col text-center " + classes + "'>";
+                        html += "<a href='#' " + AttributeEnum.DATA_DS_BOX_ID + "='" + ports[i].id + "' style='display:block;' onclick=\"javascript:DistributionBoxListener.dissconectPort(this);return false;\">" + ports[i].number + "</a>";
+                        html += "</div>";
+                    }
+                    html += "</div>";
+                    html += "</div>";
+                    html += "</div>";
+
+
+
+                    html += "</div>";
+
+
+                    content[tab.id] = {
+                        tab: tab,
+                        html: html,
+                        active: active
+                    };
+                }
+
+                return this;
+            },
 
             /**
              * 
@@ -493,25 +554,25 @@ var PopupBuilder = (function () {
                 return this;
             },
 
-            /**
-             * @param {Number} elementId ID from database
-             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
-             */
-            addDistributionPassantBtn: function (elementId) {
-                buttons['edit-distribution-passant'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='DistributionBoxPassantListener.showModal(" + elementId + ")'><i class='fas fa-network-wired'></i> Pasante</a>";
+//            /**
+//             * @param {Number} elementId ID from database
+//             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
+//             */
+//            addDistributionPassantBtn: function (elementId) {
+//                buttons['edit-distribution-passant'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='DistributionBoxPassantListener.showModal(" + elementId + ")'><i class='fas fa-network-wired'></i> Pasante</a>";
+//
+//                return this;
+//            },
 
-                return this;
-            },
-
-            /**
-             * @param {Number} elementId ID from database
-             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
-             */
-            addEditConectorBtn: function (elementId) {
-                buttons['distribution-conector'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='DsBoxConectorFormListener.showModal(" + elementId + ")'><i class='fas fa-network-wired'></i> Conectar</a>";
-
-                return this;
-            },
+//            /**
+//             * @param {Number} elementId ID from database
+//             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
+//             */
+//            addEditConectorBtn: function (elementId) {
+//                buttons['distribution-conector'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='DsBoxConectorFormListener.showModal(" + elementId + ")'><i class='fas fa-network-wired'></i> Conectar</a>";
+//
+//                return this;
+//            },
 
 //            /**
 //             * @param {Number} elementId ID from database

@@ -19,7 +19,9 @@ MarkerFactory.createLayer = function (element, iconSize) {
                 icon: L.icon({
                     iconUrl: Path.IMAGE_UPLOADS + element.icon,
                     iconSize: iconSize
-                })
+                }),
+                contextmenu: true,
+                contextmenuInheritItems: false
             });
     }
     

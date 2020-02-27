@@ -20,7 +20,7 @@ CpdMarkerFactory.createLayer = function (element) {
                     iconSize: [50, 50]
                 }),
                 contextmenu: true,
-                contextmenuInheritItems: false,
+                contextmenuInheritItems: false
             });
     }
     
