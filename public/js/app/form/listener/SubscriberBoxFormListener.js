@@ -21,23 +21,17 @@ var SubscriberBoxFormListener = {
         });
 
     },
-    
+
     /**
      * @param {Number} subscriberBoxId ID from database
      * @returns {undefined}
      */
     showEditModal: function (subscriberBoxId) {
-        AjaxAdapter.get(ApiUrl.GET_SUBSCRIBER_ID + subscriberBoxId).then(function (response) {
-            var subscriberBox = response.data;
-            ModalAdapter.showModal(
-                    'Editar Caja',
-                    new SubscriberBoxFormBuilder().addEditForm(subscriberBox).build()
-                    );
-
-
-        });
-
+        ModalAdapter.showModal(
+                'Editar Caja',
+                new SubscriberBoxFormBuilder().addEditForm(subscriberBoxId).build()
+                );
     }
-    
+
 
 };

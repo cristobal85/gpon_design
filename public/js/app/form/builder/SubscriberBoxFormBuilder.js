@@ -23,9 +23,13 @@ SubscriberBoxFormBuilder.prototype.addSubscriberBoxList = function (subscriberBo
     return this;
 };
 
-SubscriberBoxFormBuilder.prototype.addEditForm = function (subscriberBox) {
+/**
+ * @param {Number} subscriberBoxId
+ * @returns {SubscriberBoxFormBuilder.prototype}
+ */
+SubscriberBoxFormBuilder.prototype.addEditForm = function (subscriberBoxId) {
 
-    this.form = "<iframe src='" + ApiUrl.GET_SUBSCRIBER_ID + subscriberBox.id + "/form' style='width:100%;height:500px;'></iframe>";
+    this.form = "<iframe src='" + ApiUrl.GET_SUBSCRIBER_ID + subscriberBoxId + "/form' style='width:100%;height:500px;'></iframe>";
 
     return this;
 };
