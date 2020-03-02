@@ -8,8 +8,6 @@ use App\Entity\SubscriberBox;
 use App\Form\SubscriberBoxUploadImageType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class SubscriberBoxImageController extends AbstractController {
 
@@ -22,6 +20,7 @@ class SubscriberBoxImageController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Fotos modificadas correctamente.');
         }
 
         return $this->render('subscriber_box_image/upload.html.twig', [

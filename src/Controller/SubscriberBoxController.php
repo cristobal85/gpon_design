@@ -92,6 +92,26 @@ class SubscriberBoxController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
+    /**
+     * @Route("/{id}/form", name="subscriber_box_edit_form", methods={"GET","POST"})
+     */
+    public function editForm(Request $request, SubscriberBox $subscriberBox): Response
+    {
+        $form = $this->createForm(SubscriberBoxType::class, $subscriberBox);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', 'Caja de abonado guardada correctamente.');
+        }
+
+        return $this->render('subscriber_box/edit-form.html.twig', [
+            'subscriber_box' => $subscriberBox,
+            'form' => $form->createView(),
+        ]);
+    }
 
     /**
      * @Route("/{id}", name="subscriber_box_delete", methods={"DELETE"})

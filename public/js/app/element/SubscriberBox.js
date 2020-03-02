@@ -1,4 +1,4 @@
-/* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl */
+/* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, SubscriberBoxFormListener */
 
 /**
  * @param {Number} id
@@ -179,12 +179,13 @@ SubscriberBox.prototype = {
                 {
                     text: '<i class="far fa-edit"></i> Editar',
                     callback: function () {
-                        var url = "/" + ResourceUrl.SUBSCRIBER_BOX + "/" + self.id + "/edit";
-                        newwindow = window.open(url, 'Editar caja', 'height=600,width=900');
-                        if (window.focus) {
-                            newwindow.focus();
-                        }
-                        return false;
+//                        var url = "/" + ResourceUrl.SUBSCRIBER_BOX + "/" + self.id + "/edit";
+//                        newwindow = window.open(url, 'Editar caja', 'height=600,width=900');
+//                        if (window.focus) {
+//                            newwindow.focus();
+//                        }
+//                        return false;
+                        SubscriberBoxFormListener.showEditModal(self.id);
                     }
                 }]
         });

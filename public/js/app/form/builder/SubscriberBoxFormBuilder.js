@@ -22,3 +22,10 @@ SubscriberBoxFormBuilder.prototype.addSubscriberBoxList = function (subscriberBo
 
     return this;
 };
+
+SubscriberBoxFormBuilder.prototype.addEditForm = function (subscriberBox) {
+
+    this.form = "<iframe src='" + ApiUrl.GET_SUBSCRIBER_ID + subscriberBox.id + "/form' style='width:100%;height:500px;'></iframe>";
+
+    return this;
+};

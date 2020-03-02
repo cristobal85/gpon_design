@@ -1,9 +1,9 @@
 /* global ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter, ModalAdapter, UploadPhotoSubscriberBoxFormBuilder */
 
 /**
- * @type SubscriberBoxListener
+ * @type SubscriberBoxFormListener
  */
-var SubscriberBoxListener = {
+var SubscriberBoxFormListener = {
 
     /**
      * @param {Number} subscriberBoxId ID from database
@@ -12,9 +12,6 @@ var SubscriberBoxListener = {
     showPhotoModal: function (subscriberBoxId) {
         AjaxAdapter.get(ApiUrl.GET_SUBSCRIBER_ID + subscriberBoxId).then(function (response) {
             var subscriberBox = response.data;
-
-            console.log(subscriberBox);
-
             ModalAdapter.showModal(
                     'Fotos',
                     new UploadPhotoSubscriberBoxFormBuilder().addPhotoUpload(subscriberBox).build()
@@ -23,6 +20,24 @@ var SubscriberBoxListener = {
 
         });
 
+    },
+    
+    /**
+     * @param {Number} subscriberBoxId ID from database
+     * @returns {undefined}
+     */
+    showEditModal: function (subscriberBoxId) {
+        AjaxAdapter.get(ApiUrl.GET_SUBSCRIBER_ID + subscriberBoxId).then(function (response) {
+            var subscriberBox = response.data;
+            ModalAdapter.showModal(
+                    'Editar Caja',
+                    new SubscriberBoxFormBuilder().addEditForm(subscriberBox).build()
+                    );
+
+
+        });
+
     }
+    
 
 };
