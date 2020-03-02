@@ -1,11 +1,11 @@
 /* global ElementFormBuilder, ApiUrl */
 
 /**
- * @returns {DistributionBoxFormBuilder}
+ * @returns {SubscriberBoxFormBuilder}
  */
 var SubscriberBoxFormBuilder = function () {
     ElementFormBuilder.call(this);
-    this.form = "<form id='subscriber-box-form' action='" + ApiUrl.POST_SUBSCRIBER + "' method='POST'>";
+    this.form = "<form id='subscriber-box-form' action='" + ApiUrl.POST_SUBSCRIBER + "' method='POST' enctype='multipart/form-data'>";
 };
 
 SubscriberBoxFormBuilder.prototype = Object.create(ElementFormBuilder.prototype);

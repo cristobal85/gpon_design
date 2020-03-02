@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Subir imagen{% endblock %}
+
+{% block body %}
+    <div class="p-5">
+        {{ include('subscriber_box/_form.html.twig', {'button_label': 'Guardar'}) }}
+    </div>
+{% endblock %}

@@ -553,6 +553,16 @@ var PopupBuilder = (function () {
 
                 return this;
             },
+            
+            /**
+             * @param {Number} elementId ID from database
+             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
+             */
+            addSubscriberBoxPhotoBtn: function (elementId) {
+                buttons['add-subscriber-box-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='SubscriberBoxListener.showPhotoModal(" + elementId + ")'><i class='fas fa-camera'></i> Fotos</a>";
+
+                return this;
+            },
 
 //            /**
 //             * @param {Number} elementId ID from database

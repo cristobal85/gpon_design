@@ -50,12 +50,9 @@ SubscriberBox.prototype = {
      * @returns {L.marker}
      */
     getLayer: function () {
-
-
         this.marker.bindPopup("", {
             maxWidth: PopupEnum.MAX_WIDTH
         });
-
         this.subscribeToEvents();
 
         return this.marker;
@@ -87,7 +84,7 @@ SubscriberBox.prototype = {
                                         {id: 'customers', label: 'Clientes'},
                                         subsBox.customers,
                                         false)
-                                .addEditButton(ResourceUrl.SUBSCRIBER_BOX, self.id)
+                                .addSubscriberBoxPhotoBtn(self.id) // TODO: Change this for child of PopupBuilder with Factory
                                 .build(360, 200);
                         resolve(html);
                     })
@@ -118,9 +115,9 @@ SubscriberBox.prototype = {
     edit: function (e) {
         var self = this;
         this.marker.toggleEdit();
+        var layer = e.relatedTarget;
         if (!this.marker.editEnabled()) {
-            e.target.editing.disable(); // for CSS 
-            var layer = e.target;
+            layer.editing.disable(); // for CSS 
             self.latitude = layer.getLatLng().lat;
             self.longitude = layer.getLatLng().lng;
             AjaxAdapter.post(ApiUrl.PUT_SUBSCRIBER, {
@@ -131,7 +128,7 @@ SubscriberBox.prototype = {
                 AlertAdapter.success(response.data.message);
             });
         } else {
-            e.target.editing.enable();
+            layer.editing.enable();
         }
     },
 
@@ -171,8 +168,25 @@ SubscriberBox.prototype = {
 
     subscribeToEvents: function () {
         var self = this;
-        this.marker.on('contextmenu', function (e) {
-            self.edit(e);
+        this.marker.bindContextMenu({
+            contextmenuItems: [{
+                    text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
+                    callback: function (e) {
+                        self.edit(e);
+                    }
+                },
+                '-',
+                {
+                    text: '<i class="far fa-edit"></i> Editar',
+                    callback: function () {
+                        var url = "/" + ResourceUrl.SUBSCRIBER_BOX + "/" + self.id + "/edit";
+                        newwindow = window.open(url, 'Editar caja', 'height=600,width=900');
+                        if (window.focus) {
+                            newwindow.focus();
+                        }
+                        return false;
+                    }
+                }]
         });
 
         this.marker.on('dblclick', function (e) {
@@ -180,7 +194,7 @@ SubscriberBox.prototype = {
                 subs.turnToogleMarker();
             });
         });
-        
+
         this.marker.on('click', function (e) {
             self.generatePopUp().then(function (html) {
                 self.marker.bindPopup(html);

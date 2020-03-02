@@ -50,7 +50,6 @@ DistributionBox.prototype = {
      * @returns {L.marker}
      */
     getLayer: function () {
-
         this.marker.bindPopup("", {
             maxWidth: 500
         });
