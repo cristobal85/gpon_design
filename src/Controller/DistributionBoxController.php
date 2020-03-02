@@ -112,6 +112,26 @@ class DistributionBoxController extends AbstractController {
                     'form' => $form->createView(),
         ]);
     }
+    
+    /**
+     * @Route("/{id}/form", name="distribution_box_edit_form", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function editForm(Request $request, DistributionBox $distributionBox): Response {
+        $form = $this->createForm(DistributionBoxType::class, $distributionBox);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', 'Caja de distribución guardada correctamente.');
+        }
+
+        return $this->render('distribution_box/edit-form.html.twig', [
+                    'distribution_box' => $distributionBox,
+                    'form' => $form->createView(),
+        ]);
+    }
 
     /**
      * @Route("/{id}", name="distribution_box_delete", methods={"DELETE"})

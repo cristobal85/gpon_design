@@ -137,3 +137,14 @@ DistributionBoxFormBuilder.prototype.addSelectedWires = function (wire, distribu
 
     return this;
 };
+
+/**
+ * @param {Number} dsBoxId
+ * @returns {DistributionBoxFormBuilder.prototype}
+ */
+DistributionBoxFormBuilder.prototype.addEditForm = function (dsBoxId) {
+
+    this.form = "<iframe src='" + ApiUrl.GET_DISTRIBUTION_BOX_ID + dsBoxId + "/form' style='width:100%;height:500px;'></iframe>";
+
+    return this;
+};

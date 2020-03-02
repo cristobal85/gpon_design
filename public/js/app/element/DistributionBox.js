@@ -1,4 +1,4 @@
-/* global L, Path, Element, element, MarkerFactory, ApiUrl, AjaxAdapter, AlertAdapter; SubsSubscriberBox, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, DistributionBoxPassantListener, DsBoxConectorFormListener */
+/* global L, Path, Element, element, MarkerFactory, ApiUrl, AjaxAdapter, AlertAdapter; SubsSubscriberBox, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, DistributionBoxPassantListener, DsBoxConectorFormListener, DistributionBoxFormListener */
 
 /**
  * @param {Number} id
@@ -161,12 +161,7 @@ DistributionBox.prototype = {
                 {
                     text: '<i class="far fa-edit"></i> Editar',
                     callback: function () {
-                        var url = "/" + ResourceUrl.DISTRIBUTION_BOX + "/" + self.id + "/edit";
-                        newwindow = window.open(url, 'Editar caja', 'height=600,width=900');
-                        if (window.focus) {
-                            newwindow.focus();
-                        }
-                        return false;
+                        DistributionBoxFormListener.showEditModal(self.id);
                     }
                 },
                 {
