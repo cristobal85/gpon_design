@@ -563,6 +563,16 @@ var PopupBuilder = (function () {
 
                 return this;
             },
+            
+            /**
+             * @param {Number} elementId ID from database
+             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
+             */
+            addDistributionBoxPhotoBtn: function (elementId) {
+                buttons['add-distribution-box-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='DistributionBoxFormListener.showPhotoModal(" + elementId + ")'><i class='fas fa-camera'></i> Fotos</a>";
+
+                return this;
+            },
 
 //            /**
 //             * @param {Number} elementId ID from database

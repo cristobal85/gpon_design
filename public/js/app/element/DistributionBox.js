@@ -101,6 +101,7 @@ DistributionBox.prototype = {
                                         {id: 'passant', label: 'Pasantes'},
                                         dsBox.passants,
                                         false)
+                                .addDistributionBoxPhotoBtn(self.id)
                                 .build(500, 240);
 
                         resolve(html);
