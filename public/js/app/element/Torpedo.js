@@ -1,4 +1,4 @@
-/* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, ResourceUrl */
+/* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, ResourceUrl, TorpedoFusionListener, TorpedoPassantListener, TorpedoFormListener */
 
 /**
  * @param {Number} id
@@ -60,9 +60,9 @@ Torpedo.prototype = {
     edit: function (e) {
         var self = this;
         this.marker.toggleEdit();
+        var layer = e.relatedTarget;
         if (!this.marker.editEnabled()) {
-            e.target.editing.disable(); // for CSS 
-            var layer = e.target;
+            layer.editing.disable(); // for CSS Class
             self.latitude = layer.getLatLng().lat;
             self.longitude = layer.getLatLng().lng;
             AjaxAdapter.post(ApiUrl.PUT_TORPEDO, {
@@ -73,7 +73,7 @@ Torpedo.prototype = {
                 AlertAdapter.success(response.data.message);
             });
         } else {
-            e.target.editing.enable();
+            layer.editing.enable();
         }
     },
 
@@ -108,8 +108,6 @@ Torpedo.prototype = {
                                         torpedo.passants,
                                         false)
                                 .addEditButton(ResourceUrl.TORPEDO, self.id)
-                                .addEditFusionBtn(self.id)
-                                .addTorpedoPassantBtn(self.id)
                                 .build(550, 240);
 
                         resolve(html);
@@ -125,8 +123,32 @@ Torpedo.prototype = {
     subscribeToEvents: function () {
         var self = this;
 
-        this.marker.on('contextmenu', function (e) {
-            self.edit(e);
+        this.marker.bindContextMenu({
+            contextmenuItems: [{
+                    text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
+                    callback: function (e) {
+                        self.edit(e);
+                    }
+                },
+                '-',
+                {
+                    text: '<i class="far fa-edit"></i> Editar',
+                    callback: function () {
+                        TorpedoFormListener.showEditModal(self.id);
+                    }
+                },
+                {
+                    text: '<i class="fas fa-link"></i> Añadir fusiones',
+                    callback: function () {
+                        TorpedoFusionListener.showFusionModal(self.id);
+                    }
+                },
+                {
+                    text: '<i class="fas fa-network-wired"></i> Añadir pasantes',
+                    callback: function () {
+                        TorpedoPassantListener.showPassantModal(self.id);
+                    }
+                }]
         });
 
 

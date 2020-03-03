@@ -538,16 +538,6 @@ var PopupBuilder = (function () {
              * @param {Number} elementId ID from database
              * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
              */
-            addEditFusionBtn: function (elementId) {
-                buttons['edit-fusion'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='TorpedoFusionListener.showModal(" + elementId + ")'><i class='fas fa-plus'></i> Fusiones</a>";
-
-                return this;
-            },
-
-            /**
-             * @param {Number} elementId ID from database
-             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
-             */
             addTorpedoPassantBtn: function (elementId) {
                 buttons['edit-torpedo-passant'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='TorpedoPassantListener.showModal(" + elementId + ")'><i class='fas fa-network-wired'></i> Pasante</a>";
 

@@ -88,6 +88,26 @@ class TorpedoController extends AbstractController {
                     'form' => $form->createView(),
         ]);
     }
+    
+    /**
+     * @Route("/{id}/form", name="torpedo_edit_form", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function editForm(Request $request, Torpedo $torpedo): Response {
+        $form = $this->createForm(TorpedoType::class, $torpedo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', 'Torpedo guardado correctamente.');
+        }
+
+        return $this->render('torpedo/edit-form.html.twig', [
+                    'torpedo' => $torpedo,
+                    'form' => $form->createView(),
+        ]);
+    }
 
     /**
      * @Route("/{id}", name="torpedo_delete", methods={"DELETE"})

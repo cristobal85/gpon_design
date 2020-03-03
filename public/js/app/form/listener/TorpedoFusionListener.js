@@ -9,7 +9,7 @@ var TorpedoFusionListener = {
      * @param {Number} torpedoId ID from database
      * @returns {undefined}
      */
-    showModal: function (torpedoId) {
+    showFusionModal: function (torpedoId) {
         AjaxAdapter.get(ApiUrl.GET_FORM_WIRE).then(function (response) {
             var wires = response.data;
 

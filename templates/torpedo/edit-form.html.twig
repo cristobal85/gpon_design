@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Torpedo{% endblock %}
+
+{% block body %}
+    <div class="p-5">
+        {{ include('flashMessages.html.twig') }}
+        {{ include('torpedo/_form.html.twig', {'button_label': 'Guardar'}) }}
+    </div>
+{% endblock %}
