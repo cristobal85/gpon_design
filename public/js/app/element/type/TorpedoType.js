@@ -13,7 +13,7 @@ var TorpedoType = Object.create(ElementType);
 TorpedoType.buildElement = function (data) {
     return new Torpedo(
             data.id,
-//            data.name,
+            data.name,
             data.latitude,
             data.longitude,
             data.icon,

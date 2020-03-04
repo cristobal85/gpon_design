@@ -54,9 +54,8 @@ var DistributionBoxPassantListener = {
     deletePasants(dsBoxId) {
         ModalAdapter.showConfirm('Pasantes', '¿Seguro que quiere eliminar todos los pasantes?', function (result) {
             if (result) {
-                console.log(dsBoxId);
                 AjaxAdapter
-                        .delete(ApiUrl.DELETE_DISTRIBUTION_BOX_PASSANT + dsBoxId)
+                        .delete(ApiUrl.DELETE_DISTRIBUTION_BOX_PASSANT_ID + dsBoxId)
                         .then(function (response) {
                             AlertAdapter.success(response.data.message);
                         })

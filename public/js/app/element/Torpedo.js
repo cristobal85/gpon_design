@@ -2,12 +2,13 @@
 
 /**
  * @param {Number} id
+ * @param {string} name
  * @param {string} latitude
  * @param {float} longitude
  * @param {float} icon
  * @returns {Torpedo}
  */
-var Torpedo = function (id, latitude, longitude, icon) {
+var Torpedo = function (id, name, latitude, longitude, icon) {
 
     element.Element.call(this);
 
@@ -15,6 +16,11 @@ var Torpedo = function (id, latitude, longitude, icon) {
      * @type {Number}
      */
     this.id = id;
+    
+    /**
+     * @type {string}
+     */
+    this.name = name;
 
     /**
      * @type {Number}
@@ -124,7 +130,12 @@ Torpedo.prototype = {
         var self = this;
 
         this.marker.bindContextMenu({
-            contextmenuItems: [{
+            contextmenuItems: [
+                {
+                    text: '<strong>Torpedo ' + self.name + '</strong>',
+                    disabled: true
+                },
+                {
                     text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
                     callback: function (e) {
                         self.edit(e);
@@ -148,7 +159,15 @@ Torpedo.prototype = {
                     callback: function () {
                         TorpedoPassantListener.showPassantModal(self.id);
                     }
-                }]
+                },
+                '-',
+                {
+                    text: '<i class="fas fa-cut"></i> Eliminar pasantes',
+                    callback: function () {
+                        TorpedoPassantListener.deletePasants(self.id);
+                    }
+                }
+            ]
         });
 
 

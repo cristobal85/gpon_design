@@ -107,5 +107,30 @@ class TorpedoPassantController extends AbstractController {
             'message' => 'Se han añadido (' . $passantsCount . ') pasantes en el torpedo.'
         ]);
     }
+    
+    /**
+     * @Route("/torpedo-passant/{torpedo}", name="distribution_box_passant_new", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function deletePassants(
+            Request $request,
+            Torpedo $torpedo,
+            EntityManagerInterface $em) {
+        if ($request->isXmlHttpRequest()) {
+            $passants = $torpedo->getPassants();
+            $passantsCount = 0;
+            foreach ($passants as $passant) {
+                $em->remove($passant);
+                $passantsCount++;
+            }
+            $em->flush();
+
+            return new JsonResponse([
+                'message' => 'Se han eliminado (' . $passantsCount . ') pasantes del torpedo.'
+            ]);
+        }
+        
+        throw new BadRequestHttpException();
+    }
 
 }

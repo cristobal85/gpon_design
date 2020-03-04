@@ -49,4 +49,24 @@ var TorpedoPassantListener = {
         });
 
     },
+
+    /**
+     * @param {Number} torpedoId ID from database
+     * @returns {undefined}
+     */
+    deletePasants(torpedoId) {
+        ModalAdapter.showConfirm('Pasantes', '¿Seguro que quiere eliminar todos los pasantes?', function (result) {
+            if (result) {
+                console.log(torpedoId);
+                AjaxAdapter
+                        .delete(ApiUrl.DELETE_TORPEDO_PASSANT_ID + torpedoId)
+                        .then(function (response) {
+                            AlertAdapter.success(response.data.message);
+                        })
+                        .catch(function (error) {
+                            AlertAdapter.error(error.response.data.message);
+                        });
+            }
+        });
+    }
 };
