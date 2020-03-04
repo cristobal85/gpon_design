@@ -46,5 +46,6 @@ var ApiUrl = {
     POST_DISTRIBUTION_IMAGE: '/distribution-box-image/',
     POST_TORPEDO_IMAGE: '/torpedo-image/',
     DELETE_TORPEDO_FUSION: '/torpedo-fusion',
-    DELETE_WIRE_ID: '/wire/'
+    DELETE_WIRE_ID: '/wire/',
+    DELETE_DISTRIBUTION_BOX_PASSANT: '/distribution-box-passant/'
 };

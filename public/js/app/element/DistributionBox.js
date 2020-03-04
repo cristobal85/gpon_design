@@ -194,6 +194,12 @@ DistributionBox.prototype = {
                                     self.marker.bindPopup(html).openPopup();
                                 });
                     }
+                },
+                {
+                    text: '<i class="fas fa-cut"></i> Eliminar pasantes',
+                    callback: function () {
+                        DistributionBoxPassantListener.deletePasants(self.id);
+                    }
                 }]
         });
 

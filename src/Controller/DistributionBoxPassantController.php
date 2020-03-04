@@ -12,6 +12,7 @@ use App\Entity\DistributionBox;
 use \Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class DistributionBoxPassantController extends AbstractController {
 
@@ -76,6 +77,31 @@ class DistributionBoxPassantController extends AbstractController {
         return new JsonResponse([
             'message' => 'Se han añadido (' . $passantsCount . ') pasantes en la caja de distribución.'
         ]);
+    }
+
+    /**
+     * @Route("/distribution-box-passant/{distributionBox}", name="distribution_box_passant_new", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function deletePassants(
+            Request $request,
+            DistributionBox $distributionBox,
+            EntityManagerInterface $em) {
+        if ($request->isXmlHttpRequest()) {
+            $passants = $distributionBox->getPassants();
+            $passantsCount = 0;
+            foreach ($passants as $passant) {
+                $em->remove($passant);
+                $passantsCount++;
+            }
+            $em->flush();
+
+            return new JsonResponse([
+                'message' => 'Se han eliminado (' . $passantsCount . ') pasantes en la caja de distribución.'
+            ]);
+        }
+        
+        throw new BadRequestHttpException();
     }
 
 }

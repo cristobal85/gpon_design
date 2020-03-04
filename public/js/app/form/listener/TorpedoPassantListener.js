@@ -49,26 +49,4 @@ var TorpedoPassantListener = {
         });
 
     },
-
-    /**
-     * @param {Number} id ID from database
-     * @param {HTMLElement} el
-     * @returns {undefined}
-     */
-    deletePassant(id, el) {
-        ModalAdapter.showConfirm('Pasantes', '¿Seguro que quiere eliminar el pasante?', function (result) {
-            if (result) {
-//                AjaxAdapter
-//                        .delete(ApiUrl.DELETE_TORPEDO_FUSION + "/" + id)
-//                        .then(function (response) {
-//                            el.parentNode.parentNode.remove();
-//                            AlertAdapter.success(response.data.message);
-//                        })
-//                        .catch(function (error) {
-//                            AlertAdapter.error(error.response.data.message);
-//                        });
-            }
-        });
-    }
-
 };

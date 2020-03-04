@@ -48,17 +48,16 @@ var DistributionBoxPassantListener = {
     },
 
     /**
-     * @param {Number} id ID from database
-     * @param {HTMLElement} el
+     * @param {Number} dsBoxId ID from database
      * @returns {undefined}
      */
-    deleteFusion(id, el) {
-        ModalAdapter.showConfirm('Fusiones', '¿Seguro que quiere eliminar la fusión?', function (result) {
+    deletePasants(dsBoxId) {
+        ModalAdapter.showConfirm('Pasantes', '¿Seguro que quiere eliminar todos los pasantes?', function (result) {
             if (result) {
+                console.log(dsBoxId);
                 AjaxAdapter
-                        .delete(ApiUrl.DELETE_TORPEDO_FUSION + "/" + id)
+                        .delete(ApiUrl.DELETE_DISTRIBUTION_BOX_PASSANT + dsBoxId)
                         .then(function (response) {
-                            el.parentNode.parentNode.remove();
                             AlertAdapter.success(response.data.message);
                         })
                         .catch(function (error) {
