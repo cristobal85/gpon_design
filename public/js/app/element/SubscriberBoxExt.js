@@ -1,13 +1,14 @@
-/* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupEnum, PopupBuilder, ResourceUrl */
+/* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupEnum, PopupBuilder, ResourceUrl, SubscriberBoxExtFormListener */
 
 /**
  * @param {Number} id
- * @param {string} latitude
+ * @param {string} name
+ * @param {float} latitude
  * @param {float} longitude
  * @param {float} icon
  * @returns {SubscriberBoxExt}
  */
-var SubscriberBoxExt = function (id, latitude, longitude, icon) {
+var SubscriberBoxExt = function (id, name, latitude, longitude, icon) {
 
     element.Element.call(this);
 
@@ -15,6 +16,11 @@ var SubscriberBoxExt = function (id, latitude, longitude, icon) {
      * @type {Number}
      */
     this.id = id;
+    
+    /**
+     * @type {string}
+     */
+    this.name = name;
 
     /**
      * @type {Number}
@@ -75,7 +81,6 @@ SubscriberBoxExt.prototype = {
                                         {id: 'customers', label: 'Clientes'},
                                         subsExt.customers,
                                         false)
-                                .addEditButton(ResourceUrl.SUBSCRIBER_BOX_EXT, self.id)
                                 .build(350, 240);
                         
                         resolve(html);
@@ -90,9 +95,9 @@ SubscriberBoxExt.prototype = {
     edit: function (e) {
         var self = this;
         this.marker.toggleEdit();
+        var layer = e.relatedTarget;
         if (!this.marker.editEnabled()) {
-            e.target.editing.disable(); // for CSS 
-            var layer = e.target;
+            layer.editing.disable(); // for CSS 
             self.latitude = layer.getLatLng().lat;
             self.longitude = layer.getLatLng().lng;
             AjaxAdapter.post(ApiUrl.PUT_SUBSCRIBER_EXT, {
@@ -103,7 +108,7 @@ SubscriberBoxExt.prototype = {
                 AlertAdapter.success(response.data.message);
             });
         } else {
-            e.target.editing.enable();
+            layer.editing.enable();
         }
     },
 
@@ -125,8 +130,28 @@ SubscriberBoxExt.prototype = {
 
     subscribeToEvents: function () {
         var self = this;
-        this.marker.on('contextmenu', function (e) {
-            self.edit(e);
+        
+        this.marker.bindContextMenu({
+            contextmenuItems: [
+                {
+                    text: '<strong>Caja ' + self.name + '</strong>',
+                    disabled: true
+                },
+                '-',
+                {
+                    text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
+                    callback: function (e) {
+                        self.edit(e);
+                    }
+                },
+                '-',
+                {
+                    text: '<i class="far fa-edit"></i> Editar',
+                    callback: function () {
+                        SubscriberBoxExtFormListener.showEditModal(self.id);
+                    }
+                }
+            ]
         });
         
         this.marker.on('click', function (e) {

@@ -163,6 +163,7 @@ DistributionBox.prototype = {
                     text: '<strong>Caja ' + self.name + '</strong>',
                     disabled: true
                 },
+                '-',
                 {
                     text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
                     callback: function (e) {

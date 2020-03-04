@@ -32,7 +32,7 @@ class SubscriberBoxExt implements EntityIconable
 
     /**
      * @ORM\Column(type="string", length=191, unique=true)
-     * @Groups({"subscriber-box-ext"})
+     * @Groups({"map","subscriber-box-ext"})
      */
     private $name;
 

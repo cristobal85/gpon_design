@@ -92,6 +92,26 @@ class SubscriberBoxExtController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
+    /**
+     * @Route("/{id}/form", name="subscriber_box_ext_edit_form", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function editForm(Request $request, SubscriberBoxExt $subscriberBoxExt): Response
+    {
+        $form = $this->createForm(SubscriberBoxExtType::class, $subscriberBoxExt);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Caja de extensión guardada correctamente.');
+        }
+
+        return $this->render('subscriber_box_ext/edit-form.html.twig', [
+            'subscriber_box_ext' => $subscriberBoxExt,
+            'form' => $form->createView(),
+        ]);
+    }
 
     /**
      * @Route("/{id}", name="subscriber_box_ext_delete", methods={"DELETE"})

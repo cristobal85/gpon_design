@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Caja Extensión{% endblock %}
+
+{% block body %}
+    <div class="p-5">
+        {{ include('flashMessages.html.twig') }}
+        {{ include('subscriber_box_ext/_form.html.twig', {'button_label': 'Guardar'}) }}
+    </div>
+{% endblock %}

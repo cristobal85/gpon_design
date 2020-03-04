@@ -13,6 +13,7 @@ var SubscriberBoxExtType = Object.create(ElementType);
 SubscriberBoxExtType.buildElement = function (data) {
     return new SubscriberBoxExt(
             data.id,
+            data.name,
             data.latitude,
             data.longitude,
             data.icon,

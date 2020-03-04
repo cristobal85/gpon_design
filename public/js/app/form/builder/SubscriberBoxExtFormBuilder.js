@@ -22,3 +22,14 @@ SubscriberBoxExtFormBuilder.prototype.addSubscriberBoxExtList = function (subscr
 
     return this;
 };
+
+/**
+ * @param {Number} subscriberBoxId
+ * @returns {SubscriberBoxFormBuilder.prototype}
+ */
+SubscriberBoxExtFormBuilder.prototype.addEditForm = function (subscriberBoxExtId) {
+
+    this.form = "<iframe src='" + ApiUrl.GET_SUBSCRIBER_EXT_ID + subscriberBoxExtId + "/form' style='width:100%;height:500px;'></iframe>";
+
+    return this;
+};
