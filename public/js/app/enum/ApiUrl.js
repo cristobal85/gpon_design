@@ -44,6 +44,7 @@ var ApiUrl = {
     POST_PATCH_CONECTOR: '/patch-panel-slot-conector/',
     POST_SUBSCRIBER_IMAGE: '/subscriber-box-image/',
     POST_DISTRIBUTION_IMAGE: '/distribution-box-image/',
+    POST_TORPEDO_IMAGE: '/torpedo-image/',
     DELETE_TORPEDO_FUSION: '/torpedo-fusion',
     DELETE_WIRE_ID: '/wire/'
 };

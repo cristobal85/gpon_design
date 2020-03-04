@@ -6,13 +6,13 @@
 var TorpedoFormListener = {
 
     /**
-     * @param {Number} distributionBoxId ID from database
+     * @param {Number} torpedoId ID from database
      * @returns {undefined}
      */
-    showPhotoModal: function (distributionBoxId) {
+    showPhotoModal: function (torpedoId) {
             ModalAdapter.showModal(
                     'Fotos',
-                    new UploadPhotoDistributionBoxFormBuilder().addPhotoUpload(distributionBoxId).build()
+                    new UploadPhotoTorpedoFormBuilder().addPhotoUpload(torpedoId).build()
                     );
     },
     

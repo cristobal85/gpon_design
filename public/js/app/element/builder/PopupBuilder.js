@@ -534,22 +534,13 @@ var PopupBuilder = (function () {
                 return this;
             },
 
-            /**
-             * @param {Number} elementId ID from database
-             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
-             */
-            addTorpedoPassantBtn: function (elementId) {
-                buttons['edit-torpedo-passant'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='TorpedoPassantListener.showModal(" + elementId + ")'><i class='fas fa-network-wired'></i> Pasante</a>";
-
-                return this;
-            },
             
             /**
              * @param {Number} elementId ID from database
              * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
              */
             addSubscriberBoxPhotoBtn: function (elementId) {
-                buttons['add-subscriber-box-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='SubscriberBoxFormListener.showPhotoModal(" + elementId + ")'><i class='fas fa-camera'></i> Fotos</a>";
+                buttons['add-subscriber-box-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='SubscriberBoxFormListener.showPhotoModal(" + elementId + ")'><i class='fas fa-cloud-upload-alt'></i> Fotos</a>";
 
                 return this;
             },
@@ -559,7 +550,17 @@ var PopupBuilder = (function () {
              * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
              */
             addDistributionBoxPhotoBtn: function (elementId) {
-                buttons['add-distribution-box-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='DistributionBoxFormListener.showPhotoModal(" + elementId + ")'><i class='fas fa-camera'></i> Fotos</a>";
+                buttons['add-distribution-box-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='DistributionBoxFormListener.showPhotoModal(" + elementId + ")'><i class='fas fa-cloud-upload-alt'></i> Fotos</a>";
+
+                return this;
+            },
+            
+            /**
+             * @param {Number} elementId ID from database
+             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
+             */
+            addTorpedoPhotoBtn: function (elementId) {
+                buttons['add-torpedo-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='TorpedoFormListener.showPhotoModal(" + elementId + ")'><i class='fas fa-cloud-upload-alt'></i> Fotos</a>";
 
                 return this;
             },

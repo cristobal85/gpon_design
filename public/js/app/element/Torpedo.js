@@ -107,7 +107,7 @@ Torpedo.prototype = {
                                         {id: 'passant', label: 'Pasantes'},
                                         torpedo.passants,
                                         false)
-                                .addEditButton(ResourceUrl.TORPEDO, self.id)
+                                .addTorpedoPhotoBtn(self.id)
                                 .build(550, 240);
 
                         resolve(html);
