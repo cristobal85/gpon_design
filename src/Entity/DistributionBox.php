@@ -39,7 +39,7 @@ class DistributionBox implements EntityIconable
 
     /**
      * @ORM\Column(type="string", length=191, unique=true)
-     * @Groups({"distribution-box","path"})
+     * @Groups({"map","distribution-box","path"})
      */
     private $name;
 

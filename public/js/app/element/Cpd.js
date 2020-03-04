@@ -115,7 +115,8 @@ Cpd.prototype = {
         var self = this;
 
         this.marker.bindContextMenu({
-            contextmenuItems: [{
+            contextmenuItems: [
+                {
                     text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
                     callback: function(e) {
                         self.edit(e);
@@ -133,7 +134,8 @@ Cpd.prototype = {
                                     self.marker.bindPopup(html).openPopup();
                                 });
                     }
-                }]
+                }
+            ]
         });
         this.marker.on('click', function (e) {
             self.generatePopUp().then(function (html) {

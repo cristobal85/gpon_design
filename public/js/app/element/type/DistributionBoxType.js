@@ -13,6 +13,7 @@ var DistributionBoxType = Object.create(ElementType);
 DistributionBoxType.buildElement = function (data) {
     return new DistributionBox(
             data.id,
+            data.name,
             data.latitude,
             data.longitude,
             data.icon,

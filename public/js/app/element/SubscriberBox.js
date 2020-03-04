@@ -2,12 +2,13 @@
 
 /**
  * @param {Number} id
+ * @param {string} name
  * @param {string} latitude
  * @param {float} longitude
  * @param {float} icon
  * @returns {SubscriberBox}
  */
-var SubscriberBox = function (id, latitude, longitude, icon) {
+var SubscriberBox = function (id, name, latitude, longitude, icon) {
 
     element.Element.call(this);
 
@@ -15,6 +16,11 @@ var SubscriberBox = function (id, latitude, longitude, icon) {
      * @type {Number}
      */
     this.id = id;
+    
+    /**
+     * @type {string}
+     */
+    this.name = name;
 
     /**
      * @type {Number}
@@ -169,7 +175,12 @@ SubscriberBox.prototype = {
     subscribeToEvents: function () {
         var self = this;
         this.marker.bindContextMenu({
-            contextmenuItems: [{
+            contextmenuItems: [
+                {
+                    text: '<strong>Caja ' + self.name + '</strong>',
+                    disabled: true
+                },
+                {
                     text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
                     callback: function (e) {
                         self.edit(e);
