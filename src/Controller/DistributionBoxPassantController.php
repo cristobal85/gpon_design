@@ -80,7 +80,7 @@ class DistributionBoxPassantController extends AbstractController {
     }
 
     /**
-     * @Route("/distribution-box-passant/{distributionBox}", name="distribution_box_passant_new", methods={"DELETE"})
+     * @Route("/distribution-box-passant/{distributionBox}", name="distribution_box_passant_delete", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function deletePassants(

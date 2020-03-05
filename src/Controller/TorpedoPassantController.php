@@ -109,7 +109,7 @@ class TorpedoPassantController extends AbstractController {
     }
     
     /**
-     * @Route("/torpedo-passant/{torpedo}", name="distribution_box_passant_new", methods={"DELETE"})
+     * @Route("/torpedo-passant/{torpedo}", name="torpedo_passant_delete", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function deletePassants(
