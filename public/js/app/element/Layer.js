@@ -1,4 +1,4 @@
-/* global Element, element, L, PolygonFactory, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl */
+/* global Element, element, L, PolygonFactory, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, LayerFormListener */
 
 /**
  * @param {Number} id
@@ -114,13 +114,13 @@ Layer.prototype = {
      * @return {L.polygon}
      */
     getLayer: function () {
-        var html = PopupBuilder.getInstance()
-                .addContentDescription(
-                        {id: 'description', label: 'Descripción'},
-                        {'Delimitador': this.name},
-                        true)
-                .addEditButton(ResourceUrl.LAYER, this.id)
-                .build(350, 240);
+//        var html = PopupBuilder.getInstance()
+//                .addContentDescription(
+//                        {id: 'description', label: 'Descripción'},
+//                        {'Delimitador': this.name},
+//                        true)
+//                .addEditButton(ResourceUrl.LAYER, this.id)
+//                .build(350, 240);
 
 //        this.polygon.bindPopup(html, {
 //            maxWidth: PopupEnum.MAX_WIDTH
@@ -194,7 +194,7 @@ Layer.prototype = {
         var self = this;
         this.polygon.toggleEdit();
         if (!this.polygon.editEnabled()) {
-            var layer = e.target;
+            var layer = self.polygon;
             self.coordinates = layer.getLatLngs();
             AjaxAdapter.post(ApiUrl.PUT_LAYER, {
                 'id': self.id,
@@ -207,8 +207,27 @@ Layer.prototype = {
 
     subscribeToEvents: function () {
         var self = this;
-        this.polygon.on('contextmenu', function (e) {
-            self.edit(e);
+        this.polygon.bindContextMenu({
+            contextmenuItems: [
+                {
+                    text: '<strong>' + self.name + '</strong>',
+                    disabled: true
+                },
+                '-',
+                {
+                    text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
+                    callback: function () {
+                        self.edit();
+                    }
+                },
+                '-',
+                {
+                    text: '<i class="far fa-edit"></i> Editar',
+                    callback: function () {
+                        LayerFormListener.showEditModal(self.id);
+                    }
+                },
+            ]
         });
     },
 

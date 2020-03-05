@@ -41,6 +41,7 @@ var ApiUrl = {
     GET_CPD_ID: '/cpd/',
     GET_SLOT_ID: '/patch-panel-slot/',
     GET_NOTE_ID: '/note/',
+    GET_LAYER_GROUP_ID: '/layer-group/',
     POST_PATCH_CONECTOR: '/patch-panel-slot-conector/',
     POST_SUBSCRIBER_IMAGE: '/subscriber-box-image/',
     POST_DISTRIBUTION_IMAGE: '/distribution-box-image/',

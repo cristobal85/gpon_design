@@ -16,7 +16,9 @@ PolygonFactory.createLayer = function (element) {
     if (element.coordinates && element.hexaColor && element.weight) {
         return L.polygon(element.coordinates, {
             color: element.hexaColor,
-            weight: element.weight
+            weight: element.weight,
+            contextmenu: true,
+            contextmenuInheritItems: false
         });
     }
     return L.polygon([]);

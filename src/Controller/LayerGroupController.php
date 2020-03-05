@@ -85,6 +85,26 @@ class LayerGroupController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
+    /**
+     * @Route("/{id}/form", name="layer_group_edit_form", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function editForm(Request $request, LayerGroup $layerGroup): Response
+    {
+        $form = $this->createForm(LayerGroupType::class, $layerGroup);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Capa modificada correctamente.');
+        }
+
+        return $this->render('layer_group/edit-form.html.twig', [
+            'layer_group' => $layerGroup,
+            'form' => $form->createView(),
+        ]);
+    }
 
     /**
      * @Route("/{id}", name="layer_group_delete", methods={"DELETE"})
