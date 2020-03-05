@@ -111,6 +111,16 @@ class LayerGroupController extends AbstractController
      */
     public function delete(Request $request, LayerGroup $layerGroup): Response
     {
+        if ($request->isXmlHttpRequest()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($layerGroup);
+            $entityManager->flush();
+
+            return new JsonResponse([
+                'message' => 'Capa eliminada correctamente.'
+            ]);
+        }
+        
         if ($this->isCsrfTokenValid('delete'.$layerGroup->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($layerGroup);

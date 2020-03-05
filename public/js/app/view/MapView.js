@@ -167,7 +167,6 @@ var mapView = new Vue({
          * @return {undefined}
          */
         deleteLayer: function (layer) {
-            console.log('removeLayer from mapView');
             this.map.removeLayer(layer);
         }
 

@@ -19,12 +19,11 @@ var LayerListener = {
                             AjaxAdapter.delete(ApiUrl.DELETE_LAYER_ID + layerId)
                                     .then(function (response) {
                                         AlertAdapter.success(response.data.message);
-                                        AlertAdapter.success("Refresca el mapa para ver los cambios.");
                                         return resolve();
                                     })
                                     .catch(function (error) {
                                         console.error(error);
-                                        return resolve();
+                                        return reject();
                                     });
                         }
                     });

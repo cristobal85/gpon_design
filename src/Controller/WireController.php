@@ -106,11 +106,6 @@ class WireController extends AbstractController {
     public function delete(Request $request, Wire $wire): Response {
 
         if ($request->isXmlHttpRequest()) {
-            if (!$this->getUser()->isAdmin()) {
-                return new JsonResponse([
-                    'message' => 'No tienes permisos para realizar esta acción.'
-                ], 403);
-            }
             $entityManager = $this->getDoctrine()->getManager();
             $wire->deleteFusionAndPasants();
             $entityManager->remove($wire);
