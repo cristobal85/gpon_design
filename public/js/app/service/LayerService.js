@@ -24,16 +24,22 @@ var LayerService = (function () {
 
     function init() {
 
-        function generateLayers(layers) {
+        /**
+         * 
+         * @param {Layer[]} layers
+         * @param {mapView} mapView
+         * @returns {undefined}
+         */
+        function generateLayers(layers, mapView) {
             layers.forEach(function (layer) { // Recorer todos los Layers de la BD
-                var layerElement = LayerType.buildElement(layer);
+                var layerElement = LayerType.buildElement(layer, mapView);
                 layer.distributionBoxes.forEach(function (ds) { // Recorer todas las Distribution Box
-                    var distBox = DistributionBoxType.buildElement(ds);
+                    var distBox = DistributionBoxType.buildElement(ds, mapView);
                     layerElement.addDistributionBox(distBox);
                     ds.subscriberBoxes.forEach(function (subscriber) { // Recorer todas las Subscriber Box
-                        subBox = SubscriberBoxType.buildElement(subscriber);
+                        subBox = SubscriberBoxType.buildElement(subscriber, mapView);
                         subscriber.subscriberBoxExts.forEach(function (ext) {
-                            var subBoxExt = SubscriberBoxExtType.buildElement(ext);
+                            var subBoxExt = SubscriberBoxExtType.buildElement(ext, mapView);
                             layerElement.addSubscriberBoxExt(subBoxExt);
                             subBox.addSubscriberBoxExt(subBoxExt);
 
@@ -43,10 +49,10 @@ var LayerService = (function () {
                     });
                 });
                 layer.wires.forEach(function (wire) { // Recorer todos los Wires
-                    layerElement.addWire(WireType.buildElement(wire));
+                    layerElement.addWire(WireType.buildElement(wire, mapView));
                 });
                 layer.torpedos.forEach(function (torpedo) { // Recorrer todos los torpedos
-                    layerElement.addTorpedo(TorpedoType.buildElement(torpedo));
+                    layerElement.addTorpedo(TorpedoType.buildElement(torpedo, mapView));
                 });
                 self.layers.push(layerElement);
             });
@@ -56,14 +62,15 @@ var LayerService = (function () {
         return {
 
             /**
-             * @return {Promise<Layer[]>}
+             * @param {mapView} mapView
+             * @returns {Promise<Layer[]>}
              */
-            getLayers: function () {
+            getLayers: function (mapView) {
 
                 return new Promise(function (resolve, reject) {
                     AjaxAdapter.get(ApiUrl.GET_LAYERS).then(function (response) {
                         var layers = response.data;
-                        generateLayers(layers);
+                        generateLayers(layers, mapView);
 
                         return resolve(self.layers);
                     }).catch(function (error) {

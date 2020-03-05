@@ -1,4 +1,4 @@
-/* global L, Path, Element, element, PolylineFactory, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, mapView */
+/* global L, Path, Element, element, PolylineFactory, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, mapView, WireListener */
 
 /**
  * @param {Number} id
@@ -73,8 +73,8 @@ Wire.prototype = {
                                         {id: 'images', label: 'Imágenes'},
                                         [{filePath: wire.image}],
                                         false)
-                                .addEditButton(ResourceUrl.WIRE, self.id)
-                                .addDeleteBtn(ApiUrl.DELETE_WIRE_ID, self.id)
+//                                .addEditButton(ResourceUrl.WIRE, self.id)
+//                                .addDeleteBtn(ApiUrl.DELETE_WIRE_ID, self.id)
                                 .build(250, 240);
                         resolve(html);
                     })
@@ -102,8 +102,34 @@ Wire.prototype = {
 
     subscribeToEvents: function () {
         var self = this;
-        this.polyline.on('contextmenu', function () {
-            self.edit();
+        this.polyline.bindContextMenu({
+            contextmenuItems: [
+                {
+                    text: '<strong>Cable ' + self.name + '</strong>',
+                    disabled: true
+                },
+                '-',
+                {
+                    text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
+                    callback: function () {
+                        self.edit();
+                    }
+                },
+                '-',
+                {
+                    text: '<i class="far fa-edit"></i> Editar',
+                    callback: function () {
+                        LayerFormListener.showEditModal(self.id);
+                    }
+                },
+                '-',
+                {
+                    text: '<i class="far fa-trash-alt"></i> Eliminar',
+                    callback: function () {
+                        WireListener.delete(self.id);
+                    }
+                },
+            ]
         });
         
         this.polyline.on('click', function (e) {

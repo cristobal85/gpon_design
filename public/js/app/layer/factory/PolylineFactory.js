@@ -15,7 +15,9 @@ PolylineFactory.createLayer = function (element) {
     if (element.coordinates.length && element.hexaColor && element.weight) {
         return L.polyline(element.coordinates, {
             color: element.hexaColor,
-            weight: element.weight
+            weight: element.weight,
+            contextmenu: true,
+            contextmenuInheritItems: false
         });
     }
     return L.polyline([]);

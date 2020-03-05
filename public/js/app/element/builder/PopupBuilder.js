@@ -511,28 +511,28 @@ var PopupBuilder = (function () {
                 return this;
             },
 
-            /**
-             * 
-             * @param {string} href Resource URL
-             * @param {Number} id ID from database
-             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
-             */
-            addEditButton: function (href, id) {
-                buttons[id] = "<a href='/" + href + "/" + id + "/edit' class='btn btn-outline-primary btn-sm' role='button'><i class='fas fa-edit'></i> Editar</a>";
-
-                return this;
-            },
-
-            /**
-             * @param {string} href Resource URL
-             * @param {Number} elementId ID from database
-             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
-             */
-            addDeleteBtn: function (href, elementId) {
-                buttons['delete-btn'] = "<button type='button' class='btn btn-outline-danger btn-sm ml-2' onclick='ElementActionListener.delete(" + href + ", " + elementId + ")'><i class='far fa-trash-alt'></i> Eliminar</a>";
-
-                return this;
-            },
+//            /**
+//             * 
+//             * @param {string} href Resource URL
+//             * @param {Number} id ID from database
+//             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
+//             */
+//            addEditButton: function (href, id) {
+//                buttons[id] = "<a href='/" + href + "/" + id + "/edit' class='btn btn-outline-primary btn-sm' role='button'><i class='fas fa-edit'></i> Editar</a>";
+//
+//                return this;
+//            },
+//
+//            /**
+//             * @param {string} href Resource URL
+//             * @param {Number} elementId ID from database
+//             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
+//             */
+//            addDeleteBtn: function (href, elementId) {
+//                buttons['delete-btn'] = "<button type='button' class='btn btn-outline-danger btn-sm ml-2' onclick='ElementActionListener.delete(" + href + ", " + elementId + ")'><i class='far fa-trash-alt'></i> Eliminar</a>";
+//
+//                return this;
+//            },
 
             
             /**

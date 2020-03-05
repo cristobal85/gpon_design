@@ -1,6 +1,7 @@
-/* global Element, element, L, PolygonFactory, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, LayerFormListener */
+/* global Element, element, L, PolygonFactory, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, LayerFormListener, LayerListener */
 
 /**
+ * @param {mapView} mapView
  * @param {Number} id
  * @param {string} name
  * @param {Number[]} coordinates
@@ -8,9 +9,14 @@
  * @param {Number} weight
  * @returns {Layer}
  */
-var Layer = function (id, name, coordinates, hexaColor, weight) {
+var Layer = function (mapView, id, name, coordinates, hexaColor, weight) {
 
     element.Element.call(this);
+    
+    /**
+     * @type {mapView}
+     */
+    this.mapView = mapView;
 
     /**
      * @type {Number}
@@ -227,6 +233,16 @@ Layer.prototype = {
                         LayerFormListener.showEditModal(self.id);
                     }
                 },
+                '-',
+                {
+                    text: '<i class="far fa-trash-alt"></i> Eliminar',
+                    callback: function () {
+                        LayerListener.delete(self.id).then(function() {
+                            self.mapView.deleteLayer(self.polygon);
+                        });
+                        
+                    }
+                }
             ]
         });
     },

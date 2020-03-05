@@ -50,4 +50,5 @@ var ApiUrl = {
     DELETE_WIRE_ID: '/wire/',
     DELETE_DISTRIBUTION_BOX_PASSANT_ID: '/distribution-box-passant/',
     DELETE_TORPEDO_PASSANT_ID: '/torpedo-passant/',
+    DELETE_LAYER_ID: '/layer-group/',
 };
