@@ -14,15 +14,17 @@ var ElementActionListener = {
         ModalAdapter.showConfirm(
                 'Cable',
                 '¿Seguro que quiere eliminar este cable?',
-                function () {
-                    AjaxAdapter.delete(href + elementId)
-                            .then(function (response) {
-                                AlertAdapter.success(response.data.message);
-                                AlertAdapter.success("Refresca el mapa para ver los cambios.");
-                            })
-                            .catch(function (error) {
-                                console.error(error);
-                            });
+                function (confirm) {
+                    if (confirm) {
+                        AjaxAdapter.delete(href + elementId)
+                                .then(function (response) {
+                                    AlertAdapter.success(response.data.message);
+                                    AlertAdapter.success("Refresca el mapa para ver los cambios.");
+                                })
+                                .catch(function (error) {
+                                    console.error(error);
+                                });
+                    }
                 });
 
 
