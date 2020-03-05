@@ -190,11 +190,11 @@ Layer.prototype = {
         return dsBoxLayers;
     },
 
-    edit: function (e) {
+    edit: function () {
         var self = this;
         this.polygon.toggleEdit();
+        var layer = self.polygon;
         if (!this.polygon.editEnabled()) {
-            var layer = self.polygon;
             self.coordinates = layer.getLatLngs();
             AjaxAdapter.post(ApiUrl.PUT_LAYER, {
                 'id': self.id,

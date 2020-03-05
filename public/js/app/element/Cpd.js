@@ -91,10 +91,10 @@ Cpd.prototype = {
         });
     },
 
-    edit: function (e) {
+    edit: function () {
         var self = this;
         self.marker.toggleEdit();
-        var layer = e.relatedTarget;
+        var layer = self.marker;
         if (!this.marker.editEnabled()) {
             layer.editing.disable(); // for CSS 
             self.latitude = layer.getLatLng().lat;
@@ -118,8 +118,8 @@ Cpd.prototype = {
             contextmenuItems: [
                 {
                     text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
-                    callback: function(e) {
-                        self.edit(e);
+                    callback: function() {
+                        self.edit();
                     }
                 }, '-', {
                     text: '<i class="fas fa-unlink"></i> Desconectar puertos',

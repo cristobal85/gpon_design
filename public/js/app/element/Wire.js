@@ -85,11 +85,11 @@ Wire.prototype = {
         });
     },
 
-    edit: function (e) {
+    edit: function () {
         var self = this;
         this.polyline.toggleEdit();
+        var layer = self.polyline;
         if (!this.polyline.editEnabled()) {
-            var layer = e.target;
             self.coordinates = layer.getLatLngs();
             AjaxAdapter.post(ApiUrl.PUT_WIRE, {
                 'id': self.id,
@@ -102,8 +102,8 @@ Wire.prototype = {
 
     subscribeToEvents: function () {
         var self = this;
-        this.polyline.on('contextmenu', function (e) {
-            self.edit(e);
+        this.polyline.on('contextmenu', function () {
+            self.edit();
         });
         
         this.polyline.on('click', function (e) {

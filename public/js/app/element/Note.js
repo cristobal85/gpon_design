@@ -53,16 +53,12 @@ Note.prototype = {
         return this.marker;
     },
 
-    /**
-     * @param {L.MouseEvent} e
-     * @returns {undefined}
-     */
-    edit: function (e) {
+    edit: function () {
         var self = this;
         this.marker.toggleEdit();
+        var layer = self.marker;
         if (!this.marker.editEnabled()) {
-            e.target.editing.disable(); // for CSS 
-            var layer = e.target;
+            layer.editing.disable(); // for CSS 
             self.latitude = layer.getLatLng().lat;
             self.longitude = layer.getLatLng().lng;
             AjaxAdapter.post(ApiUrl.PUT_NOTE, {
@@ -73,7 +69,7 @@ Note.prototype = {
                 AlertAdapter.success(response.data.message);
             });
         } else {
-            e.target.editing.enable();
+            layer.editing.enable();
         }
     },
 
@@ -111,8 +107,8 @@ Note.prototype = {
     subscribeToEvents: function () {
         var self = this;
 
-        this.marker.on('dblclick', function (e) {
-            self.edit(e);
+        this.marker.on('dblclick', function () {
+            self.edit();
         });
 
 

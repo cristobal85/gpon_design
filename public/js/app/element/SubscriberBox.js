@@ -118,10 +118,10 @@ SubscriberBox.prototype = {
         return this;
     },
 
-    edit: function (e) {
+    edit: function () {
         var self = this;
         this.marker.toggleEdit();
-        var layer = e.relatedTarget;
+        var layer = self.marker;
         if (!this.marker.editEnabled()) {
             layer.editing.disable(); // for CSS 
             self.latitude = layer.getLatLng().lat;
