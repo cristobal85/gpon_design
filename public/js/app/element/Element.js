@@ -2,7 +2,13 @@
  * @return {Element}
  */
 var element = {};
-element.Element = function () {};
+element.Element = function (mapView) {
+    
+    /**
+     * @type {mapView}
+     */
+    this.mapView = mapView;
+};
 
 element.Element.prototype = {
     

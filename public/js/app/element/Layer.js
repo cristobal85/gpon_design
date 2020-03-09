@@ -11,13 +11,8 @@
  */
 var Layer = function (mapView, id, name, coordinates, hexaColor, weight) {
 
-    element.Element.call(this);
+    element.Element.call(this, mapView);
     
-    /**
-     * @type {mapView}
-     */
-    this.mapView = mapView;
-
     /**
      * @type {Number}
      */

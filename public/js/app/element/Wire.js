@@ -1,6 +1,7 @@
 /* global L, Path, Element, element, PolylineFactory, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, mapView, WireListener, WireFormListener */
 
 /**
+ * @param {mapView} mapView
  * @param {Number} id
  * @param {string} name
  * @param {Array} coordinates
@@ -8,9 +9,9 @@
  * @param {Number} weight
  * @returns {SubscriberBox}
  */
-var Wire = function (id, name, coordinates, hexaColor, weight) {
+var Wire = function (mapView, id, name, coordinates, hexaColor, weight) {
 
-    element.Element.call(this);
+    element.Element.call(this, mapView);
 
     /**
      * @type {Number}
@@ -132,9 +133,11 @@ Wire.prototype = {
                 {
                     text: '<i class="far fa-trash-alt"></i> Eliminar',
                     callback: function () {
-                        WireListener.delete(self.id);
+                        WireListener.delete(self.id).then(function() {
+                            self.mapView.deleteLayer(self.polyline);
+                        });
                     }
-                },
+                }
             ]
         });
         
