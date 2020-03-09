@@ -51,3 +51,13 @@ WireFormBuilder.prototype.addDistance = function (distance) {
 
     return this;
 };
+
+/**
+ * @param {Number} wireId
+ * @returns {WireFormBuilder.prototype}
+ */
+WireFormBuilder.prototype.addEditForm = function (wireId) {
+    this.form = "<iframe src='" + ApiUrl.GET_WIRE_ID + wireId + "/form' style='width:100%;height:500px;'></iframe>";
+
+    return this;
+};

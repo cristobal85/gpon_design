@@ -28,7 +28,7 @@ class Wire
 
     /**
      * @ORM\Column(type="string", length=191, unique=true)
-     * @Groups({"wire", "form","torpedo","distribution-box","path"})
+     * @Groups({"map", "wire", "form","torpedo","distribution-box","path"})
      */
     private $name;
 

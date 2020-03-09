@@ -98,6 +98,26 @@ class WireController extends AbstractController {
                     'form' => $form->createView(),
         ]);
     }
+    
+    /**
+     * @Route("/{id}/form", name="wire_form", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function editForm(Request $request, Wire $wire): Response {
+        $form = $this->createForm(WireType::class, $wire);
+        $form->remove('wirePattern');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', "Cable guardado correctamente.");
+        }
+
+        return $this->render('wire/edit-form.html.twig', [
+                    'wire' => $wire,
+                    'form' => $form->createView(),
+        ]);
+    }
 
     /**
      * @Route("/{id}", name="wire_delete", methods={"DELETE"})

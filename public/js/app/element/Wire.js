@@ -1,13 +1,14 @@
-/* global L, Path, Element, element, PolylineFactory, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, mapView, WireListener */
+/* global L, Path, Element, element, PolylineFactory, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, mapView, WireListener, WireFormListener */
 
 /**
  * @param {Number} id
+ * @param {string} name
  * @param {Array} coordinates
  * @param {string} hexaColor
  * @param {Number} weight
  * @returns {SubscriberBox}
  */
-var Wire = function (id, coordinates, hexaColor, weight) {
+var Wire = function (id, name, coordinates, hexaColor, weight) {
 
     element.Element.call(this);
 
@@ -15,6 +16,11 @@ var Wire = function (id, coordinates, hexaColor, weight) {
      * @type {Number}
      */
     this.id = id;
+    
+    /**
+     * @type {string}
+     */
+    this.name = name;
 
     /**
      * @type {Array}
@@ -119,7 +125,7 @@ Wire.prototype = {
                 {
                     text: '<i class="far fa-edit"></i> Editar',
                     callback: function () {
-                        LayerFormListener.showEditModal(self.id);
+                        WireFormListener.showEditModal(self.id);
                     }
                 },
                 '-',

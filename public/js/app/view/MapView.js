@@ -85,6 +85,28 @@ var mapView = new Vue({
                 maxZoom: MapUrl.ARCGIS_STREET_SATELITE.maxZoom
             });
 
+            var catastroStreetLayer = L.tileLayer.wms(MapUrl.CATASTRO.url, {
+                layers: MapUrl.CATASTRO.name, //nombre de la capa (ver get capabilities)
+                format: 'image/jpeg',
+                transparent: true,
+                version: '1.1.1', //wms version (ver get capabilities)
+                attribution: MapUrl.CATASTRO.displayName,
+                minZoom: MapUrl.CATASTRO.minZoom,
+                maxZoom: MapUrl.CATASTRO.maxZoom
+            });
+            
+            var catastroParcelaStreetLayer = L.tileLayer.wms(MapUrl.CATASTRO_PARCELA.url, {
+                layers: MapUrl.CATASTRO_PARCELA.name, //nombre de la capa (ver get capabilities)
+                format: 'image/jpeg',
+                transparent: true,
+                version: '1.1.1', //wms version (ver get capabilities)
+                attribution: MapUrl.CATASTRO_PARCELA.displayName,
+                minZoom: MapUrl.CATASTRO_PARCELA.minZoom,
+                maxZoom: MapUrl.CATASTRO_PARCELA.maxZoom
+            });
+            
+            
+
             var zoom = MapUrl.OPEEN_STREET_MAP.maxZoom - Math.round((MapUrl.OPEEN_STREET_MAP.maxZoom - MapUrl.OPEEN_STREET_MAP.minZoom) / 2);
             this.map = L.map('map', {
                 attributionControl: false,
@@ -93,8 +115,10 @@ var mapView = new Vue({
                 contextmenu: true, // Enable context menu on the map (enable / disable all contextmenus)
             }).setView([lat, long], zoom).addLayer(arcgisStreetSateliteLayer); // Default MAP
 
-            this.lControl.addBaseLayer(openStreetMapLayer, MapUrl.OPEEN_STREET_MAP.name);
-            this.lControl.addBaseLayer(arcgisStreetSateliteLayer, MapUrl.ARCGIS_STREET_SATELITE.name);
+            this.lControl.addBaseLayer(openStreetMapLayer, MapUrl.OPEEN_STREET_MAP.displayName);
+            this.lControl.addBaseLayer(arcgisStreetSateliteLayer, MapUrl.ARCGIS_STREET_SATELITE.displayName);
+            this.lControl.addBaseLayer(catastroStreetLayer, MapUrl.CATASTRO.displayName);
+            this.lControl.addBaseLayer(catastroParcelaStreetLayer, MapUrl.CATASTRO_PARCELA.displayName);
         },
 
         /**

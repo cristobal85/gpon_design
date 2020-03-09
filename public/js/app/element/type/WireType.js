@@ -13,6 +13,7 @@ var WireType = Object.create(ElementType);
 WireType.buildElement = function (data) {
     return new Wire(
             data.id,
+            data.name,
             data.coordinates,
             data.hexaColor,
             data.weight,
