@@ -1,6 +1,7 @@
-/* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, ResourceUrl, TorpedoFusionListener, TorpedoPassantListener, TorpedoFormListener */
+/* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, ResourceUrl, TorpedoFusionListener, TorpedoPassantListener, TorpedoFormListener, TorpedoListener */
 
 /**
+ * @param {mapView} mapView
  * @param {Number} id
  * @param {string} name
  * @param {string} latitude
@@ -8,9 +9,9 @@
  * @param {float} icon
  * @returns {Torpedo}
  */
-var Torpedo = function (id, name, latitude, longitude, icon) {
+var Torpedo = function (mapView, id, name, latitude, longitude, icon) {
 
-    element.Element.call(this);
+    element.Element.call(this, mapView);
 
     /**
      * @type {Number}
@@ -162,6 +163,14 @@ Torpedo.prototype = {
                     text: '<i class="fas fa-cut"></i> Eliminar pasantes',
                     callback: function () {
                         TorpedoPassantListener.deletePasants(self.id);
+                    }
+                },
+                {
+                    text: '<i class="far fa-trash-alt"></i> Eliminar',
+                    callback: function () {
+                        TorpedoListener.delete(self.id).then(function() {
+                            self.mapView.deleteLayer(self.marker);
+                        });
                     }
                 }
             ]

@@ -51,4 +51,5 @@ var ApiUrl = {
     DELETE_DISTRIBUTION_BOX_PASSANT_ID: '/distribution-box-passant/',
     DELETE_TORPEDO_PASSANT_ID: '/torpedo-passant/',
     DELETE_LAYER_ID: '/layer-group/',
+    DELETE_TORPEDO_ID: '/torpedo/'
 };

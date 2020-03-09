@@ -1,6 +1,7 @@
 /* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupEnum, PopupBuilder, ResourceUrl, SubscriberBoxExtFormListener */
 
 /**
+ * @param {mapView} mapView
  * @param {Number} id
  * @param {string} name
  * @param {float} latitude
@@ -8,9 +9,9 @@
  * @param {float} icon
  * @returns {SubscriberBoxExt}
  */
-var SubscriberBoxExt = function (id, name, latitude, longitude, icon) {
+var SubscriberBoxExt = function (mapView, id, name, latitude, longitude, icon) {
 
-    element.Element.call(this);
+    element.Element.call(this, mapView);
 
     /**
      * @type {Number}

@@ -1,15 +1,16 @@
 /* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, ResourceUrl */
 
 /**
+ * @param {mapView} mapView
  * @param {Number} id
  * @param {string} latitude
  * @param {float} longitude
  * @param {float} icon
  * @returns {Note}
  */
-var Note = function (id, latitude, longitude, icon) {
+var Note = function (mapView, id, latitude, longitude, icon) {
 
-    element.Element.call(this);
+    element.Element.call(this, mapView);
 
     /**
      * @type {Number}

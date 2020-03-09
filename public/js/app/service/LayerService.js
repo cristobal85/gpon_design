@@ -1,4 +1,4 @@
-/* global AjaxAdapter, ApiUrl, Map, Layer, DistributionBoxType, SubscriberBoxType, WireType, LayerType, SubscriberBoxExtType, TorpedoType, LoaderAdapter, LocalStorageAdapter */
+/* global AjaxAdapter, ApiUrl, Map, Layer, DistributionBoxType, SubscriberBoxType, WireType, LayerType, SubscriberBoxExtType, TorpedoType, LoaderAdapter, LocalStorageAdapter, ElementFactory */
 
 /**
  * @return {LayerService.LayerServiceAnonym$4}

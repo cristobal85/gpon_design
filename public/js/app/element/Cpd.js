@@ -1,15 +1,16 @@
 /* global L, AjaxAdapter , Path, element.Element, element, ApiUrl, AlertAdapter, CpdMarkerFactory, PopupBuilder, PopupEnum */
 
 /**
+ * @param {mapView} mapView
  * @param {Number} id
  * @param {string} logo
  * @param {float} latitude
  * @param {float} longitude
  * @return {Cpd}
  */
-var Cpd = function (id, logo, latitude, longitude) {
+var Cpd = function (mapView, id, logo, latitude, longitude) {
 
-    element.Element.call(this);
+    element.Element.call(this, mapView);
 
     /**
      * @type {Number}

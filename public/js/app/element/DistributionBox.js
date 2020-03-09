@@ -1,6 +1,7 @@
 /* global L, Path, Element, element, MarkerFactory, ApiUrl, AjaxAdapter, AlertAdapter; SubsSubscriberBox, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, DistributionBoxPassantListener, DsBoxConectorFormListener, DistributionBoxFormListener */
 
 /**
+ * @param {mapView} mapView
  * @param {Number} id
  * @param {string} name
  * @param {string} latitude
@@ -8,9 +9,9 @@
  * @param {float} icon
  * @returns {DistributionBox}
  */
-var DistributionBox = function (id, name, latitude, longitude, icon) {
+var DistributionBox = function (mapView, id, name, latitude, longitude, icon) {
 
-    element.Element.call(this);
+    element.Element.call(this, mapView);
 
     /**
      * @type {Number}

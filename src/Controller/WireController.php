@@ -138,6 +138,7 @@ class WireController extends AbstractController {
 
         if ($this->isCsrfTokenValid('delete' . $wire->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $wire->deleteFusionAndPasants();
             $entityManager->remove($wire);
             $entityManager->flush();
         }

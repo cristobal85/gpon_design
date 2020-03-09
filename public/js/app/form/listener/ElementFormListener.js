@@ -16,15 +16,12 @@ var ElementFormListener = {
         $(formData).each(function (index, obj) {
             data[obj.name] = obj.value;
         });
-
-//        console.log(data);
         
         AjaxAdapter.post(url, data)
                 .then(function (response) {
-//                    console.log(response);
                     mapView.renderLayer(
                             ElementFactory
-                            .factory(response.data)
+                            .factory(response.data, mapView)
                             .getLayer()
                             );
                     AlertAdapter.success(response.data.message);
@@ -33,21 +30,5 @@ var ElementFormListener = {
                 .catch(function (error) {
                     AlertAdapter.error(error.data.message);
                 });
-//        $.ajax({
-//            method: "POST",
-//            url: url,
-//            data: data
-//        }).done(function (response) {
-//            mapView.renderLayer(
-//                    ElementFactory
-//                    .factory(response)
-//                    .getLayer()
-//                    );
-//            AlertAdapter.success(response.message);
-//            ModalAdapter.hideAll();
-//        }).fail(function (jqXHR) {
-//            console.log(jqXHR);
-//            AlertAdapter.error(jqXHR.responseJSON.message);
-//        });
     }
 };

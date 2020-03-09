@@ -80,8 +80,6 @@ Wire.prototype = {
                                         {id: 'images', label: 'Imágenes'},
                                         [{filePath: wire.image}],
                                         false)
-//                                .addEditButton(ResourceUrl.WIRE, self.id)
-//                                .addDeleteBtn(ApiUrl.DELETE_WIRE_ID, self.id)
                                 .build(250, 240);
                         resolve(html);
                     })

@@ -114,6 +114,16 @@ class TorpedoController extends AbstractController {
      * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Torpedo $torpedo): Response {
+        if ($request->isXmlHttpRequest()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($torpedo);
+            $entityManager->flush();
+            
+            return new JsonResponse([
+                'message' => 'Torpedo eliminado correctamente.'
+            ]);
+        }
+        
         if ($this->isCsrfTokenValid('delete' . $torpedo->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($torpedo);
