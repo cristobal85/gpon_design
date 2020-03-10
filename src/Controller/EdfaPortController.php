@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Serializer\CircularSerializer;
 
 /**
  * @Route("/edfa-port")
@@ -58,6 +59,28 @@ class EdfaPortController extends AbstractController
         return $this->render('edfa_port/show.html.twig', [
             'edfa_port' => $edfaPort,
         ]);
+    }
+    
+    /**
+     * @Route("/{id}/{type}", name="edfa_port_show_by_type", methods={"GET"})
+     */
+    public function showByType(
+            Request $request, 
+            EdfaPortRepository $edfaPortRep, 
+            EdfaPort $edfaPort, 
+            string $type,
+            CircularSerializer $serializer): Response
+    {
+        $edfa = $edfaPort->getEdfaSlot()->getEdfa();
+        
+        if ($request->isXmlHttpRequest()) {
+            $edfaPortInverse = $edfaPortRep->findOneByNumberAndSlotType($edfa, $edfaPort->getNumber(), $type);
+            $jsonObject = $serializer->serialize($edfaPortInverse, ['path']);
+
+            return new Response($jsonObject);
+        }
+        
+        throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
     }
 
     /**

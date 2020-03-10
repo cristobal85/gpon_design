@@ -37,6 +37,7 @@ class LatiguilloPatch
      * @ORM\OneToOne(targetEntity="App\Entity\PatchPanelSlotConector", inversedBy="latiguilloPatch", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(message = "Debes seleccionar un puerto del Patch Panel.")
+     * @Groups({"path"})
      */
     private $patchPanelSlotConector;
 

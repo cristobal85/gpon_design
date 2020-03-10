@@ -42,7 +42,6 @@ class Edfa
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\EdfaSlot", mappedBy="edfa", orphanRemoval=true)
-     * @Groups({"path"})
      */
     private $edfaSlots;
 

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\EdfaPort;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use App\Entity\Edfa;
 
 /**
  * @method EdfaPort|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,22 +20,24 @@ class EdfaPortRepository extends ServiceEntityRepository
         parent::__construct($registry, EdfaPort::class);
     }
 
-    // /**
-    //  * @return EdfaPort[] Returns an array of EdfaPort objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return EdfaPort 
+     */
+    public function findOneByNumberAndSlotType(Edfa $edfa, string $number, string $slotType)
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder("edfaPort")
+            ->join("edfaPort.edfaSlot", 'edfaSlot')
+            ->join("edfaSlot.edfa", 'edfa')
+            ->andWhere('edfaPort.number = :number')
+            ->andWhere('edfaSlot.type = :slotType')
+            ->andWhere('edfa = :edfa')
+            ->setParameter('number', intval($number))
+            ->setParameter('slotType', $slotType)
+            ->setParameter('edfa', $edfa)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?EdfaPort

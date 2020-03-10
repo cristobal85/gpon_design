@@ -12,14 +12,62 @@ var PatchPanelListener = {
     showModal: function (patchPanelConectorId) {
         var self = this;
 
-        AjaxAdapter.get(ApiUrl.GET_CONECTOR_ID + patchPanelConectorId).then(function (response) {
+        AjaxAdapter.get(ApiUrl.GET_CONECTOR_ID + patchPanelConectorId).then(async function (response) {
             var patchPanelConector = response.data;
-            console.log(patchPanelConector);
-            var conectorFiber = patchPanelConector.fiber;
+//            console.log(patchPanelConector);
             var html = "";
-            if (conectorFiber) {
+            if (patchPanelConector.latiguilloPatch) {
+                var latiguilloPatch = patchPanelConector.latiguilloPatch;
                 html += "<div id='tree'>";
+                html += "<ul>";
+                html += "<li>";
+                html += "<strong>Trayectoria a OLT</strong>";
+                html += "<ul>";
+                html += "<li>";
+                html += "Latiguillo a EDFA: " + latiguilloPatch.name;
+                if (latiguilloPatch.edfaPort) {
+                    var edfaPort = latiguilloPatch.edfaPort;
+                    html += "<ul>";
+                    html += "<li>";
+                    html += "Puerto EDFA: " + edfaPort.edfaSlot.edfa.name + " (" + edfaPort.edfaSlot.type + ") <strong>" + edfaPort.number + "</strong>";
+                    await AjaxAdapter.get(ApiUrl.GET_EDFA_PORT_ID + edfaPort.id + "/in").then(function (response) { // todo: IN
+                        var edfaPort = response.data;
+                        if (edfaPort.latiguilloEdfa) {
+                            var latiguilloEdfa = edfaPort.latiguilloEdfa;
+                            html += "<ul>";
+                            html += "<li>";
+                            html += "Latiguillo a OLT: " + latiguilloEdfa.name;
+                            if (latiguilloEdfa.oltPort) {
+                                var oltPort = latiguilloEdfa.oltPort;
+                                html += "<ul>";
+                                html += "<li>";
+                                html += "Puerto OLT: <strong>" + oltPort.oltSlot.olt.name + " / Tarjeta " + oltPort.oltSlot.number + " / Puerto " + oltPort.number + "</strong>";
+                                html += "</li>";
+                                html += "</ul>"
+                            }
+                            html += "</li>";
+                            html += "</ul>"
+                        }
+                    });
+
+                    html += "</li>";
+                    html += "</ul>"
+                }
+                html += "</li>";
+                html += "</ul>"
+                html += "</li>";
+                html += "</ul>";
+            } else {
+                html += "<div id='tree'>";
+            }
+            var conectorFiber = patchPanelConector.fiber;
+            if (conectorFiber) {
+                html += "<ul>";
+                html += "<li>";
+                html += "<strong>Trayectoria a Caja Distribución</strong>";
                 html += self.generateNexo(conectorFiber);
+                html += "</li>";
+                html += "</ul>";
                 html += "</div>";
             }
 
@@ -161,12 +209,12 @@ var PatchPanelListener = {
                     function (result) {
                         if (result) {
                             AjaxAdapter.put(ApiUrl.PUT_PATCH_PANEL_PORT + '/' + patchPanelConectorId + '/disconnect')
-                                .then(function (response) {
-                                    AlertAdapter.success(response.data.message);
-                                })
-                                .catch(function (error) {
-                                    console.error(error);
-                                });
+                                    .then(function (response) {
+                                        AlertAdapter.success(response.data.message);
+                                    })
+                                    .catch(function (error) {
+                                        console.error(error);
+                                    });
                         }
                     });
         });

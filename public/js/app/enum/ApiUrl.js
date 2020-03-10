@@ -42,6 +42,7 @@ var ApiUrl = {
     GET_SLOT_ID: '/patch-panel-slot/',
     GET_NOTE_ID: '/note/',
     GET_LAYER_GROUP_ID: '/layer-group/',
+    GET_EDFA_PORT_ID: '/edfa-port/',
     POST_PATCH_CONECTOR: '/patch-panel-slot-conector/',
     POST_SUBSCRIBER_IMAGE: '/subscriber-box-image/',
     POST_DISTRIBUTION_IMAGE: '/distribution-box-image/',
