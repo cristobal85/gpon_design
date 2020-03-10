@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LatiguilloPatchRepository")
@@ -14,11 +15,13 @@ class LatiguilloPatch
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"path"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"path"})
      */
     private $name;
 
@@ -26,6 +29,7 @@ class LatiguilloPatch
      * @ORM\OneToOne(targetEntity="App\Entity\EdfaPort", inversedBy="latiguilloPatch", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(message = "Debes seleccionar un puerto de EDFA.")
+     * @Groups({"path"})
      */
     private $edfaPort;
 

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OltPortRepository")
@@ -14,22 +15,26 @@ class OltPort
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"path"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"path"})
      */
     private $number;
     
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"path"})
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\OltSlot", inversedBy="oltPorts")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"path"})
      */
     private $oltSlot;
 

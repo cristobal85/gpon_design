@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EdfaSlotRepository")
@@ -15,17 +16,20 @@ class EdfaSlot
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"path"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"path"})
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Edfa", inversedBy="edfaSlots")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"path"})
      */
     private $edfa;
 

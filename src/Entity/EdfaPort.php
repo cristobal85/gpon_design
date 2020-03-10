@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EdfaPortRepository")
@@ -13,27 +14,32 @@ class EdfaPort
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"path"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"path"})
      */
     private $number;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\EdfaSlot", inversedBy="edfaPorts")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"path"})
      */
     private $edfaSlot;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\LatiguilloEdfa", mappedBy="edfaPort", cascade={"persist", "remove"})
+     * @Groups({"path"})
      */
     private $latiguilloEdfa;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\LatiguilloPatch", mappedBy="edfaPort", cascade={"persist", "remove"})
+     * @Groups({"path"})
      */
     private $latiguilloPatch;
 

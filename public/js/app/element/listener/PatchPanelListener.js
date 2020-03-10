@@ -14,6 +14,7 @@ var PatchPanelListener = {
 
         AjaxAdapter.get(ApiUrl.GET_CONECTOR_ID + patchPanelConectorId).then(function (response) {
             var patchPanelConector = response.data;
+            console.log(patchPanelConector);
             var conectorFiber = patchPanelConector.fiber;
             var html = "";
             if (conectorFiber) {

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EdfaRepository")
@@ -23,11 +24,13 @@ class Edfa
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"path"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"path"})
      */
     private $name;
 
@@ -39,6 +42,7 @@ class Edfa
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\EdfaSlot", mappedBy="edfa", orphanRemoval=true)
+     * @Groups({"path"})
      */
     private $edfaSlots;
 

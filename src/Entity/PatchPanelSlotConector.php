@@ -33,7 +33,7 @@ class PatchPanelSlotConector
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\LatiguilloPatch", mappedBy="patchPanelSlotConector", cascade={"persist", "remove"})
-     * @Groups({"cpd"})
+     * @Groups({"cpd","path"})
      */
     private $latiguilloPatch;
 
