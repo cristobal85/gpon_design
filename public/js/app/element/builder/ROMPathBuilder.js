@@ -23,53 +23,66 @@ var ROMPathBuilder = (function () {
 
     function init() {
 
-
+        
 
         return {
+            
+            latiguilloPatch: null,
+
+            /**
+             * @returns {ROMPathBuilder}
+             */
+            addOltPath: async function () {
+                var self = instance;
+                html += "<ul>";
+                html += "<li>";
+                html += "Latiguillo a EDFA: " + self.latiguilloPatch.name;
+                if (self.latiguilloPatch.edfaPort) {
+                    var edfaPort = self.latiguilloPatch.edfaPort;
+                    html += "<ul>";
+                    html += "<li>";
+                    html += "Puerto EDFA: " + edfaPort.edfaSlot.edfa.name + " Puerto <strong>" + edfaPort.number + "</strong>";
+                    await AjaxAdapter.get(ApiUrl.GET_EDFA_PORT_ID + edfaPort.id + "/" + ((edfaPort.edfaSlot.type.toLowerCase() === 'out') ? 'in' : 'out')).then(function (response) {
+                        var edfaPort = response.data;
+                        if (edfaPort.latiguilloEdfa) {
+                            var latiguilloEdfa = edfaPort.latiguilloEdfa;
+                            html += "<ul>";
+                            html += "<li>";
+                            html += "Latiguillo a OLT: " + latiguilloEdfa.name;
+                            if (latiguilloEdfa.oltPort) {
+                                var oltPort = latiguilloEdfa.oltPort;
+                                html += "<ul>";
+                                html += "<li>";
+                                html += "Puerto OLT: <strong>" + oltPort.oltSlot.olt.name + " / Tarjeta " + oltPort.oltSlot.number + " / Puerto " + oltPort.number + "</strong>";
+                                html += "</li>";
+                                html += "</ul>";
+                            }
+                            html += "</li>";
+                            html += "</ul>";
+                        }
+                    });
+
+                    html += "</li>";
+                    html += "</ul>";
+                }
+                html += "</li>";
+                html += "</ul>";
+
+                return this;
+            },
 
             /**
              * @param {{ latiguilloPath, fiber}} patchPanelConector
              * @returns {ROMPathBuilder}
              */
-            addOltPath: async function (patchPanelConector) {
+            addRomToOltPath: async function (patchPanelConector) {
+                var self = instance;
                 if (patchPanelConector.latiguilloPatch) {
-                    var latiguilloPatch = patchPanelConector.latiguilloPatch;
+                    self.latiguilloPatch = patchPanelConector.latiguilloPatch;
                     html += "<ul>";
                     html += "<li>";
                     html += "<strong>Trayectoria a OLT</strong>";
-                    html += "<ul>";
-                    html += "<li>";
-                    html += "Latiguillo a EDFA: " + latiguilloPatch.name;
-                    if (latiguilloPatch.edfaPort) {
-                        var edfaPort = latiguilloPatch.edfaPort;
-                        html += "<ul>";
-                        html += "<li>";
-                        html += "Puerto EDFA: " + edfaPort.edfaSlot.edfa.name + " Puerto <strong>" + edfaPort.number + "</strong>";
-                        await AjaxAdapter.get(ApiUrl.GET_EDFA_PORT_ID + edfaPort.id + "/" + ((edfaPort.edfaSlot.type.toLowerCase() === 'out') ? 'in' : 'out')).then(function (response) {
-                            var edfaPort = response.data;
-                            if (edfaPort.latiguilloEdfa) {
-                                var latiguilloEdfa = edfaPort.latiguilloEdfa;
-                                html += "<ul>";
-                                html += "<li>";
-                                html += "Latiguillo a OLT: " + latiguilloEdfa.name;
-                                if (latiguilloEdfa.oltPort) {
-                                    var oltPort = latiguilloEdfa.oltPort;
-                                    html += "<ul>";
-                                    html += "<li>";
-                                    html += "Puerto OLT: <strong>" + oltPort.oltSlot.olt.name + " / Tarjeta " + oltPort.oltSlot.number + " / Puerto " + oltPort.number + "</strong>";
-                                    html += "</li>";
-                                    html += "</ul>";
-                                }
-                                html += "</li>";
-                                html += "</ul>";
-                            }
-                        });
-
-                        html += "</li>";
-                        html += "</ul>";
-                    }
-                    html += "</li>";
-                    html += "</ul>";
+                    await self.addOltPath();
                     html += "</li>";
                     html += "</ul>";
                 }
@@ -88,6 +101,25 @@ var ROMPathBuilder = (function () {
                     html += "<ul>";
                     html += "<li>";
                     html += "<strong>Trayectoria a Caja Distribución</strong>";
+                    html += self.generateNexo(fiber);
+                    html += "</li>";
+                    html += "</ul>";
+                }
+
+                return this;
+            },
+
+            /**
+             * 
+             * @param {{id:Number, tube, hexaColor:string, torpedoFusions:[], torpedoPassans:[], distributionBoxPassants}} fiber
+             * @returns {ROMPathBuilderROMPathBuilder.init.ROMPathBuilderAnonym$0}
+             */
+            addDsToRomPath: function (fiber) {
+                var self = instance;
+                if (fiber) {
+                    html += "<ul>";
+                    html += "<li>";
+                    html += "<strong>Trayectoria a OLT</strong>";
                     html += self.generateNexo(fiber);
                     html += "</li>";
                     html += "</ul>";
@@ -174,6 +206,11 @@ var ROMPathBuilder = (function () {
                     html += " <strong>(" + fiber.patchPanelSlotConector.patchPanelSlot.patchPanel.rack.name + ")</strong>";
                     html += "</li>";
                     html += "</ul>";
+                    
+                    if (fiber.patchPanelSlotConector.latiguilloPatch) {
+                        console.log(fiber.patchPanelSlotConector);
+                        self.latiguilloPatch = fiber.patchPanelSlotConector.latiguilloPatch;
+                    }
                 }
 
                 if (fiber.distributionBoxPort) {

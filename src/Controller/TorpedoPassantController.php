@@ -38,38 +38,40 @@ class TorpedoPassantController extends AbstractController {
             $fibers = $wire1Tubes[$i]->getFibers();
             for ($j = 0; $j < count($fibers); $j++) {
                 $fiber1 = $fibers[$j];
-                $fiber2 = $wire2->getTubes()[$i]->getFibers()[$j];
-                // TODO: Refactoring this
-                if (!empty($fiber1) && !empty($fiber2) && $fiber1 !== $fiber2 &&
-                        !$torpedo->isFiberInUse($fiber1) && !$torpedo->isFiberInUse($fiber2)) {
-                    $torpedoPassant = new TorpedoPassant();
-                    $torpedoPassant->addFiber($fiber1)->addFiber($fiber2)->setTorpedo($torpedo);
-                    $torpedo->addPassant($torpedoPassant);
+                if ($wire2->getTubes()[$i]) {
+                    $fiber2 = $wire2->getTubes()[$i]->getFibers()[$j];
+                    // TODO: Refactoring this
+                    if (!empty($fiber1) && !empty($fiber2) && $fiber1 !== $fiber2 &&
+                            !$torpedo->isFiberInUse($fiber1) && !$torpedo->isFiberInUse($fiber2)) {
+                        $torpedoPassant = new TorpedoPassant();
+                        $torpedoPassant->addFiber($fiber1)->addFiber($fiber2)->setTorpedo($torpedo);
+                        $torpedo->addPassant($torpedoPassant);
 
-                    $torpedoErrors = $validator->validate($torpedoPassant);
-                    $fiber1Errors = $validator->validate($fiber1);
-                    $fiber2Errors = $validator->validate($fiber2);
+                        $torpedoErrors = $validator->validate($torpedoPassant);
+                        $fiber1Errors = $validator->validate($fiber1);
+                        $fiber2Errors = $validator->validate($fiber2);
 
-                    $errorsString = "";
-                    if (count($torpedoErrors) > 0) {
-                        $errorsString = (string) $torpedoErrors;
-                    }
-                    if (count($fiber1Errors) > 0) {
-                        $errorsString = (string) $fiber1Errors;
-                    }
-                    if (count($fiber2Errors) > 0) {
-                        $errorsString = (string) $fiber2Errors;
-                    }
-                    if (!empty($errorsString)) {
-                        return new JsonResponse([
-                            'message' => $errorsString
-                                ], 400);
-                    }
+                        $errorsString = "";
+                        if (count($torpedoErrors) > 0) {
+                            $errorsString = (string) $torpedoErrors;
+                        }
+                        if (count($fiber1Errors) > 0) {
+                            $errorsString = (string) $fiber1Errors;
+                        }
+                        if (count($fiber2Errors) > 0) {
+                            $errorsString = (string) $fiber2Errors;
+                        }
+                        if (!empty($errorsString)) {
+                            return new JsonResponse([
+                                'message' => $errorsString
+                                    ], 400);
+                        }
 
-                    $em->persist($torpedo);
+                        $em->persist($torpedo);
 
-                    $passantsCount++;
-                } 
+                        $passantsCount++;
+                    }
+                }
 //                else 
 //                {
 //                    $logger->info('No entro la bola en: '. $fiber1);
@@ -107,7 +109,7 @@ class TorpedoPassantController extends AbstractController {
             'message' => 'Se han añadido (' . $passantsCount . ') pasantes en el torpedo.'
         ]);
     }
-    
+
     /**
      * @Route("/torpedo-passant/{torpedo}", name="torpedo_passant_delete", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
@@ -129,7 +131,7 @@ class TorpedoPassantController extends AbstractController {
                 'message' => 'Se han eliminado (' . $passantsCount . ') pasantes del torpedo.'
             ]);
         }
-        
+
         throw new BadRequestHttpException();
     }
 

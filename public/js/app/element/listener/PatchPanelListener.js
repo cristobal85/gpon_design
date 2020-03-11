@@ -15,8 +15,8 @@ var PatchPanelListener = {
             var conectorFiber = patchPanelConector.fiber;
             
             var romPathBuilder = ROMPathBuilder.getInstance();
-            await romPathBuilder.addOltPath(patchPanelConector);
-            romPathBuilder.addDistributionBoxPath(conectorFiber);
+            await romPathBuilder.addRomToOltPath(patchPanelConector);
+            await romPathBuilder.addDistributionBoxPath(conectorFiber);
 //            console.log(patchPanelConector);
             
 
