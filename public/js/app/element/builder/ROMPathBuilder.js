@@ -18,7 +18,7 @@ var ROMPathBuilder = (function () {
     /**
      * @type {string}
      */
-    var html = "<div id='tree'>";
+    var html = "";
 
 
     function init() {
@@ -207,6 +207,7 @@ var ROMPathBuilder = (function () {
             if (!instance) {
                 instance = init();
             }
+            html = "<div id='tree'>";
             return instance;
         }
     };
