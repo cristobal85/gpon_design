@@ -17,7 +17,6 @@ var PatchPanelListener = {
             var romPathBuilder = ROMPathBuilder.getInstance();
             await romPathBuilder.addRomToOltPath(patchPanelConector);
             await romPathBuilder.addDistributionBoxPath(conectorFiber);
-//            console.log(patchPanelConector);
             
 
             ModalAdapter.showModal('Trayectoria', romPathBuilder.build());
