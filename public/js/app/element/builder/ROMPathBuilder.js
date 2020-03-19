@@ -19,6 +19,12 @@ var ROMPathBuilder = (function () {
      * @type {string}
      */
     var html = "";
+    
+    /**
+     * 
+     * @type {Number}
+     */
+    var longitude = 0;
 
     /**
      * 
@@ -151,9 +157,10 @@ var ROMPathBuilder = (function () {
              */
             generateNexo: function (fiber) {
                 var self = instance;
+                longitude += parseFloat(fiber.tube.wire.longitude.toFixed(2));
                 var html = "<ul>";
                 html += "<li data-jstree='{\"icon\":\"" + Path.IMAGE_UPLOADS + fiber.tube.wire.image + "\"}'>";
-                html += "Fibra: " + fiber.tube.wire.name + " <strong>(" + fiber.tube.wire.longitude.toFixed(2) + "m)</strong>";
+                html += "Fibra: " + fiber.tube.wire.name + " (" + fiber.tube.wire.longitude.toFixed(2) + "m)" + " <strong>(" + longitude + "m)</strong>";
                 html += "<div class='wire tube-left' style='background-color:" + fiber.tube.hexaColor + "'></div>";
                 html += "<div class='wire fiber-left' style='background-color:" + fiber.hexaColor + "'></div>";
 
@@ -261,6 +268,7 @@ var ROMPathBuilder = (function () {
             }
             html = "<div id='tree'>";
             patchPanelConector = null;
+            longitude = 0;
             return instance;
         }
     };

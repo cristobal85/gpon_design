@@ -94,7 +94,7 @@ var mapView = new Vue({
                 minZoom: MapUrl.CATASTRO.minZoom,
                 maxZoom: MapUrl.CATASTRO.maxZoom
             });
-            
+
             var catastroParcelaStreetLayer = L.tileLayer.wms(MapUrl.CATASTRO_PARCELA.url, {
                 layers: MapUrl.CATASTRO_PARCELA.name, //nombre de la capa (ver get capabilities)
                 format: 'image/jpeg',
@@ -104,8 +104,8 @@ var mapView = new Vue({
                 minZoom: MapUrl.CATASTRO_PARCELA.minZoom,
                 maxZoom: MapUrl.CATASTRO_PARCELA.maxZoom
             });
-            
-            
+
+
 
             var zoom = MapUrl.OPEEN_STREET_MAP.maxZoom - Math.round((MapUrl.OPEEN_STREET_MAP.maxZoom - MapUrl.OPEEN_STREET_MAP.minZoom) / 2);
             this.map = L.map('map', {
@@ -117,7 +117,7 @@ var mapView = new Vue({
 
             this.lControl.addBaseLayer(openStreetMapLayer, MapUrl.OPEEN_STREET_MAP.displayName);
             this.lControl.addBaseLayer(arcgisStreetSateliteLayer, MapUrl.ARCGIS_STREET_SATELITE.displayName);
-            this.lControl.addBaseLayer(catastroStreetLayer, MapUrl.CATASTRO.displayName);
+//            this.lControl.addBaseLayer(catastroStreetLayer, MapUrl.CATASTRO.displayName);
             this.lControl.addBaseLayer(catastroParcelaStreetLayer, MapUrl.CATASTRO_PARCELA.displayName);
         },
 
@@ -149,6 +149,13 @@ var mapView = new Vue({
             L.drawLocal.draw.handlers.marker.tooltip.start = 'Click para ubicar';
 
             this.map.addControl(drawControl);
+
+//            this.map.addControl(new L.Control.Search({
+//                container: 'findbox',
+////                layer: markersLayer,
+//                initial: false,
+//                collapsed: false
+//            }));
 
             var self = this;
             LControlAdapter.addCenterPositionControl(this.map, function () {

@@ -21,8 +21,8 @@ var MapUrl = {
         maxZoom: 22
     },
     CATASTRO_PARCELA: {
-        name: 'CONSTRU',
-        displayName: 'Parcelas',
+        name: 'CATASTRO_GROUP',
+        displayName: 'Catastro Cabra',
         url: 'http://geoserver.intnova.com:8080/geoserver/CATASTRO/wms?',
         minZoom: 16,
         maxZoom: 22
