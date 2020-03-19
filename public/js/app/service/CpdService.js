@@ -32,8 +32,11 @@ var CpdService = (function () {
                         return resolve(self.cpd);
                     }
                     AjaxAdapter.get(ApiUrl.GET_CPD).then(function (response) {
-                        self.cpd = CpdType.buildElement(response.data);
-                        return resolve(self.cpd);
+                        if (response.data) {
+			    self.cpd = CpdType.buildElement(response.data);
+                            return resolve(self.cpd);
+			}
+			AlertAdapter.error("No se encontró ningún CPD en la base de datos.");
                     }).catch(function (error) {
                         console.error(error);
                         return reject(error);
