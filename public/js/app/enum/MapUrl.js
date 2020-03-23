@@ -21,9 +21,9 @@ var MapUrl = {
         maxZoom: 22
     },
     CATASTRO_PARCELA: {
-        name: 'CATASTRO_GROUP',
+        name: 'CABRA_GROUP',
         displayName: 'Catastro Cabra',
-        url: 'http://geoserver.intnova.com:8080/geoserver/CATASTRO/wms?',
+        url: 'http://geoserver.intnova.com:8080/geoserver/CABRA/wms?',
         minZoom: 16,
         maxZoom: 22
     },

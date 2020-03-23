@@ -66,11 +66,18 @@ class Cpd
      */
     private $images;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Map", mappedBy="cpd", orphanRemoval=true)
+     * @Groups({"map"})
+     */
+    private $maps;
+
     public function __construct()
     {
         $this->racks = new ArrayCollection();
         $this->pdfs = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->maps = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -217,6 +224,37 @@ class Cpd
             // set the owning side to null (unless already changed)
             if ($image->getCpd() === $this) {
                 $image->setCpd(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Map[]
+     */
+    public function getMaps(): Collection
+    {
+        return $this->maps;
+    }
+
+    public function addMap(Map $map): self
+    {
+        if (!$this->maps->contains($map)) {
+            $this->maps[] = $map;
+            $map->setCpd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMap(Map $map): self
+    {
+        if ($this->maps->contains($map)) {
+            $this->maps->removeElement($map);
+            // set the owning side to null (unless already changed)
+            if ($map->getCpd() === $this) {
+                $map->setCpd(null);
             }
         }
 

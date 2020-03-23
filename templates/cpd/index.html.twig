@@ -44,6 +44,8 @@
             </div>
         </div>
     </div>
-                    
+            
+    {% if cpds is empty %}
     <a href="{{ path('cpd_new') }}" class="btn btn-primary">Nuevo CPD</a>
+    {% endif %}
 {% endblock %}

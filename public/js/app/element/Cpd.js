@@ -6,9 +6,10 @@
  * @param {string} logo
  * @param {float} latitude
  * @param {float} longitude
+ * @param {{id:Number,name:string,displayName:string,url:string,wms:boolean,defaultMap:boolean,version:string}[]} maps
  * @return {Cpd}
  */
-var Cpd = function (mapView, id, logo, latitude, longitude) {
+var Cpd = function (mapView, id, logo, latitude, longitude, maps) {
 
     element.Element.call(this, mapView);
 
@@ -31,6 +32,11 @@ var Cpd = function (mapView, id, logo, latitude, longitude) {
      * @type {Number}
      */
     this.longitude = longitude;
+    
+    /**
+     * @type {{id:Number,name:string,displayName:string,url:string,wms:boolean,defaultMap:boolean,version:string}[]}
+     */
+    this.maps = maps;
 
     /**
      * @type {L}

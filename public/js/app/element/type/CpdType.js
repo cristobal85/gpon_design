@@ -18,5 +18,6 @@ CpdType.buildElement = function (data, mapView) {
             data.company.logo,
             data.latitude,
             data.longitude,
+            data.maps
             );
 };

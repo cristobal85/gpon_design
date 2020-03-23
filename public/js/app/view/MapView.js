@@ -71,54 +71,90 @@ var mapView = new Vue({
 
         /**
          * 
-         * @param {Number} lat
-         * @param {Number} long
+         * @param {Cpd} cpd
          * @return {undefined}
          */
-        renderMap: function (lat, long) {
-            var openStreetMapLayer = L.tileLayer(MapUrl.OPEEN_STREET_MAP.url, {
-                minZoom: MapUrl.OPEEN_STREET_MAP.minZoom,
-                maxZoom: MapUrl.OPEEN_STREET_MAP.maxZoom
-            });
-            var arcgisStreetSateliteLayer = L.tileLayer(MapUrl.ARCGIS_STREET_SATELITE.url, {
-                minZoom: MapUrl.ARCGIS_STREET_SATELITE.minZoom,
-                maxZoom: MapUrl.ARCGIS_STREET_SATELITE.maxZoom
-            });
+        renderMap: function (cpd) {
 
-            var catastroStreetLayer = L.tileLayer.wms(MapUrl.CATASTRO.url, {
-                layers: MapUrl.CATASTRO.name, //nombre de la capa (ver get capabilities)
-                format: 'image/jpeg',
-                transparent: true,
-                version: '1.1.1', //wms version (ver get capabilities)
-                attribution: MapUrl.CATASTRO.displayName,
-                minZoom: MapUrl.CATASTRO.minZoom,
-                maxZoom: MapUrl.CATASTRO.maxZoom
-            });
+            var self = this;
+            
+            if (cpd.maps) {
+                var zoom = cpd.maps[0].maxZoom - Math.round((cpd.maps[0].maxZoom - cpd.maps[0].minZoom) / 2);
+                this.map = L.map('map', {
+                    attributionControl: false,
+                    editable: true,
+                    renderer: L.canvas(),
+                    contextmenu: true, // Enable context menu on the map (enable / disable all contextmenus)
+                }).setView([cpd.latitude, cpd.longitude], zoom);
 
-            var catastroParcelaStreetLayer = L.tileLayer.wms(MapUrl.CATASTRO_PARCELA.url, {
-                layers: MapUrl.CATASTRO_PARCELA.name, //nombre de la capa (ver get capabilities)
-                format: 'image/jpeg',
-                transparent: true,
-                version: '1.1.1', //wms version (ver get capabilities)
-                attribution: MapUrl.CATASTRO_PARCELA.displayName,
-                minZoom: MapUrl.CATASTRO_PARCELA.minZoom,
-                maxZoom: MapUrl.CATASTRO_PARCELA.maxZoom
-            });
+                cpd.maps.forEach(function (map) {
+                    var geoMap = null;
+                    if (map.wms) {
+                        console.log(map);
+                        geoMap = L.tileLayer.wms(map.url, {
+                            layers: map.name, //nombre de la capa (ver get capabilities)
+                            format: 'image/png',
+                            transparent: true,
+                            version: map.version, //wms version (ver get capabilities)
+                            attribution: map.displayName,
+                            minZoom: map.minZoom,
+                            maxZoom: map.maxZoom
+                        });
+                    } else {
+                        geoMap = L.tileLayer(map.url, {
+                            minZoom: map.minZoom,
+                            maxZoom: map.maxZoom
+                        });
+                    }
+                    self.lControl.addBaseLayer(geoMap, map.displayName);
+                    if (map.defaultMap) {
+                        self.map.addLayer(geoMap);
+                    }
+                });
+            }
+//            var openStreetMapLayer = L.tileLayer(MapUrl.OPEEN_STREET_MAP.url, {
+//                minZoom: MapUrl.OPEEN_STREET_MAP.minZoom,
+//                maxZoom: MapUrl.OPEEN_STREET_MAP.maxZoom
+//            });
+//            var arcgisStreetSateliteLayer = L.tileLayer(MapUrl.ARCGIS_STREET_SATELITE.url, {
+//                minZoom: MapUrl.ARCGIS_STREET_SATELITE.minZoom,
+//                maxZoom: MapUrl.ARCGIS_STREET_SATELITE.maxZoom
+//            });
+//
+//            var catastroStreetLayer = L.tileLayer.wms(MapUrl.CATASTRO.url, {
+//                layers: MapUrl.CATASTRO.name, //nombre de la capa (ver get capabilities)
+//                format: 'image/png',
+//                transparent: true,
+//                version: '1.1.1', //wms version (ver get capabilities)
+//                attribution: MapUrl.CATASTRO.displayName,
+//                minZoom: MapUrl.CATASTRO.minZoom,
+//                maxZoom: MapUrl.CATASTRO.maxZoom
+//            });
+//
+//            var catastroParcelaStreetLayer = L.tileLayer.wms(MapUrl.CATASTRO_PARCELA.url, {
+//                layers: MapUrl.CATASTRO_PARCELA.name, //nombre de la capa (ver get capabilities)
+//                format: 'image/png',
+//                transparent: true,
+//                version: '1.1.1', //wms version (ver get capabilities)
+//                attribution: MapUrl.CATASTRO_PARCELA.displayName,
+//                minZoom: MapUrl.CATASTRO_PARCELA.minZoom,
+//                maxZoom: MapUrl.CATASTRO_PARCELA.maxZoom
+//            });
+//
+//
+//
+//            var zoom = MapUrl.OPEEN_STREET_MAP.maxZoom - Math.round((MapUrl.OPEEN_STREET_MAP.maxZoom - MapUrl.OPEEN_STREET_MAP.minZoom) / 2);
+//            this.map = L.map('map', {
+//                attributionControl: false,
+//                editable: true,
+//                renderer: L.canvas(),
+//                contextmenu: true, // Enable context menu on the map (enable / disable all contextmenus)
+//            }).setView([cpd.latitude, cpd.longitude], zoom).addLayer(arcgisStreetSateliteLayer); // Default MAP
 
-
-
-            var zoom = MapUrl.OPEEN_STREET_MAP.maxZoom - Math.round((MapUrl.OPEEN_STREET_MAP.maxZoom - MapUrl.OPEEN_STREET_MAP.minZoom) / 2);
-            this.map = L.map('map', {
-                attributionControl: false,
-                editable: true,
-                renderer: L.canvas(),
-                contextmenu: true, // Enable context menu on the map (enable / disable all contextmenus)
-            }).setView([lat, long], zoom).addLayer(arcgisStreetSateliteLayer); // Default MAP
-
-            this.lControl.addBaseLayer(openStreetMapLayer, MapUrl.OPEEN_STREET_MAP.displayName);
-            this.lControl.addBaseLayer(arcgisStreetSateliteLayer, MapUrl.ARCGIS_STREET_SATELITE.displayName);
+//            this.lControl.addBaseLayer(openStreetMapLayer, MapUrl.OPEEN_STREET_MAP.displayName);
+//            this.lControl.addBaseLayer(arcgisStreetSateliteLayer, MapUrl.ARCGIS_STREET_SATELITE.displayName);
 //            this.lControl.addBaseLayer(catastroStreetLayer, MapUrl.CATASTRO.displayName);
-            this.lControl.addBaseLayer(catastroParcelaStreetLayer, MapUrl.CATASTRO_PARCELA.displayName);
+//            this.lControl.addBaseLayer(catastroParcelaStreetLayer, MapUrl.CATASTRO_PARCELA.displayName);
         },
 
         /**

@@ -20,7 +20,7 @@ MapController.prototype = {
 
         var self = this;
         CpdService.getInstance().getCpd().then(function (cpd) {
-            self.mapView.renderMap(cpd.latitude, cpd.longitude);
+            self.mapView.renderMap(cpd);
             self.mapView.renderFixedLayer(cpd.getLayer());
             LayerService.getInstance().getLayers(self.mapView).then(function (layers) {
                 self.mapView.renderEditControls();

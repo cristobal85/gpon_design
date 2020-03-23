@@ -28,13 +28,13 @@ var CpdService = (function () {
              */
             getCpd: function () {
                 return new Promise(function (resolve, reject) {
-                    if (self.cpd) {
-                        return resolve(self.cpd);
+                    if (cpd) {
+                        return resolve(cpd);
                     }
                     AjaxAdapter.get(ApiUrl.GET_CPD).then(function (response) {
                         if (response.data) {
-			    self.cpd = CpdType.buildElement(response.data);
-                            return resolve(self.cpd);
+			   cpd = CpdType.buildElement(response.data);
+                            return resolve(cpd);
 			}
 			AlertAdapter.error("No se encontró ningún CPD en la base de datos.");
                     }).catch(function (error) {
@@ -50,6 +50,7 @@ var CpdService = (function () {
     return {
         getInstance: function () {
             if (!instance) {
+                cpd = null;
                 instance = init();
             }
             return instance;
