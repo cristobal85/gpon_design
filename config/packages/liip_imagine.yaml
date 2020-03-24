@@ -9,10 +9,10 @@ liip_imagine:
 #                web_root: '%kernel.project_dir%/public'
 #                cache_prefix: 'media/cache'
 #            
-#    loaders:
-#        default:
-#            filesystem:
-#                data_root: "%kernel.project_dir%/public/uploads/images"
+    loaders:
+        default:
+            filesystem:
+                data_root: "%kernel.project_dir%/private_assets"
 
     filter_sets :
 
