@@ -193,7 +193,8 @@
             </li>
 
             <hr class="sidebar-divider">
-
+            
+            {% if is_granted('ROLE_ADMIN') %}
             <div class="sidebar-heading">
                 Alertas
             </div>
@@ -206,7 +207,6 @@
 
             <hr class="sidebar-divider">
 
-            {% if is_granted('ROLE_ADMIN') %}
                 <div class="sidebar-heading">
                     Configuración
                 </div>
