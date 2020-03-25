@@ -16,10 +16,7 @@ class LayerGroupType extends AbstractType
             ->add('name', null, ['label'    =>  'Nombre'])
             ->add('hexaColor', ColorType::class, ['label' => 'Color'])
             ->add('weight', null, ['label' => 'Tamaño'])
-            ->add('position', null, ['label' => 'Posición'])
-            ->add('wires', null, ['label' => 'Cables'])
-            ->add('distributionBoxes', null, ['label' => 'Cajas Distribución'])
-            ->add('torpedos', null, ['label' => 'Torpedos'])
+            ->add('position', null, ['label' => 'Posición', 'data' => 1])
         ;
     }
 
