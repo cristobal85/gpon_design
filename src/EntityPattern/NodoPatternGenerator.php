@@ -38,7 +38,7 @@ class NodoPatternGenerator implements PatternGenerator {
             $this->em->persist($distributionBox);
             foreach ($this->nodo::ID_SUBSCRIBER_BOX as $subsBoxId) {
                 $subscriberBox = new SubscriberBox();
-                $subscriberBox->setDistributionBox($distributionBox)->setName($distributionBox.$subsBoxId)->setLatitude(0)->setLongitude(0);
+                $subscriberBox->setDistributionBox($distributionBox)->setName($distributionBox.$subsBoxId);
                 $this->em->persist($subscriberBox);
             }
         }
