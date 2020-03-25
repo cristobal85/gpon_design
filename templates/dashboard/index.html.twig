@@ -339,34 +339,32 @@
                             </div>
                         </li>#}
 
-                        {% if NOTES|length %}
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="far fa-bell"></i>
-                                    <!-- Counter - Messages -->
-                                    <span class="badge badge-danger badge-counter">{{ NOTES|length }}</span>
-                                </a>
-                                <!-- Dropdown - Messages -->
-                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                                    <h6 class="dropdown-header">
-                                        Notas
-                                    </h6>
-                                    {% for note in NOTES %}
-                                        <a class="dropdown-item d-flex align-items-center" href="{{ path('note_show', {'id':note.id}) }}">
-                                            <div class="dropdown-list-image mr-3">
-                                                <img class="rounded-circle" src="{{ asset(images_upload ~ note.user.image) }}" alt="{{ note.user }}">
-                                                <div class="status-indicator bg-success"></div>
-                                            </div>
-                                            <div class="font-weight-bold">
-                                                <div class="text-truncate">{{ note }}</div>
-                                                <div class="small text-gray-500">{{ note.user }} · {{ note.elapsedTime }}</div>
-                                            </div>
-                                        </a>
-                                    {% endfor %}
-                                    <a class="dropdown-item text-center small text-gray-500" href="{{ path('note_new') }}">Nueva nota</a>
-                                </div>
-                            </li>
-                        {% endif %}
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="far fa-bell"></i>
+                                <!-- Counter - Messages -->
+                                {% if NOTES|length %}<span class="badge badge-danger badge-counter">{{ NOTES|length }}</span>{% endif %}
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header">
+                                    Notas
+                                </h6>
+                                {% for note in NOTES %}
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ path('note_show', {'id':note.id}) }}">
+                                        <div class="dropdown-list-image mr-3">
+                                            <img class="rounded-circle" src="{{ asset(images_upload ~ note.user.image) }}" alt="{{ note.user }}">
+                                            <div class="status-indicator bg-success"></div>
+                                        </div>
+                                        <div class="font-weight-bold">
+                                            <div class="text-truncate">{{ note }}</div>
+                                            <div class="small text-gray-500">{{ note.user }} · {{ note.elapsedTime }}</div>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                                <a class="dropdown-item text-center small text-gray-500" href="{{ path('note_new') }}">Nueva nota</a>
+                            </div>
+                        </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
