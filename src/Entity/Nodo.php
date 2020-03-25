@@ -41,11 +41,6 @@ class Nodo
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $color;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\DistributionBox", mappedBy="nodo", orphanRemoval=true, cascade={"remove"})
      */
     private $distributionBox;
@@ -94,18 +89,6 @@ class Nodo
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getColor(): ?string
-    {
-        return $this->color;
-    }
-
-    public function setColor(string $color): self
-    {
-        $this->color = $color;
 
         return $this;
     }

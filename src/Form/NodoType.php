@@ -7,9 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class NodoType extends AbstractType {
@@ -22,7 +20,6 @@ class NodoType extends AbstractType {
                 ->add('name', TextType::class, [
                     'label' => 'Nombre'
                 ])
-                ->add('color', ColorType::class)
                 ->add('addresses', null, ['label' => 'Dirección'])
                 ->add('pdfs', CollectionType::class, [
                     'entry_type' => NodoPdfType::class,

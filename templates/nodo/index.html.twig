@@ -14,7 +14,6 @@
                         <tr>
                             <th class="d-none">Número</th>
                             <th>Nombre</th>
-                            <th>Color</th>
                             <th>Dirección</th>
                             <th></th>
                         </tr>
@@ -24,7 +23,6 @@
                             <tr>
                                 <td class="d-none">{{ nodo.number }}</td>
                                 <td>{{ nodo.name }}</td>
-                                <td><div style="display:block;width:30px;height:30px;background-color:{{ nodo.color }};"></div></td>
                                 <td>
                                     <ul>
                                         {% for address in nodo.addresses %}
