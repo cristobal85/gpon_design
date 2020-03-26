@@ -20,9 +20,12 @@ CpdMarkerFactory.createLayer = function (element) {
                     iconSize: [50, 50]
                 }),
                 contextmenu: true,
-                contextmenuInheritItems: false
+                contextmenuInheritItems: false,
+                title: element.name || "No definido"
             });
     }
     
-    return L.marker([0,0]);
+    return L.marker([0,0], {
+        title: " "
+    }); // REMARK: Title can not be empty beacuse L.Control.Search fail with empty values.
 };

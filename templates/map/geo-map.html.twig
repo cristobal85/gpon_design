@@ -3,17 +3,20 @@
 {% block title %}Mapa{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    {#<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
           integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-          crossorigin="" />
+          crossorigin="" />#}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>
+{#    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>#}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/bootstrap.min.css"/>
     <link rel="stylesheet" href="{{ asset('css/jquery.flowchart.min.css') }}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css"/>
     <link rel="stylesheet" href="{{ asset('css/leaflet.contextmenu.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/leaflet-search.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/leaflet-search.mobile.min.css') }}"/>
 
     <style>
         html,
@@ -60,9 +63,10 @@
 
 {% block javascripts %}
     {################################## EXTERNAL LIBRARIES    #}
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+    {#<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
             integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-    crossorigin=""></script>
+    crossorigin=""></script>#}
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet-editable/1.2.0/Leaflet.Editable.min.js"></script>
     <script src="//unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
@@ -76,6 +80,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/jstree.min.js"></script>
     <script src="{{ asset('js/leaflet.contextmenu.min.js') }}"></script>
     <script src="{{ asset('js/leaflet.wms.min.js') }}"></script>
+    <script src="{{ asset('js/leaflet-search.src.js') }}"></script>
 
     {################################## ENUMS    #}
     <script src="{{ asset('js/app/enum/Path.js') }}"></script>

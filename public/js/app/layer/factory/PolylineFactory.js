@@ -17,8 +17,11 @@ PolylineFactory.createLayer = function (element) {
             color: element.hexaColor,
             weight: element.weight,
             contextmenu: true,
-            contextmenuInheritItems: false
+            contextmenuInheritItems: false,
+            title: element.name || "No definido"
         });
     }
-    return L.polyline([]);
+    return L.polyline([[0,0],[0,0]], {
+        title: " "
+    }); // REMARK: Title can not be empty beacuse L.Control.Search fail with empty values.
 };
