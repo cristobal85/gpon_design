@@ -1,0 +1,62 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Alerta{% endblock %}
+
+{% block content %}
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Alerta</h6>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Título</th>
+                        <td>{{ alert.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Descripción</th>
+                        <td>{{ alert.description|raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Creada</th>
+                        <td>{{ alert.createdAt ? alert.createdAt|date('d/m/Y H:i') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Actualizada</th>
+                        <td>{{ alert.updatedAt ? alert.updatedAt|date('d/m/Y H:i') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Creada por</th>
+                        <td>{{ alert.user }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cerrada por</th>
+                        <td>{{ alert.closedBy }}</td>
+                    </tr>
+                    <tr>
+                        <th>¿Cerrada?</th>
+                        <td>{{ alert.closed ? 'Si' : 'No' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% if alert.image is not empty %}
+        <div class="card mt-3">
+            <div class="card-header">
+                Imagen
+            </div>
+            <div class="card-body text-center">
+                <img src="{{ asset(images_upload ~ alert.image) }}">
+            </div>
+        </div>
+    {% endif %}
+
+    {% if is_granted('ROLE_ADMIN') or alert.user == app.user %}
+        <a class="btn btn-primary mt-3 mb-3" href="{{ path('alert_edit', {'id': alert.id}) }}"><i class="far fa-edit"></i> Editar</a>
+    {% endif %}
+{% endblock %}

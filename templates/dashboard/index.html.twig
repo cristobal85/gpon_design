@@ -196,13 +196,19 @@
             
             {% if is_granted('ROLE_ADMIN') %}
             <div class="sidebar-heading">
-                Alertas
+                Notificaciones
             </div>
 
             <li class="nav-item {% if app.request.get('_route') starts with  'note' %}active{% endif %}">
                 <a class="nav-link" href="{{ path('note_index') }}">
-                    <i class="fas fa-users"></i>
+                    <i class="far fa-sticky-note"></i>
                     <span>Notas</span></a>
+            </li>
+            
+            <li class="nav-item {% if app.request.get('_route') starts with  'alert' %}active{% endif %}">
+                <a class="nav-link" href="{{ path('alert_index') }}">
+                    <i class="far fa-bell"></i>
+                    <span>Alertas</span></a>
             </li>
 
             <hr class="sidebar-divider">
@@ -338,12 +344,11 @@
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>#}
-
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="far fa-bell"></i>
+                                <i class="far fa-sticky-note"></i>
                                 <!-- Counter - Messages -->
-                                {% if NOTES|length %}<span class="badge badge-danger badge-counter">{{ NOTES|length }}</span>{% endif %}
+                                {% if NOTES|length %}<span class="badge badge-info badge-counter">{{ NOTES|length }}</span>{% endif %}
                             </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
@@ -363,6 +368,33 @@
                                     </a>
                                 {% endfor %}
                                 <a class="dropdown-item text-center small text-gray-500" href="{{ path('note_new') }}">Nueva nota</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="far fa-bell"></i>
+                                <!-- Counter - Messages -->
+                                {% if ALERTS|length %}<span class="badge badge-danger badge-counter">{{ ALERTS|length }}</span>{% endif %}
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header">
+                                    Alertas
+                                </h6>
+                                {% for alert in ALERTS %}
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ path('note_show', {'id':alert.id}) }}">
+                                        <div class="dropdown-list-image mr-3">
+                                            <img class="rounded-circle" src="{{ asset(images_upload ~ alert.user.image) }}" alt="{{ alert.user }}">
+                                            <div class="status-indicator bg-success"></div>
+                                        </div>
+                                        <div class="font-weight-bold">
+                                            <div class="text-truncate">{{ alert }}</div>
+                                            <div class="small text-gray-500">{{ alert.user }} · {{ alert.elapsedTime }}</div>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                                <a class="dropdown-item text-center small text-gray-500" href="{{ path('alert_new') }}">Nueva alerta</a>
                             </div>
                         </li>
 

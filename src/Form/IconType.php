@@ -14,6 +14,7 @@ use App\Entity\DistributionBox;
 use App\Entity\SubscriberBox;
 use App\Entity\SubscriberBoxExt;
 use App\Entity\Note;
+use App\Entity\Alert;
 
 class IconType extends AbstractType {
 
@@ -26,7 +27,8 @@ class IconType extends AbstractType {
                         'Caja de distribución' => DistributionBox::class,
                         'Caja de abonado' => SubscriberBox::class,
                         'Caja de extensión' => SubscriberBoxExt::class,
-                        'Nota' => Note::class
+                        'Nota' => Note::class,
+                        'Alerta' => Alert::class
                     ],
                 ])
                 ->add('height', IntegerType::class, ['label' => 'Tamaño altura (pixels)'])

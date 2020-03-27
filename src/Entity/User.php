@@ -52,6 +52,11 @@ class User implements UserInterface, EquatableInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="user")
      */
     private $notes;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Alert", mappedBy="user")
+     */
+    private $alerts;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -80,6 +85,7 @@ class User implements UserInterface, EquatableInterface
     public function __construct()
     {
         $this->notes = new ArrayCollection();
+        $this->alerts = new ArrayCollection();
         $this->updatedAt = new \DateTime();
     }
 
@@ -200,6 +206,37 @@ class User implements UserInterface, EquatableInterface
             // set the owning side to null (unless already changed)
             if ($note->getUser() === $this) {
                 $note->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+    
+    /**
+     * @return Collection|Alert[]
+     */
+    public function getAlerts(): Collection
+    {
+        return $this->alerts;
+    }
+
+    public function addAlert(Alert $alert): self
+    {
+        if (!$this->alerts->contains($alert)) {
+            $this->alerts[] = $alert;
+            $alert->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlert(Alert $alert): self
+    {
+        if ($this->alerts->contains($alert)) {
+            $this->alerts->removeElement($alert);
+            // set the owning side to null (unless already changed)
+            if ($alert->getUser() === $this) {
+                $alert->setUser(null);
             }
         }
 

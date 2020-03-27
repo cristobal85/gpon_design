@@ -1,0 +1,14 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}Editar nota{% endblock %}
+
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Editar nota</h6>
+        </div>
+        <div class="card-body">
+            {{ include('alert/_form.html.twig', {'button_label': 'Guardar'}) }}
+        </div>
+    </div>
+{% endblock %}
