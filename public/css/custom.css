@@ -55,12 +55,6 @@ td img {
     overflow-y: auto;
 }
 
-@media (max-width: 770px) {
-    #map {
-        width: 100%;
-    }
-}
-
 /*********************** FUSIONS */
 .fusion-options {
     position: relative;
