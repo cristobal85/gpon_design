@@ -13,6 +13,7 @@ use App\Entity\Torpedo;
 use App\Entity\DistributionBox;
 use App\Entity\SubscriberBox;
 use App\Entity\SubscriberBoxExt;
+use App\Entity\Note;
 
 class IconType extends AbstractType {
 
@@ -25,6 +26,7 @@ class IconType extends AbstractType {
                         'Caja de distribución' => DistributionBox::class,
                         'Caja de abonado' => SubscriberBox::class,
                         'Caja de extensión' => SubscriberBoxExt::class,
+                        'Nota' => Note::class
                     ],
                 ])
                 ->add('height', IntegerType::class, ['label' => 'Tamaño altura (pixels)'])

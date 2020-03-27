@@ -55,6 +55,16 @@ td img {
     overflow-y: auto;
 }
 
+/*********************** LEFT MENU */
+ul.sidebar {
+    z-index: 99999;
+}
+
+/*********************** CONTAINER */
+.crud-container {
+    margin-top: 90px;
+}
+
 /*********************** FUSIONS */
 .fusion-options {
     position: relative;

@@ -7,13 +7,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Entity\Interfaces\EntityIconable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NoteRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Vich\Uploadable
  */
-class Note
+class Note implements EntityIconable
 {
     /**
      * @ORM\Id()
@@ -93,10 +94,10 @@ class Note
     private $longitude;
     
     /**
-     * @var string 
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"map"})
      */
-    private $icon = "warning.png";
+    private $icon;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -286,4 +287,9 @@ class Note
 
         return $this;
     }
+
+    public function setIcon(?string $icon) {
+        $this->icon = $icon;
+    }
+
 }
