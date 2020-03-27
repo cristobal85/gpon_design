@@ -51,6 +51,25 @@ td img {
     height: 10px;
 }
 
+#wrapper {
+    overflow-y: auto;
+}
+
+/*********************** MAP */
+#map {
+    height: calc(100vh - 70px);
+    position: relative;
+    overflow: hidden;
+    position: fixed;
+    width: calc(100% - 6.5rem);
+    top: 70px;
+}
+
+@media (max-width: 770px) {
+    #map {
+        width: 100%;
+    }
+}
 
 /*********************** FUSIONS */
 .fusion-options {

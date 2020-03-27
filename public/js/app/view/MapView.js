@@ -1,8 +1,9 @@
 /* global L, LControlAdapter, GeoAdapter, MapUrl, LoaderAdapter, ModalAdapter */
 
 var mapId = "#map";
-var mapHeight = $(window).height() - ($(window).height() / 14);
-$(mapId).height(mapHeight);
+//var mapHeight = $(window).height() - ($(window).height() / 17);
+//var mapHeight = $(document).height() - 70;
+//$(mapId).height(mapHeight);
 
 var mapView = new Vue({
 
