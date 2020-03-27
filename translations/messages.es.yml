@@ -2,3 +2,4 @@ App\Entity\Torpedo: Torpedo
 App\Entity\DistributionBox: Caja de distribución
 App\Entity\SubscriberBox: Caja de abonado
 App\Entity\SubscriberBoxExt: Caja de extensión
+App\Entity\Note: Nota
