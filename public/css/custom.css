@@ -55,9 +55,14 @@ td img {
     overflow-y: auto;
 }
 
-/*********************** LEFT MENU */
-ul.sidebar {
-    z-index: 99999;
+/*********************** LEAFLET CONTROLS */
+.leaflet-top {
+    top: 70px !important;
+}
+
+/*********************** NAVBAR */
+.navbar {
+    z-index: 1030;
 }
 
 /*********************** CONTAINER */

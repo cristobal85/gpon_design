@@ -8,7 +8,7 @@
           integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
           crossorigin="" />#}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
-{#    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>#}
+    {#    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>#}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/bootstrap.min.css"/>
@@ -26,12 +26,12 @@
             margin: 0;
         }
         #map {
-            height: calc(100vh - 70px);
+            height: calc(100vh);
             position: relative;
             overflow: hidden;
             position: fixed;
-            width: calc(100% - 6.5rem);
-            top: 70px;
+            width: calc(100% - 6.5rem);       
+            top: 0px;
         }
         @media (max-width: 770px) {
             #map {
@@ -131,7 +131,7 @@
     <script src="{{ asset('js/app/adapter/LocalStorageAdapter.js') }}"></script>
     <script src="{{ asset('js/app/adapter/ModalAdapter.js') }}"></script>
     <script src="{{ asset('js/app/adapter/TreeAdapter.js') }}"></script>
-    
+
     {################################## FORM BUILDERS    #}
     <script src="{{ asset('js/app/form/builder/ElementFormBuilder.js') }}"></script>
     <script src="{{ asset('js/app/form/builder/DistributionBoxFormBuilder.js') }}"></script>
@@ -200,5 +200,10 @@
     <script src="{{ asset('js/app/app.js') }}"></script>
 
 
+    <script>
+        $(document).ready(function () {
+            $('a.scroll-to-top').trigger('click');
+        });
+    </script>
 
 {% endblock %}
