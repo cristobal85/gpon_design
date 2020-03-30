@@ -26,7 +26,7 @@ class Alert implements EntityIconable
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"alert"})
+     * @Groups({"map", "alert"})
      */
     private $title;
 

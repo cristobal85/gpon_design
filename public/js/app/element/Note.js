@@ -3,12 +3,13 @@
 /**
  * @param {mapView} mapView
  * @param {Number} id
- * @param {string} latitude
- * @param {float} longitude
- * @param {float} icon
+ * @param {string} title
+ * @param {Number} latitude
+ * @param {Number} longitude
+ * @param {string} icon
  * @returns {Note}
  */
-var Note = function (mapView, id, latitude, longitude, icon) {
+var Note = function (mapView, id, title, latitude, longitude, icon) {
 
     element.Element.call(this, mapView);
 
@@ -16,6 +17,11 @@ var Note = function (mapView, id, latitude, longitude, icon) {
      * @type {Number}
      */
     this.id = id;
+    
+    /**
+     * @type {string}
+     */
+    this.title = "Nota: " + title;
 
     /**
      * @type {Number}
@@ -36,7 +42,7 @@ var Note = function (mapView, id, latitude, longitude, icon) {
      * @type {L.marker}
      */
     this.marker = MarkerFactory.createLayer(this, [21, 20]);
-
+    
 };
 
 Note.prototype = Object.create(element.Element.prototype);

@@ -26,6 +26,26 @@ var mapView = new Vue({
          */
         lControl: L.control.layers(),
 
+        /**
+         * @type {L.layerGroup}
+         */
+        lGroup: L.layerGroup([]),
+        
+        /**
+         * @type {L.Control.Search}
+         */
+        lSearch: new L.Control.Search({
+            layer: L.layerGroup([]),
+            textPlaceholder: "Buscar elemento",
+            textErr: "Elemento no encontrado.",
+            textCancel: "Cancelar",
+            zoom: 999,
+            marker: {
+                circle: {
+                    weight: 5
+                }
+            }
+        }),
     },
 
     methods: {
@@ -224,27 +244,16 @@ var mapView = new Vue({
          * @returns {undefined}
          */
         renderSearchControl: function (layers) {
-            var leaftLayers = [];
+            var self = this;
             layers.forEach(function (layer) {
                 layer.getLayers().forEach(function (l) {
                     if (l instanceof L.Marker) {
-                        leaftLayers.push(l);
+                        self.lGroup.addLayer(l);
                     }
                 });
             });
-            new L.Control.Search({
-                layer: L.layerGroup(leaftLayers),
-                textPlaceholder: "Buscar elemento",
-                textErr: "Elemento no encontrado.",
-                textCancel: "Cancelar",
-                zoom: 999,
-                marker: {
-                    circle: {
-                        weight: 5
-                    }
-                }
-            }).addTo(this.map);
-
+            this.lSearch.addTo(this.map);
+            this.lSearch.setLayer(this.lGroup);
         },
 
         /**
@@ -272,6 +281,10 @@ var mapView = new Vue({
          */
         renderLayer: function (layer) {
             this.map.addLayer(layer);
+            if (layer instanceof L.Marker) {
+                this.lGroup.addLayer(layer);
+                this.lSearch.setLayer(this.lGroup);
+            }
         },
 
         /**

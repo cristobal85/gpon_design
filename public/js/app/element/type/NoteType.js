@@ -15,6 +15,7 @@ NoteType.buildElement = function (data, mapView) {
     return new Note(
             mapView,
             data.id,
+            data.title,
             data.latitude,
             data.longitude,
             data.icon,

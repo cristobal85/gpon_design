@@ -15,6 +15,7 @@ AlertType.buildElement = function (data, mapView) {
     return new Alert(
             mapView,
             data.id,
+            data.title,
             data.latitude,
             data.longitude,
             data.icon,

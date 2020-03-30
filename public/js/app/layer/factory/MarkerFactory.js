@@ -13,7 +13,13 @@ var MarkerFactory = Object.create(LayerFactory);
  * @return {L}
  */
 MarkerFactory.createLayer = function (element, iconSize) {
-
+    var title = "No definido";
+    if (element.hasOwnProperty('title')) {
+        title = element.title;
+    }
+    if (element.hasOwnProperty('name')) {
+        title = element.name;
+    }
     if (element.latitude && element.longitude && element.icon) {
         return L.marker([element.latitude, element.longitude], {
                 icon: L.icon({
@@ -22,7 +28,7 @@ MarkerFactory.createLayer = function (element, iconSize) {
                 }),
                 contextmenu: true,
                 contextmenuInheritItems: false,
-                title: element.name || "No definidio"
+                title: title
             });
     }
     

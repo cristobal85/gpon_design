@@ -43,6 +43,8 @@ MapController.prototype = {
 //        }
        
         self.mapView.subscribe(new CreateElementListener(self));
+        
+        self.mapView.renderSearchControl(layers); // TODO: Pensar para que no sea secuencial.
 
         var notes = await NoteService.getInstance().getNotes();
         notes.forEach(function (note) {
@@ -53,7 +55,7 @@ MapController.prototype = {
             self.mapView.renderLayer(alert.getLayer());
         });
         
-        self.mapView.renderSearchControl(layers);
+        
 
     },
 

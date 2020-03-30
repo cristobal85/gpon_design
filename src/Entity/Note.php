@@ -26,7 +26,7 @@ class Note implements EntityIconable
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"note"})
+     * @Groups({"map", "note"})
      */
     private $title;
 
