@@ -37,6 +37,10 @@ class NoteController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $note->setUser($this->getUser());
+            $icon = $entityManager->getRepository(\App\Entity\Icon::class)->findOneBy(array(
+                'element' => Note::class
+            ));
+            $note->setIcon($icon);
             $entityManager->persist($note);
             $entityManager->flush();
 

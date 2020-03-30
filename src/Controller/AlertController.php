@@ -38,6 +38,10 @@ class AlertController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $icon = $entityManager->getRepository(\App\Entity\Icon::class)->findOneBy(array(
+                'element' => Alert::class
+            ));
+            $alert->setIcon($icon);
             $entityManager->persist($alert);
             $entityManager->flush();
 
