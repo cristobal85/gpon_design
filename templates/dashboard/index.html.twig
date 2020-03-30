@@ -383,7 +383,7 @@
                                     Alertas
                                 </h6>
                                 {% for alert in ALERTS %}
-                                    <a class="dropdown-item d-flex align-items-center" href="{{ path('note_show', {'id':alert.id}) }}">
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ path('alert_show', {'id':alert.id}) }}">
                                         <div class="dropdown-list-image mr-3">
                                             <img class="rounded-circle" src="{{ asset(images_upload ~ alert.user.image) }}" alt="{{ alert.user }}">
                                             <div class="status-indicator bg-success"></div>
