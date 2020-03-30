@@ -68,6 +68,7 @@ td img {
 /*********************** CONTAINER */
 .crud-container {
     margin-top: 90px;
+    padding-bottom: 90px;
 }
 
 /*********************** FUSIONS */
