@@ -42,9 +42,6 @@ var Alert = function (mapView, id, title, latitude, longitude, icon) {
      * @type {L.marker}
      */
     this.marker = MarkerFactory.createLayer(this, [21, 20]);
-    
-    console.log(this.marker);
-
 };
 
 Alert.prototype = Object.create(element.Element.prototype);
