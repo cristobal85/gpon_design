@@ -17,7 +17,7 @@ var Note = function (mapView, id, title, latitude, longitude, icon) {
      * @type {Number}
      */
     this.id = id;
-    
+
     /**
      * @type {string}
      */
@@ -42,7 +42,7 @@ var Note = function (mapView, id, title, latitude, longitude, icon) {
      * @type {L.marker}
      */
     this.marker = MarkerFactory.createLayer(this, [21, 20]);
-    
+
 };
 
 Note.prototype = Object.create(element.Element.prototype);
@@ -114,8 +114,27 @@ Note.prototype = {
     subscribeToEvents: function () {
         var self = this;
 
-        this.marker.on('dblclick', function () {
-            self.edit();
+        this.marker.bindContextMenu({
+            contextmenuItems: [
+                {
+                    text: '<strong>' + self.title + '</strong>',
+                    disabled: true
+                },
+                '-',
+                {
+                    text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
+                    callback: function () {
+                        self.edit();
+                    }
+                },
+                '-',
+                {
+                    disabled: true,
+                    text: '<i class="far fa-edit"></i> Editar',
+                    callback: function () {
+                        AlertAdapter.error("No habilitado");
+                    }
+                }]
         });
 
 

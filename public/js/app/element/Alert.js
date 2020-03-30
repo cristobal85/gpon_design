@@ -113,8 +113,27 @@ Alert.prototype = {
     subscribeToEvents: function () {
         var self = this;
 
-        this.marker.on('dblclick', function () {
-            self.edit();
+        this.marker.bindContextMenu({
+            contextmenuItems: [
+                {
+                    text: '<strong>' + self.title + '</strong>',
+                    disabled: true
+                },
+                '-',
+                {
+                    text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
+                    callback: function () {
+                        self.edit();
+                    }
+                },
+                '-',
+                {
+                    disabled: true,
+                    text: '<i class="far fa-edit"></i> Editar',
+                    callback: function () {
+                        AlertAdapter.error("No habilitado");
+                    }
+                }]
         });
 
 
