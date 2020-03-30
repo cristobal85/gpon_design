@@ -48,6 +48,10 @@ MapController.prototype = {
         notes.forEach(function (note) {
             self.mapView.renderLayer(note.getLayer());
         });
+        var alerts = await NoteService.getInstance().getAlerts();
+        alerts.forEach(function (alert) {
+            self.mapView.renderLayer(alert.getLayer());
+        });
         
         self.mapView.renderSearchControl(layers);
 

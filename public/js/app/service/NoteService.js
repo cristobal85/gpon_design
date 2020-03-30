@@ -19,7 +19,7 @@ var NoteService = (function () {
     function init() {
         return {
             /**
-             * @return {Promise<Cpd>}
+             * @return {Promise<Note[]>}
              */
             getNotes: function () {
                 return new Promise(function (resolve, reject) {
@@ -35,7 +35,28 @@ var NoteService = (function () {
                         return reject(error);
                     });
                 });
-            }
+            },
+            
+            /**
+             * @return {Promise<Alert[]>}
+             */
+            getAlerts: function () {
+                return new Promise(function (resolve, reject) {
+                    AjaxAdapter.get(ApiUrl.GET_ALERTS).then(function (response) {
+                        var dbAlerts = response.data;
+                        var alerts = [];
+                        dbAlerts.forEach(function (alert) {
+                            alerts.push(AlertType.buildElement(alert));
+                        });
+                        return resolve(alerts);
+                    }).catch(function (error) {
+                        console.error(error);
+                        return reject(error);
+                    });
+                });
+            },
+            
+            
         };
 
     }

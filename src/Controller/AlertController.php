@@ -106,7 +106,7 @@ class AlertController extends AbstractController
     public function delete(Request $request, Alert $alert): Response
     {
         if ($alert->getClosed() && !$this->getUser()->isAdmin()) {
-            $this->addFlash('error', 'La nota (' . $alert->getTitle() . ') está cerrada y no se puede eliminar.');
+            $this->addFlash('error', 'La alerta (' . $alert->getTitle() . ') está cerrada y no se puede eliminar.');
             return $this->redirectToRoute('alert_index');
         }
         if ($this->isCsrfTokenValid('delete'.$alert->getId(), $request->request->get('_token'))) {

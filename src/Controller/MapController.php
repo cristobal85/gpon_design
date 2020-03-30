@@ -19,6 +19,7 @@ use App\Repository\WireRepository;
 use App\Repository\TorpedoRepository;
 use App\Repository\NoteRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use \App\Repository\AlertRepository;
 
 
 class MapController extends AbstractController
@@ -218,6 +219,19 @@ class MapController extends AbstractController
         $notes = $noteRep->findBy(['closed' => false]);
         
         $jsonObject = $serializer->serialize($notes, ['map']);
+
+        return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
+    }
+    
+    /**
+     * @Route("/map/alerts", name="map-get-alerts", methods={"GET"})
+     */
+    public function getAlertsAction(
+            AlertRepository $alertRep, 
+            CircularSerializer $serializer) {
+        $alerts = $alertRep->findBy(['closed' => false]);
+        
+        $jsonObject = $serializer->serialize($alerts, ['map']);
 
         return new Response($jsonObject, 200, ['Content-Type' => 'application/json']);
     }
