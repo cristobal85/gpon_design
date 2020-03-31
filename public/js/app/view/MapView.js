@@ -30,7 +30,7 @@ var mapView = new Vue({
          * @type {L.layerGroup}
          */
         lGroup: L.layerGroup([]),
-        
+
         /**
          * @type {L.Control.Search}
          */
@@ -122,7 +122,40 @@ var mapView = new Vue({
                     attributionControl: false,
                     editable: true,
                     renderer: L.canvas(),
-                    contextmenu: true // Enable context menu on the map (enable / disable all contextmenus)
+                    contextmenu: true, // Enable context menu on the map (enable / disable all contextmenus)
+                    contextmenuItems: [{
+                            text: '<strong>Mapa</strong>',
+                            disabled: true
+                        },
+                        {
+                            text: 'Mostrar coordenadas',
+                            callback: function (e) {
+                                ModalAdapter.showModal('Información', "\
+                                    <p>Latitud: " + e.latlng.lat + "</p>\
+                                    <p>Longitud: " + e.latlng.lng + "</p>\
+                                ");
+                            }
+                        },
+                        {
+                            text: 'Nueva nota',
+                            callback: function (e) {
+                                ModalAdapter.showModal('Información', "\
+                                    <p>Latitud: " + e.latlng.lat + "</p>\
+                                    <p>Longitud: " + e.latlng.lng + "</p>\
+                                ");
+                            }
+                        },
+                        {
+                            text: 'Nueva alerta',
+                            callback: function (e) {
+                                ModalAdapter.showModal('Información', "\
+                                    <p>Latitud: " + e.latlng.lat + "</p>\
+                                    <p>Longitud: " + e.latlng.lng + "</p>\
+                                ");
+                            }
+                        },
+                        '-'
+                    ]
                 }).setView([cpd.latitude, cpd.longitude], zoom);
 
                 cpd.maps.forEach(function (map) {
@@ -149,49 +182,8 @@ var mapView = new Vue({
                     }
                 });
             }
-//            var openStreetMapLayer = L.tileLayer(MapUrl.OPEEN_STREET_MAP.url, {
-//                minZoom: MapUrl.OPEEN_STREET_MAP.minZoom,
-//                maxZoom: MapUrl.OPEEN_STREET_MAP.maxZoom
-//            });
-//            var arcgisStreetSateliteLayer = L.tileLayer(MapUrl.ARCGIS_STREET_SATELITE.url, {
-//                minZoom: MapUrl.ARCGIS_STREET_SATELITE.minZoom,
-//                maxZoom: MapUrl.ARCGIS_STREET_SATELITE.maxZoom
-//            });
-//
-//            var catastroStreetLayer = L.tileLayer.wms(MapUrl.CATASTRO.url, {
-//                layers: MapUrl.CATASTRO.name, //nombre de la capa (ver get capabilities)
-//                format: 'image/png',
-//                transparent: true,
-//                version: '1.1.1', //wms version (ver get capabilities)
-//                attribution: MapUrl.CATASTRO.displayName,
-//                minZoom: MapUrl.CATASTRO.minZoom,
-//                maxZoom: MapUrl.CATASTRO.maxZoom
-//            });
-//
-//            var catastroParcelaStreetLayer = L.tileLayer.wms(MapUrl.CATASTRO_PARCELA.url, {
-//                layers: MapUrl.CATASTRO_PARCELA.name, //nombre de la capa (ver get capabilities)
-//                format: 'image/png',
-//                transparent: true,
-//                version: '1.1.1', //wms version (ver get capabilities)
-//                attribution: MapUrl.CATASTRO_PARCELA.displayName,
-//                minZoom: MapUrl.CATASTRO_PARCELA.minZoom,
-//                maxZoom: MapUrl.CATASTRO_PARCELA.maxZoom
-//            });
-//
-//
-//
-//            var zoom = MapUrl.OPEEN_STREET_MAP.maxZoom - Math.round((MapUrl.OPEEN_STREET_MAP.maxZoom - MapUrl.OPEEN_STREET_MAP.minZoom) / 2);
-//            this.map = L.map('map', {
-//                attributionControl: false,
-//                editable: true,
-//                renderer: L.canvas(),
-//                contextmenu: true, // Enable context menu on the map (enable / disable all contextmenus)
-//            }).setView([cpd.latitude, cpd.longitude], zoom).addLayer(arcgisStreetSateliteLayer); // Default MAP
-
-//            this.lControl.addBaseLayer(openStreetMapLayer, MapUrl.OPEEN_STREET_MAP.displayName);
-//            this.lControl.addBaseLayer(arcgisStreetSateliteLayer, MapUrl.ARCGIS_STREET_SATELITE.displayName);
-//            this.lControl.addBaseLayer(catastroStreetLayer, MapUrl.CATASTRO.displayName);
-//            this.lControl.addBaseLayer(catastroParcelaStreetLayer, MapUrl.CATASTRO_PARCELA.displayName);
+            this.renderEditControls();
+            this.renderSearchControl();
         },
 
         /**
@@ -240,18 +232,9 @@ var mapView = new Vue({
         },
 
         /**
-         * @param {Layer[]} layers
          * @returns {undefined}
          */
-        renderSearchControl: function (layers) {
-            var self = this;
-            layers.forEach(function (layer) {
-                layer.getLayers().forEach(function (l) {
-                    if (l instanceof L.Marker) {
-                        self.lGroup.addLayer(l);
-                    }
-                });
-            });
+        renderSearchControl: function () {
             this.lSearch.addTo(this.map);
             this.lSearch.setLayer(this.lGroup);
         },
@@ -263,6 +246,10 @@ var mapView = new Vue({
          */
         renderFixedLayer: function (layer) {
             this.map.addLayer(layer);
+            if (layer instanceof L.Marker) {
+                this.lGroup.addLayer(layer);
+                this.lSearch.setLayer(this.lGroup);
+            }
         },
 
         /**
@@ -273,6 +260,22 @@ var mapView = new Vue({
             this.map.on(listener.getEventType(), function (e) {
                 listener.listen(e);
             });
+        },
+
+        /**
+         * @param {L[]} layers
+         * @return {undefined}
+         */
+        addLayersToSearch: function (layers) {
+            var self = this;
+            layers.forEach(function (layer) {
+                layer.getLayers().forEach(function (l) {
+                    if (l instanceof L.Marker) {
+                        self.lGroup.addLayer(l);
+                    }
+                });
+            });
+            this.lSearch.setLayer(this.lGroup);
         },
 
         /**
@@ -293,6 +296,10 @@ var mapView = new Vue({
          */
         deleteLayer: function (layer) {
             this.map.removeLayer(layer);
+            if (layer instanceof L.Marker) {
+                this.lGroup.removeLayer(layer);
+                this.lSearch.setLayer(this.lGroup);
+            }
         }
 
     }

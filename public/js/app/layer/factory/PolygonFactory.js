@@ -18,7 +18,7 @@ PolygonFactory.createLayer = function (element) {
             color: element.hexaColor,
             weight: element.weight,
             contextmenu: true,
-            contextmenuInheritItems: false,
+            contextmenuInheritItems: true,
             title: element.name || "No definido"
         });
     }

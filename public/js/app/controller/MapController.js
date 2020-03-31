@@ -22,13 +22,13 @@ MapController.prototype = {
 
         var cpd = await CpdService.getInstance().getCpd();
         self.mapView.renderMap(cpd);
-        self.mapView.renderFixedLayer(cpd.getLayer());
+        self.mapView.renderLayer(cpd.getLayer());
+
         var layers = await LayerService.getInstance().getLayers(self.mapView);
-        self.mapView.renderEditControls();
-//        self.mapView.renderLayersControl(layers);
         layers.forEach(function(layer) {
             self.mapView.renderLayerControl(layer);
         });
+        //        
 //        for (let i = 0, p = Promise.resolve(); i < layers.length; i++) {
 //            p = p.then(_ => new Promise(resolve =>
 //                    setTimeout(function () {
@@ -42,10 +42,13 @@ MapController.prototype = {
 //                ));
 //        }
        
+       // SUBSCRIBE TO CREATE, EDIT, REMOVE ELEMENTS
         self.mapView.subscribe(new CreateElementListener(self));
         
-        self.mapView.renderSearchControl(layers); // TODO: Pensar para que no sea secuencial.
 
+        self.mapView.addLayersToSearch(layers);
+        
+        
         var notes = await NoteService.getInstance().getNotes();
         notes.forEach(function (note) {
             self.mapView.renderLayer(note.getLayer());
