@@ -16,13 +16,16 @@ DistributionBoxFormBuilder.prototype = Object.create(ElementFormBuilder.prototyp
  */
 DistributionBoxFormBuilder.prototype.addDistributionBoxList = function (distributionBoxes) {
     var self = this;
-    this.form += "<div class='input-group mb-3'>\
-            <select class='custom-select' id='ds' name='distribution-box'>";
+    this.form += "<div class='form-group row'>\
+        <label for='ds' class='col-sm-2 col-form-label'>Caja</label>\
+            <div class='col-sm-10 input-group mb-3'>\
+                <select class='custom-select' id='ds' name='distribution-box'>";
     distributionBoxes.forEach(function (ds) {
         self.form += "<option value='" + ds.id + "'>" + ds.name + "</option>";
     });
     this.form += "</select>\
-        </div>";
+        </div>\
+    </div>";
 
     return this;
 };

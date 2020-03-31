@@ -28,14 +28,18 @@ var FormBuilderFactory = {
                 break;
             case ElementEnum.DISTRIBUTION_BOX:
                 return new Promise(function (resolve, reject) {
-                    AjaxAdapter.get(ApiUrl.GET_DISTRIBUTION).then(function (response) {
-                        resolve(
-                                new DistributionBoxFormBuilder()
-                                .addDistributionBoxList(response.data)
-                                .addLatitude(latitude)
-                                .addLongitude(longitude)
-                                .addSubmitBtn()
-                                );
+                    AjaxAdapter.get(ApiUrl.GET_FORM_LAYER).then(function (resp) {
+                        var layers = resp.data;
+                        AjaxAdapter.get(ApiUrl.GET_DISTRIBUTION).then(function (response) {
+                            resolve(
+                                    new DistributionBoxFormBuilder()
+                                    .addLayers(layers)
+                                    .addDistributionBoxList(response.data)
+                                    .addLatitude(latitude)
+                                    .addLongitude(longitude)
+                                    .addSubmitBtn()
+                                    );
+                        });
                     });
                 });
                 break;

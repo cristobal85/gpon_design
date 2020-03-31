@@ -160,6 +160,9 @@ class DistributionBoxController extends AbstractController {
         $ds = $em->getRepository(\App\Entity\DistributionBox::class)->findOneBy(array(
             "id" => $data['distribution-box']
         ));
+        $layer = $em->getRepository(\App\Entity\LayerGroup::class)->findOneBy(array(
+            "id" => $data['layer']
+        ));
         $icon = $em->getRepository(\App\Entity\Icon::class)->findOneBy(array(
             'element' => DistributionBox::class
         ));
@@ -171,6 +174,7 @@ class DistributionBoxController extends AbstractController {
         $ds
                 ->setLatitude($data['latitude'])
                 ->setLongitude($data['longitude'])
+                ->setLayerGroup($layer)
                 ->setIcon($icon->getIcon());
 
         $em->persist($ds);
