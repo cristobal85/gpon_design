@@ -31,6 +31,10 @@ class NoteController extends AbstractController {
      */
     public function new(Request $request): Response {
         $note = new Note();
+        if ($request->get('lat') && $request->get('lng')) {
+            $note->setLatitude((float)$request->get('lat'));
+            $note->setLongitude((float)$request->get('lng'));
+        }
         $form = $this->createForm(NoteType::class, $note);
         $form->handleRequest($request);
 
@@ -44,7 +48,7 @@ class NoteController extends AbstractController {
             $entityManager->persist($note);
             $entityManager->flush();
 
-            return $this->redirectToRoute('note_index');
+            return $this->redirectToRoute('map');
         }
 
         return $this->render('note/new.html.twig', [

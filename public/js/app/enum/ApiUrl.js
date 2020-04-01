@@ -8,6 +8,7 @@ var ApiUrl = {
     POST_LAYER: '/layer-group/save-layer',
     POST_TORPEDO_PASSANT: '/torpedo-passant',
     POST_DISTRIBUTION_BOX_PASSANT: '/distribution-box-passant',
+    POST_ALERT: '/alert/save-alert',
     GET_LAYERS: '/map/layers',
     GET_CPD: '/map/cpd',
     GET_SUBSCRIBER: '/map/subscriber-box',

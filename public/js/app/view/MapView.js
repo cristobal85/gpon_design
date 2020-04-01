@@ -139,19 +139,13 @@ var mapView = new Vue({
                         {
                             text: 'Nueva nota',
                             callback: function (e) {
-                                ModalAdapter.showModal('Información', "\
-                                    <p>Latitud: " + e.latlng.lat + "</p>\
-                                    <p>Longitud: " + e.latlng.lng + "</p>\
-                                ");
+                                NoteFormListener.showForm(e.latlng.lat, e.latlng.lng);
                             }
                         },
                         {
                             text: 'Nueva alerta',
                             callback: function (e) {
-                                ModalAdapter.showModal('Información', "\
-                                    <p>Latitud: " + e.latlng.lat + "</p>\
-                                    <p>Longitud: " + e.latlng.lng + "</p>\
-                                ");
+                                AlertFormListener.showForm(e.latlng.lat, e.latlng.lng);
                             }
                         },
                         '-'

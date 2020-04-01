@@ -9,8 +9,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use \Doctrine\ORM\EntityManagerInterface;
-use \App\Serializer\CircularSerializer;
+use App\Serializer\CircularSerializer;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/alert")
@@ -33,11 +36,16 @@ class AlertController extends AbstractController
     public function new(Request $request): Response
     {
         $alert = new Alert();
+        if ($request->get('lat') && $request->get('lng')) {
+            $alert->setLatitude((float)$request->get('lat'));
+            $alert->setLongitude((float)$request->get('lng'));
+        }
         $form = $this->createForm(AlertType::class, $alert);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $alert->setUser($this->getUser());
             $icon = $entityManager->getRepository(\App\Entity\Icon::class)->findOneBy(array(
                 'element' => Alert::class
             ));
@@ -45,7 +53,7 @@ class AlertController extends AbstractController
             $entityManager->persist($alert);
             $entityManager->flush();
 
-            return $this->redirectToRoute('alert_index');
+            return $this->redirectToRoute('map');
         }
 
         return $this->render('alert/new.html.twig', [
@@ -140,6 +148,49 @@ class AlertController extends AbstractController
 
         return new \Symfony\Component\HttpFoundation\JsonResponse([
             'message' => "Alerta modificada correctamente."
+        ]);
+    }
+    
+    /**
+     * @Route("/save-alert", name="map-save-alert", methods={"POST"})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function saveAlertAction(
+            EntityManagerInterface $em,
+            Request $request,
+            CircularSerializer $serializer,
+            ValidatorInterface $validator) {
+
+        $data = json_decode($request->getContent(), true)['data'];
+
+        $icon = $em->getRepository(\App\Entity\Icon::class)->findOneBy(array(
+            'element' => Alert::class
+        ));
+        if (!$icon) {
+            return new JsonResponse([
+                'message'   =>  "Debe definir un icono para la alerta antes de añadirla al mapa."
+            ], 400);
+        }
+        $alert = new Alert();
+        $alert
+                ->setLatitude(floatval($data['latitude']))
+                ->setLongitude(floatval($data['longitude']))
+                ->setTitle($data['title'])
+                ->setDescription($data['description'])
+                ->setObservations($data['observations'])
+                ->setIcon($icon->getIcon());
+
+        $errors = $validator->validate($alert);
+        if (count($errors)) {
+            return new JsonResponse(['message' => $errors[0]->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
+        }
+        $em->persist($alert);
+        $em->flush();
+
+        return new JsonResponse([
+            'type' => Alert::class,
+            'message' => "Alerta creada correctamente.",
+            'data' => json_decode($serializer->serialize($alert, ['map']))
         ]);
     }
 }
