@@ -214,21 +214,18 @@ Layer.prototype = {
                     text: '<strong>' + self.name + '</strong>',
                     disabled: true
                 },
-                '-',
                 {
                     text: '<i class="fas fa-arrows-alt"></i> Mover | Fijar',
                     callback: function () {
                         self.edit();
                     }
                 },
-                '-',
                 {
                     text: '<i class="far fa-edit"></i> Editar',
                     callback: function () {
                         LayerFormListener.showEditModal(self.id);
                     }
                 },
-                '-',
                 {
                     text: '<i class="far fa-trash-alt"></i> Eliminar',
                     callback: function () {
