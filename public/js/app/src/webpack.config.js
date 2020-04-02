@@ -1,7 +1,5 @@
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 
-console.log(__dirname + '/../dist/');
-
 module.exports = {
 
     entry: ["./app.js"],

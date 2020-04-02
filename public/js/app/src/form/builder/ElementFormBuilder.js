@@ -27,7 +27,7 @@ ElementFormBuilder.prototype = {
      * @returns {ElementFormBuilder.prototype}
      */
     addSubmitBtn: function() {
-        this.form += "<a href='#' class='btn btn-outline-primary' onclick='javascript:document.dispatchEvent(new CustomEvent(\"" + Listener.ELEMENT_SAVE_FORM + "\", { \"detail\": this }));'>Guardar</a>";
+        this.form += "<a href='#' class='btn btn-outline-primary' onclick='javascript:dispatch(\"" + Listener.ELEMENT_SAVE_FORM + "\", this);'>Guardar</a>";
         return this;
     },
     
