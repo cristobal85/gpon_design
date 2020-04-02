@@ -1,4 +1,11 @@
-/* global Path, ApiUrl, AjaxAdapter, self, ModalAdapter, TreeAdapter, AlertAdapter, ROMPathBuilder */
+const AjaxAdapter = require('../../adapter/AjaxAdapter');
+const ModalAdapter = require('../../adapter/ModalAdapter');
+const TreeAdapter = require('../../adapter/TreeAdapter');
+const AlertAdapter = require('../../adapter/AlertAdapter');
+const ApiUrl = require('../../enum/ApiUrl');
+const ROMPathBuilder = require('../../element/builder/ROMPathBuilder');
+const AttributeEnum = require('../enum/AttributeEnum');
+
 
 /**
  * @type PatchPanelListener

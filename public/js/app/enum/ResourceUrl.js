@@ -6,3 +6,5 @@ var ResourceUrl = {
     WIRE: 'wire',
     TORPEDO: 'torpedo'
 };
+
+module.exports = ResourceUrl;

@@ -1,4 +1,6 @@
-/* global ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter, ModalAdapter, UploadPhotoSubscriberBoxFormBuilder */
+const ModalAdapter = require('../../adapter/ModalAdapter');
+const UploadPhotoTorpedoFormBuilder = require('../builder/UploadPhotoTorpedoFormBuilder');
+const TorpedoFormBuilder = require('../builder/TorpedoFormBuilder');
 
 /**
  * @type TorpedoFormListener
@@ -28,3 +30,5 @@ var TorpedoFormListener = {
     }
 
 };
+
+module.exports = TorpedoFormListener;

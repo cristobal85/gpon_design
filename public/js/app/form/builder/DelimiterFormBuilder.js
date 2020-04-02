@@ -1,4 +1,5 @@
-/* global ElementFormBuilder, ApiUrl */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
 
 /**
  * 
@@ -38,3 +39,5 @@ DelimiterFormBuilder.prototype.addCoordinates = function (coordinates) {
 
     return this;
 };
+
+module.exports = DelimiterFormBuilder;

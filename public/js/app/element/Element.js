@@ -1,8 +1,9 @@
+const mapView = require('../view/MapView');
+
 /**
  * @return {Element}
  */
-var element = {};
-element.Element = function (mapView) {
+var Element = function (mapView) {
     
     /**
      * @type {mapView}
@@ -10,7 +11,7 @@ element.Element = function (mapView) {
     this.mapView = mapView;
 };
 
-element.Element.prototype = {
+Element.prototype = {
     
     /**
      * @abstract
@@ -32,3 +33,5 @@ element.Element.prototype = {
         throw new Error("Abstract method!");
     }
 };
+
+module.exports = Element;

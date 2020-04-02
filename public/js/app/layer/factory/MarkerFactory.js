@@ -1,4 +1,6 @@
-/* global LayerFactory, L, Path */
+/* global L */
+const LayerFactory = require('./LayerFactory');
+const Path = require('../../enum/Path');
 
 /**
  * @return {MarkerFactory}
@@ -36,3 +38,5 @@ MarkerFactory.createLayer = function (element, iconSize) {
         title: " "
     }); // REMARK: Title can not be empty beacuse L.Control.Search fail with empty values.
 };
+
+module.exports = MarkerFactory;

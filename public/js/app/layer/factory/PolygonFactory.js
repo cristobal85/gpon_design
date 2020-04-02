@@ -1,4 +1,6 @@
-/* global LayerFactory, L */
+/* global L */
+const LayerFactory = require('./LayerFactory');
+const Path = require('../../enum/Path');
 
 /**
  * @return {PolygonFactory}
@@ -26,3 +28,5 @@ PolygonFactory.createLayer = function (element) {
         title: " "
     }); // REMARK: Title can not be empty beacuse L.Control.Search fail with empty values.
 };
+
+module.exports = PolygonFactory;

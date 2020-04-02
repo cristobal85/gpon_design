@@ -1,4 +1,8 @@
-/* global ElementFormBuilder, ApiUrl, AjaxAdapter, WireType, jsPlumb, AlertAdapter, HtmlID */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
+const HtmlID = require('../../enum/HtmlID');
+const AjaxAdapter = require('../../adapter/AjaxAdapter');
+const AlertAdapter = require('../../adapter/AlertAdapter');
 
 /**
  * @returns {TorpedoPassantFormBuilder}
@@ -61,3 +65,5 @@ TorpedoPassantFormBuilder.prototype.addSelectedWires = function (wire1, wire2, t
 
     return this;
 };
+
+module.exports = TorpedoPassantFormBuilder;

@@ -1,4 +1,5 @@
-/* global ElementType, DistributionBox, AddressModel */
+const ElementType = require('./ElementType');
+const DistributionBox = require('../DistributionBox');
 
 /**
  * @return {CpdType}
@@ -21,3 +22,5 @@ DistributionBoxType.buildElement = function (data, mapView) {
             data.icon,
             );
 };
+
+module.exports = DistributionBoxType;

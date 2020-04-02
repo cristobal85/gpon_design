@@ -1,4 +1,10 @@
-/* global L, element.Element, ElementFormBuilder, ElementEnum, ApiUrl, AjaxAdapter */
+const ElementEnum = require('../../enum/ElementEnum');
+const AjaxAdapter = require('../../adapter/AjaxAdapter');
+const ApiUrl = require('../../enum/ApiUrl');
+const SubscriberBoxFormBuilder = require('../builder/SubscriberBoxFormBuilder');
+const DistributionBoxFormBuilder = require('../builder/DistributionBoxFormBuilder');
+const SubscriberBoxExtFormBuilder = require('../builder/SubscriberBoxExtFormBuilder');
+const TorpedoFormBuilder = require('../builder/TorpedoFormBuilder');
 
 /**
  * @type {FormBuilderFactory}
@@ -74,3 +80,5 @@ var FormBuilderFactory = {
         }
     }
 };
+
+module.exports = FormBuilderFactory;

@@ -1,4 +1,5 @@
-/* global ElementType, Cpd */
+const ElementType = require('./ElementType');
+const Cpd = require('../Cpd');
 
 /**
  * @return {CpdType}
@@ -21,3 +22,5 @@ CpdType.buildElement = function (data, mapView) {
             data.maps
             );
 };
+
+module.exports = CpdType;

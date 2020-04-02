@@ -1,4 +1,5 @@
-/* global AjaxAdapter, ApiUrl, Map */
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const ApiUrl = require('../enum/ApiUrl');
 
 /**
  * @return {MapService.MapServiceAnonym$4}
@@ -79,3 +80,5 @@ var MapService = (function () {
     };
 
 })();
+
+module.exports = MapService;

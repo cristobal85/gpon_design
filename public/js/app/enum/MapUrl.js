@@ -35,3 +35,5 @@ var MapUrl = {
         maxZoom: 22
     },
 };
+
+module.exports = MapUrl;

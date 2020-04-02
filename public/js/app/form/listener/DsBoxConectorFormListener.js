@@ -1,4 +1,8 @@
-/* global ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter, ModalAdapter */
+const AjaxAdapter = require('../../adapter/AjaxAdapter');
+const ApiUrl = require('../../enum/ApiUrl');
+const ModalAdapter = require('../../adapter/ModalAdapter');
+const AlertAdapter = require('../../adapter/AlertAdapter');
+const HtmlID = require('../../enum/HtmlID');
 
 /**
  * @type DsBoxConectorFormListener
@@ -66,3 +70,5 @@ var DsBoxConectorFormListener = {
     }
 
 };
+
+module.exports = DsBoxConectorFormListener;

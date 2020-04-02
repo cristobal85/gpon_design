@@ -4,3 +4,5 @@ var ElementEnum = {
     SUBSCRIBER_BOX: 'subscriberBox',
     SUBSCRIBER_BOX_EXT: 'subscriberBoxExt'
 };
+
+module.exports = ElementEnum;

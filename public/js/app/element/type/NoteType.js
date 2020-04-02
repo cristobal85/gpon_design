@@ -1,4 +1,5 @@
-/* global ElementType, Wire, AddressModel */
+const ElementType = require('./ElementType');
+const Note = require('../Note');
 
 /**
  * @return {NoteType}
@@ -21,3 +22,5 @@ NoteType.buildElement = function (data, mapView) {
             data.icon,
             );
 };
+
+module.exports = NoteType;

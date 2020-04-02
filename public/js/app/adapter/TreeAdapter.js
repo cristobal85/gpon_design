@@ -14,3 +14,6 @@ TreeAdapter.showTree = function (elementId) {
 //        $treeview.jstree('open_all');
 //    });
 };
+
+
+module.exports = TreeAdapter;

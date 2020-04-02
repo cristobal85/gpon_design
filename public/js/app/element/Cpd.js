@@ -1,4 +1,12 @@
-/* global L, AjaxAdapter , Path, element.Element, element, ApiUrl, AlertAdapter, CpdMarkerFactory, PopupBuilder, PopupEnum */
+/* global L */
+const Element = require('./Element');
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const Path = require('../enum/Path');
+const ApiUrl = require('../enum/ApiUrl');
+const CpdMarkerFactory = require('../layer/factory/CpdMarkerFactory');
+const PopupBuilder = require('./builder/PopupBuilder');
+const PopupEnum = require('./enum/PopupEnum');
+const AlertAdapter = require('../adapter/AlertAdapter');
 
 /**
  * @param {mapView} mapView
@@ -11,7 +19,7 @@
  */
 var Cpd = function (mapView, id, logo, latitude, longitude, maps) {
 
-    element.Element.call(this, mapView);
+    Element.call(this, mapView);
 
     /**
      * @type {Number}
@@ -45,7 +53,7 @@ var Cpd = function (mapView, id, logo, latitude, longitude, maps) {
 
 };
 
-Cpd.prototype = Object.create(element.Element.prototype);
+Cpd.prototype = Object.create(Element.prototype);
 
 Cpd.prototype = {
 
@@ -78,7 +86,7 @@ Cpd.prototype = {
                                 .addContentCarousel(
                                         {id: 'images', label: 'Imágenes'},
                                         cpd.images,
-                                        false)
+                                        false);
 
                         cpd.racks.forEach(function (rack) {
                             if (rack.patchPanels.length) {
@@ -151,3 +159,5 @@ Cpd.prototype = {
         });
     }
 };
+
+module.exports = Cpd;

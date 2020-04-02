@@ -1,4 +1,6 @@
-/* global Path, AttributeEnum, ApiUrl, AjaxAdapter */
+const AjaxAdapter = require('../../adapter/AjaxAdapter');
+const ApiUrl = require('../../enum/ApiUrl');
+const Path = require('../../enum/Path');
 
 /**
  * @return {ROMPathBuilder.PathBuilderAnonym$4}
@@ -274,3 +276,6 @@ var ROMPathBuilder = (function () {
     };
 
 })();
+
+
+module.exports = ROMPathBuilder;

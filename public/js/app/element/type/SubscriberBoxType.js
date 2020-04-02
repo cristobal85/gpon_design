@@ -1,4 +1,5 @@
-/* global ElementType, SubscriberBox */
+const ElementType = require('./ElementType');
+const SubscriberBox = require('../SubscriberBox');
 
 /**
  * @return {SubscriberBoxType}
@@ -21,3 +22,5 @@ SubscriberBoxType.buildElement = function (data, mapView) {
             data.icon,
             );
 };
+
+module.exports = SubscriberBoxType;

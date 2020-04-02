@@ -18,3 +18,5 @@ GeoAdapter.getLocation = function (options) {
         }
     });
 };
+
+module.exports = GeoAdapter;

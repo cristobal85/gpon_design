@@ -1,4 +1,7 @@
 /* global Path, AttributeEnum */
+const Path = require('../../enum/Path');
+const AttributeEnum = require('../enum/AttributeEnum');
+const DistributionBoxListener = require('../listener/DistributionBoxListener');
 
 /**
  * @return {PopupBuilder.PopupBuilderAnonym$4}
@@ -648,3 +651,6 @@ var PopupBuilder = (function () {
     };
 
 })();
+
+
+module.exports = PopupBuilder;

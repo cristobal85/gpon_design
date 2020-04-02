@@ -7,3 +7,5 @@ var EntityTypeEnum = {
     TORPEDO: "App\\Entity\\Torpedo",
     NOTE: "App\\Entity\\Note"
 };
+
+module.exports = EntityTypeEnum;

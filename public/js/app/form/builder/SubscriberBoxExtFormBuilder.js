@@ -1,4 +1,5 @@
-/* global ElementFormBuilder, ApiUrl */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
 
 /**
  * @returns {DistributionBoxFormBuilder}
@@ -24,7 +25,7 @@ SubscriberBoxExtFormBuilder.prototype.addSubscriberBoxExtList = function (subscr
 };
 
 /**
- * @param {Number} subscriberBoxId
+ * @param {Number} subscriberBoxExtId
  * @returns {SubscriberBoxFormBuilder.prototype}
  */
 SubscriberBoxExtFormBuilder.prototype.addEditForm = function (subscriberBoxExtId) {
@@ -33,3 +34,5 @@ SubscriberBoxExtFormBuilder.prototype.addEditForm = function (subscriberBoxExtId
 
     return this;
 };
+
+module.exports = SubscriberBoxExtFormBuilder;

@@ -1,4 +1,5 @@
-/* global ElementType, Wire */
+const ElementType = require('./ElementType');
+const Wire = require('../Wire');
 
 /**
  * @return {WireType}
@@ -21,3 +22,5 @@ WireType.buildElement = function (data, mapView) {
             data.weight,
             );
 };
+
+module.exports = WireType;

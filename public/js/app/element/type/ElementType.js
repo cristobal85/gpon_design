@@ -3,9 +3,11 @@ var ElementType = {
     /**
      * @param {Object} data
      * @param {mapView} mapView
-     * @return {element.Element}
+     * @return {Element}
      */
     buildElement: function(data, mapView) {
         throw new Error("Abstract method!");
     }
 };
+
+module.exports = ElementType;

@@ -1,4 +1,5 @@
-/* global alertify, HttpCode */
+/* global alertify */
+const HttpCode = require('../enum/HttpCode');
 
 var AlertAdapter = {};
 
@@ -15,3 +16,5 @@ AlertAdapter.success = function(message) {
 AlertAdapter.error = function(message) {
     alertify.error(message);
 };
+
+module.exports = AlertAdapter;

@@ -1,4 +1,11 @@
-/* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, ResourceUrl */
+const Element = require('./Element');
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const Path = require('../enum/Path');
+const ApiUrl = require('../enum/ApiUrl');
+const MarkerFactory = require('../layer/factory/MarkerFactory');
+const PopupBuilder = require('./builder/PopupBuilder');
+const PopupEnum = require('./enum/PopupEnum');
+const AlertAdapter = require('../adapter/AlertAdapter');
 
 /**
  * @param {mapView} mapView
@@ -11,7 +18,7 @@
  */
 var Alert = function (mapView, id, title, latitude, longitude, icon) {
 
-    element.Element.call(this, mapView);
+    Element.call(this, mapView);
 
     /**
      * @type {Number}
@@ -44,7 +51,7 @@ var Alert = function (mapView, id, title, latitude, longitude, icon) {
     this.marker = MarkerFactory.createLayer(this, [21, 20]);
 };
 
-Alert.prototype = Object.create(element.Element.prototype);
+Alert.prototype = Object.create(Element.prototype);
 
 Alert.prototype = {
 
@@ -144,3 +151,5 @@ Alert.prototype = {
         });
     }
 };
+
+module.exports = Alert;

@@ -1,4 +1,15 @@
-/* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupEnum, PopupBuilder, ResourceUrl, SubscriberBoxExtFormListener */
+/* global L */
+const Element = require('./Element');
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const Path = require('../enum/Path');
+const ApiUrl = require('../enum/ApiUrl');
+const PopupBuilder = require('./builder/PopupBuilder');
+const PopupEnum = require('./enum/PopupEnum');
+const AlertAdapter = require('../adapter/AlertAdapter');
+const ResourceUrl = require('../enum/ResourceUrl');
+const MarkerFactory = require('../layer/factory/MarkerFactory');
+const SubscriberBoxExtFormListener = require('../form/listener/SubscriberBoxExtFormListener');
+const AddressModel = require('./model/AddressModel');
 
 /**
  * @param {mapView} mapView
@@ -11,7 +22,7 @@
  */
 var SubscriberBoxExt = function (mapView, id, name, latitude, longitude, icon) {
 
-    element.Element.call(this, mapView);
+    Element.call(this, mapView);
 
     /**
      * @type {Number}
@@ -44,7 +55,7 @@ var SubscriberBoxExt = function (mapView, id, name, latitude, longitude, icon) {
     this.marker = MarkerFactory.createLayer(this, [15, 25]);
 };
 
-SubscriberBoxExt.prototype = Object.create(element.Element.prototype);
+SubscriberBoxExt.prototype = Object.create(Element.prototype);
 
 SubscriberBoxExt.prototype = {
 
@@ -162,3 +173,5 @@ SubscriberBoxExt.prototype = {
         });
     }
 };
+
+module.exports = SubscriberBoxExt;

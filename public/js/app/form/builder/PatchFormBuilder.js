@@ -1,4 +1,8 @@
-/* global ElementFormBuilder, ApiUrl, HtmlID, AjaxAdapter, AlertAdapter */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
+const HtmlID = require('../../enum/HtmlID');
+const AjaxAdapter = require('../../adapter/AjaxAdapter');
+const AlertAdapter = require('../../adapter/AlertAdapter');
 
 /**
  * @returns {PatchFormBuilder}
@@ -100,7 +104,7 @@ PatchFormBuilder.prototype.addSelectedWires = function (wire, slot) {
                 var conectorId = linkData.toConnector;
                 AjaxAdapter
                         .post(ApiUrl.POST_PATCH_CONECTOR + conectorId, {
-                            fiberId: fiberId,
+                            fiberId: fiberId
                         })
                         .then(function (response) {
                             AlertAdapter.success(response.data.message);
@@ -117,3 +121,5 @@ PatchFormBuilder.prototype.addSelectedWires = function (wire, slot) {
 
     return this;
 };
+
+module.exports = PatchFormBuilder;

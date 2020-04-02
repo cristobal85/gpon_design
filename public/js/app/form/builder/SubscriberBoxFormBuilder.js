@@ -1,4 +1,5 @@
-/* global ElementFormBuilder, ApiUrl */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
 
 /**
  * @returns {SubscriberBoxFormBuilder}
@@ -33,3 +34,5 @@ SubscriberBoxFormBuilder.prototype.addEditForm = function (subscriberBoxId) {
 
     return this;
 };
+
+module.exports = SubscriberBoxFormBuilder;

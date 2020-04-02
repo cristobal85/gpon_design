@@ -1,4 +1,8 @@
-/* global ElementFormBuilder, ApiUrl, HtmlID, AjaxAdapter, AlertAdapter */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
+const HtmlID = require('../../enum/HtmlID');
+const AjaxAdapter = require('../../adapter/AjaxAdapter');
+const AlertAdapter = require('../../adapter/AlertAdapter');
 
 /**
  * @returns {DistributionBoxFormBuilder}
@@ -151,3 +155,5 @@ DistributionBoxFormBuilder.prototype.addEditForm = function (dsBoxId) {
 
     return this;
 };
+
+module.exports = DistributionBoxFormBuilder;

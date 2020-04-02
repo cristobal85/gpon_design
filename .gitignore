@@ -25,4 +25,5 @@
 /nbproject/
 /nbproject/private/
 /private_assets/**
+public/node_modules/
 ###< APP ###

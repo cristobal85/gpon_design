@@ -1,4 +1,16 @@
-/* global Element, element, L, PolygonFactory, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, LayerFormListener, LayerListener */
+/* global L */
+const Element = require('./Element');
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const Path = require('../enum/Path');
+const ApiUrl = require('../enum/ApiUrl');
+const PopupBuilder = require('./builder/PopupBuilder');
+const PopupEnum = require('./enum/PopupEnum');
+const AlertAdapter = require('../adapter/AlertAdapter');
+const ResourceUrl = require('../enum/ResourceUrl');
+const PolygonFactory = require('../layer/factory/PolygonFactory');
+const LayerFormListener = require('../form/listener/LayerFormListener');
+const LayerListener = require('./listener/LayerListener');
+
 
 /**
  * @param {mapView} mapView
@@ -11,7 +23,7 @@
  */
 var Layer = function (mapView, id, name, coordinates, hexaColor, weight) {
 
-    element.Element.call(this, mapView);
+    Element.call(this, mapView);
     
     /**
      * @type {Number}
@@ -71,7 +83,7 @@ var Layer = function (mapView, id, name, coordinates, hexaColor, weight) {
 
 };
 
-Layer.prototype = Object.create(element.Element.prototype);
+Layer.prototype = Object.create(Element.prototype);
 
 
 Layer.prototype = {
@@ -243,3 +255,5 @@ Layer.prototype = {
         return this.name;
     }
 };
+
+module.exports = Layer;

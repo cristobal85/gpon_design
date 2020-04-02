@@ -1,4 +1,8 @@
-/* global AjaxAdapter, GeoAdapter, mapView, Map, ApiUrl, CpdService, MapService, LayerService, LoaderAdapter, Promise, NoteService */
+const mapView = require('../view/MapView');
+const CpdService = require('../service/CpdService');
+const LayerService = require('../service/LayerService');
+const NoteService = require('../service/NoteService');
+const CreateElementListener = require('../listener/CreateElementListener');
 
 /**
  * @returns {MapController}
@@ -70,3 +74,5 @@ MapController.prototype = {
     }
 
 };
+
+module.exports = MapController;

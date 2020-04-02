@@ -1,4 +1,8 @@
-/* global ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter, ModalAdapter, UploadPhotoSubscriberBoxFormBuilder */
+const AjaxAdapter = require('../../adapter/AjaxAdapter');
+const ModalAdapter = require('../../adapter/ModalAdapter');
+const ApiUrl = require('../enum/../ApiUrl');
+const SubscriberBoxExtFormBuilder = require('../builder/SubscriberBoxExtFormBuilder');
+const UploadPhotoSubscriberBoxFormBuilder = require('../builder/UploadPhotoSubscriberBoxFormBuilder');
 
 /**
  * @type SubscriberBoxFormListener
@@ -35,3 +39,5 @@ var SubscriberBoxFormListener = {
 
 
 };
+
+module.exports = UploadPhotoSubscriberBoxFormBuilder;

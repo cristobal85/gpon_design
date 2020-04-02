@@ -1,4 +1,5 @@
-/* global alertify, HttpCode */
+/* global alertify */
+const HttpCode = require('../enum/HttpCode');
 
 var LocalStorageAdapter = {};
 
@@ -26,3 +27,5 @@ LocalStorageAdapter.getItem = function (name) {
 LocalStorageAdapter.clear = function() {
     localStorage.clear();
 };
+
+module.exports = LocalStorageAdapter;

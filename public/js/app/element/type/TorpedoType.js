@@ -1,4 +1,6 @@
-/* global ElementType, Wire, AddressModel */
+const ElementType = require('./ElementType');
+const Torpedo = require('../Torpedo');
+const AddressModel = require('../model/AddressModel');
 
 /**
  * @return {TorpedoType}
@@ -25,3 +27,5 @@ TorpedoType.buildElement = function (data, mapView) {
 //            data.torpedoFusions
             );
 };
+
+module.exports = TorpedoType;

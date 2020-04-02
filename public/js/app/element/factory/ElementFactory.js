@@ -1,4 +1,11 @@
-/* global EntityTypeEnum, WireType, DistributionBoxType, SubscriberBoxType, SubscriberBoxExtType, LayerType, TorpedoType, NoteType */
+const EntityTypeEnum = require('../enum/EntityTypeEnum');
+const WireType = require('../type/WireType');
+const DistributionBoxType = require('../type/DistributionBoxType');
+const SubscriberBoxType = require('../type/SubscriberBoxType');
+const SubscriberBoxExtType = require('../type/SubscriberBoxExtType');
+const LayerType = require('../type/LayerType');
+const TorpedoType = require('../type/TorpedoType');
+const NoteType = require('../type/NoteType');
 
 var ElementFactory = {
 
@@ -37,3 +44,5 @@ var ElementFactory = {
         return layer;
     }
 };
+
+module.exports = ElementFactory;

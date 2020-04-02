@@ -1,4 +1,5 @@
-/* global ElementType, Layer */
+const ElementType = require('./ElementType');
+const Layer = require('../Layer');
 
 /**
  * @return {LayerType}
@@ -21,3 +22,5 @@ LayerType.buildElement = function (data, mapView) {
             data.weight
             );
 };
+
+module.exports = LayerType;

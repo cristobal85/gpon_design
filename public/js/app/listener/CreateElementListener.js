@@ -1,4 +1,15 @@
-/* global L, AjaxAdapter, ApiUrl, HtmlID, FormBuilderFactory, TitleFormFactory, ModalAdapter */
+/* global L */
+
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const ApiUrl = require('../enum/ApiUrl');
+const ModalAdapter = require('../adapter/ModalAdapter');
+const DelimiterFormBuilder = require('../form/builder/DelimiterFormBuilder');
+const WireFormBuilder = require('../form/builder/WireFormBuilder');
+const FormBuilderFactory = require('../form/factory/FormBuilderFactory');
+const TitleFormFactory = require('../form/factory/TitleFormFactory');
+const HtmlID = require('../enum/HtmlID');
+const ElementListener = require('./ElementListener');
+const ElementFormBuilder = require('../form/builder/ElementFormBuilder');
 
 /**
  * TODO: CREAR UN LISTENER POR CADA ELEMENTO
@@ -105,3 +116,5 @@ CreateElementListener.prototype.listen = function (e) {
         $('select').select2({width: '100%'});
     }
 };
+
+module.exports = CreateElementListener;

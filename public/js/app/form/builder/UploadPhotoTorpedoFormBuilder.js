@@ -1,4 +1,5 @@
-/* global ElementFormBuilder, ApiUrl */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
 
 /**
  * @returns {UploadPhotoTorpedoFormBuilder}
@@ -17,3 +18,5 @@ UploadPhotoTorpedoFormBuilder.prototype.addPhotoUpload = function (torpedoId) {
 
     return this;
 };
+
+module.exports = UploadPhotoTorpedoFormBuilder;

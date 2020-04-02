@@ -1,6 +1,6 @@
 /**
  * @param {{id: Number, location:string}} data
- * @returns {AdressModel}
+ * @returns {AddressModel}
  */
 var AddressModel = function(data) {
     
@@ -26,3 +26,5 @@ AddressModel.prototype = {
     }
     
 };
+
+module.exports = AddressModel;

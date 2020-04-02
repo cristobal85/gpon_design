@@ -63,3 +63,5 @@ ModalAdapter.showPromptDescription = function (title, callback, defaultValue) {
         value: defaultValue
     });
 };
+
+module.exports = ModalAdapter;

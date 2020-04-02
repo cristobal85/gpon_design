@@ -1,4 +1,19 @@
-/* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, ResourceUrl, TorpedoFusionListener, TorpedoPassantListener, TorpedoFormListener, TorpedoListener */
+/* global L */
+const Element = require('./Element');
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const Path = require('../enum/Path');
+const ApiUrl = require('../enum/ApiUrl');
+const PopupBuilder = require('./builder/PopupBuilder');
+const PopupEnum = require('./enum/PopupEnum');
+const AlertAdapter = require('../adapter/AlertAdapter');
+const ResourceUrl = require('../enum/ResourceUrl');
+const MarkerFactory = require('../layer/factory/MarkerFactory');
+const TorpedoListener = require('./listener/TorpedoListener');
+const TorpedoFusionListener = require('../form/listener/TorpedoFusionListener');
+const TorpedoPassantListener = require('../form/listener/TorpedoPassantListener');
+const TorpedoFormListener = require('../form/listener/TorpedoFormListener');
+const AddressModel = require('./model/AddressModel');
+
 
 /**
  * @param {mapView} mapView
@@ -11,7 +26,7 @@
  */
 var Torpedo = function (mapView, id, name, latitude, longitude, icon) {
 
-    element.Element.call(this, mapView);
+    Element.call(this, mapView);
 
     /**
      * @type {Number}
@@ -45,7 +60,7 @@ var Torpedo = function (mapView, id, name, latitude, longitude, icon) {
 
 };
 
-Torpedo.prototype = Object.create(element.Element.prototype);
+Torpedo.prototype = Object.create(Element.prototype);
 
 Torpedo.prototype = {
 
@@ -184,3 +199,5 @@ Torpedo.prototype = {
         });
     }
 };
+
+module.exports = Torpedo;

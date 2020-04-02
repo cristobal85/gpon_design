@@ -1,4 +1,5 @@
-/* global ElementFormBuilder, ApiUrl, HtmlID, AjaxAdapter, AlertAdapter */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
 
 /**
  * @returns {LayerFormBuilder}
@@ -19,3 +20,5 @@ LayerFormBuilder.prototype.addEditForm = function (layerId) {
 
     return this;
 };
+
+module.exports = LayerFormBuilder;

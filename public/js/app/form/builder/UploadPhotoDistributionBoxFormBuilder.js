@@ -1,4 +1,5 @@
-/* global ElementFormBuilder, ApiUrl */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
 
 /**
  * @returns {UploadPhotoDistributionBoxFormBuilder}
@@ -17,3 +18,5 @@ UploadPhotoDistributionBoxFormBuilder.prototype.addPhotoUpload = function (distr
 
     return this;
 };
+
+module.exports = UploadPhotoDistributionBoxFormBuilder;

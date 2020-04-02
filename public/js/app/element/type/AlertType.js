@@ -1,4 +1,5 @@
-/* global ElementType */
+const ElementType = require('./ElementType');
+const Alert = require('../Alert');
 
 /**
  * @return {AlertType}
@@ -21,3 +22,5 @@ AlertType.buildElement = function (data, mapView) {
             data.icon,
             );
 };
+
+module.exports = AlertType;

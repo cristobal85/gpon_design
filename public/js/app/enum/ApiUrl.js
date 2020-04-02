@@ -58,3 +58,5 @@ var ApiUrl = {
     DELETE_LAYER_ID: '/layer-group/',
     DELETE_TORPEDO_ID: '/torpedo/'
 };
+
+module.exports = ApiUrl;

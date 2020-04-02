@@ -1,4 +1,4 @@
-/* global ElementEnum */
+const ElementEnum = require('../../enum/ElementEnum');
 
 /**
  * @type {TitleFormFactory}
@@ -26,3 +26,5 @@ var TitleFormFactory = {
         }
     }
 };
+
+module.exports = TitleFormFactory;

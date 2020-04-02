@@ -1,4 +1,6 @@
-/* global ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter, ModalAdapter, UploadPhotoSubscriberBoxFormBuilder */
+const ModalAdapter = require('../../adapter/ModalAdapter');
+const UploadPhotoDistributionBoxFormBuilder = require('../builder/UploadPhotoDistributionBoxFormBuilder');
+const DistributionBoxFormBuilder = require('../builder/DistributionBoxFormBuilder');
 
 /**
  * @type DistributionBoxFormListener
@@ -31,3 +33,5 @@ var DistributionBoxFormListener = {
     }
 
 };
+
+module.exports = DistributionBoxFormBuilder;

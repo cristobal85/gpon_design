@@ -1,4 +1,5 @@
-/* global ElementFormBuilder, ApiUrl */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
 
 /**
  * @returns {DistributionBoxFormBuilder}
@@ -61,3 +62,5 @@ WireFormBuilder.prototype.addEditForm = function (wireId) {
 
     return this;
 };
+
+module.exports = WireFormBuilder;

@@ -1,4 +1,8 @@
-/* global Cpd, AjaxAdapter, ApiUrl, CpdType */
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const ApiUrl = require('../enum/ApiUrl');
+const CpdType = require('../element/type/CpdType');
+const Cpd = require('../element/Cpd');
+const AlertAdapter = require('../adapter/AlertAdapter');
 
 /**
  * @return {CpdService.CpdServiceAnonym$4}
@@ -59,3 +63,5 @@ var CpdService = (function () {
     };
 
 })();
+
+module.exports = CpdService;

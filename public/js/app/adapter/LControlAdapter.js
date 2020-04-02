@@ -35,3 +35,5 @@ LControlAdapter.addCenterPositionControl = function(map, callback) {
 LControlAdapter.addNewNoteControl = function(map, callback) {
     L.easyButton('fas fa-tasks', callback).addTo(map);
 };
+
+module.exports = LControlAdapter;

@@ -1,4 +1,9 @@
-/* global ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter, ModalAdapter */
+const AjaxAdapter = require('../../adapter/AjaxAdapter');
+const ModalAdapter = require('../../adapter/ModalAdapter');
+const ApiUrl = require('../../enum/ApiUrl');
+const TorpedoPassantFormBuilder = require('../builder/TorpedoPassantFormBuilder');
+const HtmlID = require('../../enum/HtmlID');
+const AlertAdapter = require('../../adapter/AlertAdapter');
 
 /**
  * @type TorpedoPassantListener
@@ -70,3 +75,5 @@ var TorpedoPassantListener = {
         });
     }
 };
+
+module.exports = TorpedoPassantListener;

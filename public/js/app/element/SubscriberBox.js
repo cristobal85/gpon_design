@@ -1,4 +1,13 @@
-/* global L, Path, Element, element, MarkerFactory, LayerListener, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, SubscriberBoxFormListener */
+const Element = require('./Element');
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const Path = require('../enum/Path');
+const ApiUrl = require('../enum/ApiUrl');
+const PopupBuilder = require('./builder/PopupBuilder');
+const PopupEnum = require('./enum/PopupEnum');
+const AlertAdapter = require('../adapter/AlertAdapter');
+const ResourceUrl = require('../enum/ResourceUrl');
+const MarkerFactory = require('../layer/factory/MarkerFactory');
+const AddressModel = require('./model/AddressModel');
 
 /**
  * @param {mapView} mapView
@@ -11,7 +20,7 @@
  */
 var SubscriberBox = function (mapView, id, name, latitude, longitude, icon) {
 
-    element.Element.call(this, mapView);
+    Element.call(this, mapView);
 
     /**
      * @type {Number}
@@ -49,7 +58,7 @@ var SubscriberBox = function (mapView, id, name, latitude, longitude, icon) {
     this.marker = MarkerFactory.createLayer(this, [15, 25]);
 };
 
-SubscriberBox.prototype = Object.create(element.Element.prototype);
+SubscriberBox.prototype = Object.create(Element.prototype);
 
 SubscriberBox.prototype = {
 
@@ -210,3 +219,5 @@ SubscriberBox.prototype = {
         });
     }
 };
+
+module.exports = SubscriberBox;

@@ -1,4 +1,16 @@
-/* global L, Path, Element, element, PolylineFactory, ApiUrl, AjaxAdapter, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, mapView, WireListener, WireFormListener */
+/* global L */
+const Element = require('./Element');
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const Path = require('../enum/Path');
+const ApiUrl = require('../enum/ApiUrl');
+const PopupBuilder = require('./builder/PopupBuilder');
+const PopupEnum = require('./enum/PopupEnum');
+const AlertAdapter = require('../adapter/AlertAdapter');
+const ResourceUrl = require('../enum/ResourceUrl');
+const PolylineFactory = require('../layer/factory/PolylineFactory');
+const WireListener = require('./listener/WireListener');
+const WireFormListener = require('../form/listener/WireFormListener');
+
 
 /**
  * @param {mapView} mapView
@@ -11,7 +23,7 @@
  */
 var Wire = function (mapView, id, name, coordinates, hexaColor, weight) {
 
-    element.Element.call(this, mapView);
+    Element.call(this, mapView);
 
     /**
      * @type {Number}
@@ -45,7 +57,7 @@ var Wire = function (mapView, id, name, coordinates, hexaColor, weight) {
 
 };
 
-Wire.prototype = Object.create(element.Element.prototype);
+Wire.prototype = Object.create(Element.prototype);
 
 Wire.prototype = {
 
@@ -147,3 +159,5 @@ Wire.prototype = {
     }
     
 };
+
+module.exports = Wire;

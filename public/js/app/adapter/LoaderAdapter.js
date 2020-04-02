@@ -50,3 +50,5 @@ var LoaderAdapter = {
         loaderMessage.innerHTML = '';
     }
 };
+
+module.exports = LoaderAdapter;

@@ -9,3 +9,4 @@ var HtmlID = {
     DSBOX_CONECTOR: 'dsbox-conector'
 };
 
+module.exports = HtmlID;

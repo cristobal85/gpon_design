@@ -1,4 +1,7 @@
-/* global AjaxAdapter, ApiUrl, CpdType, NoteType */
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const ApiUrl = require('../enum/ApiUrl');
+const NoteType = require('../element/type/NoteType');
+const AlertType = require('../element/type/AlertType');
 
 /**
  * @return {NoteService.NoteServiceAnonym$4}
@@ -73,3 +76,5 @@ var NoteService = (function () {
     };
 
 })();
+
+module.exports = NoteService;

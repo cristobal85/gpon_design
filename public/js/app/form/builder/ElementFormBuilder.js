@@ -1,4 +1,6 @@
-/* global HtmlID, ElementEnum */
+const HtmlID = require('../../enum/HtmlID');
+const ElementEnum = require('../../enum/ElementEnum');
+const Listener = require('../../enum/Listener');
 
 /**
  * @returns {ElementFormBuilder}
@@ -25,7 +27,7 @@ ElementFormBuilder.prototype = {
      * @returns {ElementFormBuilder.prototype}
      */
     addSubmitBtn: function() {
-        this.form += "<a href='#' class='btn btn-outline-primary' onclick='ElementFormListener.saveForm(this)'>Guardar</a>";
+        this.form += "<a href='#' class='btn btn-outline-primary' onclick='javascript:document.dispatchEvent(new CustomEvent(\"" + Listener.ELEMENT_SAVE_FORM + "\", { \"detail\": this }));'>Guardar</a>";
         return this;
     },
     
@@ -111,3 +113,5 @@ ElementFormBuilder.prototype = {
     }
 
 };
+
+module.exports = ElementFormBuilder;

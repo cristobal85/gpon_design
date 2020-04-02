@@ -1,4 +1,4 @@
-/* global ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter, ModalAdapter, UploadPhotoSubscriberBoxFormBuilder */
+const ApiUrl = require('../../enum/ApiUrl');
 
 /**
  * @type AlertFormListener
@@ -12,8 +12,10 @@ var AlertFormListener = {
      */
     showForm: function (lat, lng) {
         window.location.href = ApiUrl.GET_ALERT_ID + 'new?lat=' + lat + '&lng=' + lng;
-    },
+    }
     
     
 
 };
+
+module.exports = AlertFormListener;

@@ -1,4 +1,5 @@
-/* global ElementFormBuilder, ApiUrl */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
 
 /**
  * @returns {TorpedoFormBuilder}
@@ -20,3 +21,5 @@ TorpedoFormBuilder.prototype.addEditForm = function (torpedoId) {
 
     return this;
 };
+
+module.exports = TorpedoFormBuilder;

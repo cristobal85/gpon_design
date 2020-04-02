@@ -1,4 +1,7 @@
-/* global ModalAdapter, AjaxAdapter, AlertAdapter, ApiUrl */
+const AjaxAdapter = require('../../adapter/AjaxAdapter');
+const ModalAdapter = require('../../adapter/ModalAdapter');
+const AlertAdapter = require('../../adapter/AlertAdapter');
+const ApiUrl = require('../../enum/ApiUrl');
 
 /**
  * @type TorpedoListener

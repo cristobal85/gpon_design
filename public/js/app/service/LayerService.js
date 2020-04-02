@@ -1,4 +1,11 @@
-/* global AjaxAdapter, ApiUrl, Map, Layer, DistributionBoxType, SubscriberBoxType, WireType, LayerType, SubscriberBoxExtType, TorpedoType, LoaderAdapter, LocalStorageAdapter, ElementFactory */
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const LayerType = require('../element/type/LayerType');
+const DistributionBoxType = require('../element/type/DistributionBoxType');
+const SubscriberBoxType = require('../element/type/SubscriberBoxType');
+const SubscriberBoxExtType = require('../element/type/SubscriberBoxExtType');
+const WireType = require('../element/type/WireType');
+const TorpedoType = require('../element/type/TorpedoType');
+const ApiUrl = require('../enum/ApiUrl');
 
 /**
  * @return {LayerService.LayerServiceAnonym$4}
@@ -96,3 +103,5 @@ var LayerService = (function () {
     };
 
 })();
+
+module.exports = LayerService;

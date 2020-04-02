@@ -1,5 +1,3 @@
-/* global MMapController */
-
 /**
  * @param {MapController} mapController
  * @return {ElementListener}
@@ -30,3 +28,5 @@ ElementListener.prototype = {
     listen: function (e) {}
 
 };
+
+module.exports = ElementListener;

@@ -1,4 +1,11 @@
 /* global axios, HttpCode, AlertAdapter, LoaderAdapter, LocalStorageAdapter */
+
+const HttpCode = require('../enum/HttpCode');
+const AlertAdapter = require('../adapter/AlertAdapter');
+const LoaderAdapter = require('../adapter/LoaderAdapter');
+const LocalStorageAdapter = require('../adapter/LocalStorageAdapter');
+
+
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var AjaxAdapter = {};
 
@@ -123,3 +130,5 @@ AjaxAdapter.printError = function (status) {
             break;
     }
 };
+
+module.exports = AjaxAdapter;

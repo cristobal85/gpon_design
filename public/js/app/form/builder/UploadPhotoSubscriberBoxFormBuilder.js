@@ -1,4 +1,5 @@
-/* global ElementFormBuilder, ApiUrl */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
 
 /**
  * @returns {SubscriberBoxFormBuilder}
@@ -17,3 +18,5 @@ UploadPhotoSubscriberBoxFormBuilder.prototype.addPhotoUpload = function (subscri
 
     return this;
 };
+
+module.exports = UploadPhotoSubscriberBoxFormBuilder;

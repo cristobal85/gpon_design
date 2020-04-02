@@ -1,4 +1,5 @@
-/* global ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter, ModalAdapter, UploadPhotoSubscriberBoxFormBuilder */
+const ModalAdapter = require('../../adapter/ModalAdapter');
+const LayerFormBuilder = require('../builder/LayerFormBuilder');
 
 /**
  * @type LayerFormListener
@@ -17,3 +18,5 @@ var LayerFormListener = {
     }
 
 };
+
+module.exports = LayerFormListener;

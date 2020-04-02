@@ -1,13 +1,17 @@
-/* global L, LControlAdapter, GeoAdapter, MapUrl, LoaderAdapter, ModalAdapter */
+/* global L */
 
-var mapId = "#map";
-//var mapHeight = $(window).height() - ($(window).height() / 17);
-//var mapHeight = $(document).height() - 70;
-//$(mapId).height(mapHeight);
+const LControlAdapter = require('../adapter/LControlAdapter');
+const GeoAdapter = require('../adapter/GeoAdapter');
+const MapUrl = require('../enum/MapUrl');
+const LoaderAdapter = require('../adapter/LoaderAdapter');
+const ModalAdapter = require('../adapter/ModalAdapter');
+const NoteFormListener = require('../form/listener/NoteFormListener');
+const AlertFormListener = require('../form/listener/AlertFormListener');
+
 
 var mapView = new Vue({
 
-    el: mapId,
+    el: "#map",
 
     data: {
 
@@ -298,3 +302,5 @@ var mapView = new Vue({
 
     }
 });
+
+module.exports = mapView;

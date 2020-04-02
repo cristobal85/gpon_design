@@ -1,4 +1,9 @@
-/* global ElementFormBuilder, ApiUrl, AjaxAdapter, WireType, jsPlumb, AlertAdapter, HtmlID */
+const ElementFormBuilder = require('./ElementFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
+const HtmlID = require('../../enum/HtmlID');
+const AjaxAdapter = require('../../adapter/AjaxAdapter');
+const AlertAdapter = require('../../adapter/AlertAdapter');
+
 
 /**
  * @returns {DistributionBoxPassantFormBuilder}
@@ -61,3 +66,5 @@ DistributionBoxPassantFormBuilder.prototype.addSelectedWires = function (wire1, 
 
     return this;
 };
+
+module.exports = DistributionBoxPassantFormBuilder;

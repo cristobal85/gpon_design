@@ -1,4 +1,5 @@
-/* global ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter, ModalAdapter, UploadPhotoSubscriberBoxFormBuilder */
+const ModalAdapter = require('../../adapter/ModalAdapter');
+const WireFormBuilder = require('../builder/WireFormBuilder');
 
 /**
  * @type WireFormListener
@@ -17,3 +18,6 @@ var WireFormListener = {
     }
 
 };
+
+module.exports = WireFormListener
+;

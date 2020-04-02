@@ -1,4 +1,4 @@
-/* global ApiUrl, AjaxAdapter, HtmlID, jsPlumb, AlertAdapter, ModalAdapter, UploadPhotoSubscriberBoxFormBuilder */
+const ApiUrl = require('../../enum/ApiUrl');
 
 /**
  * @type NoteFormListener
@@ -12,8 +12,10 @@ var NoteFormListener = {
      */
     showForm: function (lat, lng) {
         window.location.href = ApiUrl.GET_NOTE_ID + 'new?lat=' + lat + '&lng=' + lng;
-    },
+    }
     
     
 
 };
+
+module.exports = NoteFormListener;

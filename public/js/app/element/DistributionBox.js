@@ -1,4 +1,19 @@
-/* global L, Path, Element, element, MarkerFactory, ApiUrl, AjaxAdapter, AlertAdapter; SubsSubscriberBox, AlertAdapter, PopupBuilder, PopupEnum, ResourceUrl, DistributionBoxPassantListener, DsBoxConectorFormListener, DistributionBoxFormListener */
+/* global L */
+
+const Element = require('./Element');
+const AjaxAdapter = require('../adapter/AjaxAdapter');
+const Path = require('../enum/Path');
+const ApiUrl = require('../enum/ApiUrl');
+const MarkerFactory = require('../layer/factory/MarkerFactory');
+const PopupBuilder = require('./builder/PopupBuilder');
+const PopupEnum = require('./enum/PopupEnum');
+const AlertAdapter = require('../adapter/AlertAdapter');
+const SubscriberBox = require('./SubscriberBox');
+const ResourceUrl = require('../enum/ResourceUrl');
+const DistributionBoxtListener = require('./listener/DistributionBoxListener');
+const DsBoxConectorFormListener = require('../form/listener/DsBoxConectorFormListener');
+const DistributionBoxFormListener = require('../form/listener/DistributionBoxFormListener');
+const AddressModel = require('./model/AddressModel');
 
 /**
  * @param {mapView} mapView
@@ -11,7 +26,7 @@
  */
 var DistributionBox = function (mapView, id, name, latitude, longitude, icon) {
 
-    element.Element.call(this, mapView);
+    Element.call(this, mapView);
 
     /**
      * @type {Number}
@@ -49,7 +64,7 @@ var DistributionBox = function (mapView, id, name, latitude, longitude, icon) {
     this.marker = MarkerFactory.createLayer(this, [30, 30]);
 };
 
-DistributionBox.prototype = Object.create(element.Element.prototype);
+DistributionBox.prototype = Object.create(Element.prototype);
 
 DistributionBox.prototype = {
 
@@ -230,3 +245,5 @@ DistributionBox.prototype = {
         });
     }
 };
+
+module.exports = DistributionBox;
