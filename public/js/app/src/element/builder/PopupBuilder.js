@@ -306,9 +306,9 @@ var PopupBuilder = (function () {
                             if (conector.fiber) {
                                 classes += "bg-success";
                             }
-                            html += "<a href='#' title='" + (conector.description || 'No definido') + "' class='" + classes + "' style='display:block;' onclick='dispatch(\"" + Listener.PATCH_SHOW_PATH + "\", " + conector.id + ")' oncontextmenu='javascript:PatchPanelListener.showPromptDescription(" + conector.id + ");return false;'>" + conector.number + "</a>";
+                            html += "<a href='#' title='" + (conector.description || 'No definido') + "' class='" + classes + "' style='display:block;' onclick='javascript:dispatch(\"" + Listener.PATCH_SHOW_PATH + "\", " + conector.id + ");return false;' oncontextmenu='javascript:dispatch(\"" + Listener.PATCH_SHOW_PROMPT + "\", " + conector.id + ");return false;'>" + conector.number + "</a>";
                         });
-                        html += "<a href='#' class='mt-2' onclick='PatchConectorFormListener.showModal(" + slot.id + ")'><i class='fas fa-link'></i></a>";
+                        html += "<a href='#' class='mt-2' onclick='javascript:dispatch(\"" + Listener.PATCH_CONNECT_PORTS + "\", " + slot.id + ");return false;'><i class='fas fa-link'></i></a>";
                         html += "</div>";
                     });
                     html += "</div>";
@@ -351,7 +351,7 @@ var PopupBuilder = (function () {
                             if (conector.fiber) {
                                 classes += "bg-success";
                             }
-                            html += "<a href='#' title='" + (conector.description || 'No definido') + "' class='" + classes + "' style='display:block;' onclick='PatchPanelListener.disconnectPort(" + conector.id + ")'>" + conector.number + "</a>";
+                            html += "<a href='#' title='" + (conector.description || 'No definido') + "' class='" + classes + "' style='display:block;' onclick='javascript:dispatch(\"" + Listener.PATCH_DISCONNECT_PORT + "\", " + conector.id + ");return false;'>" + conector.number + "</a>";
                         });
                         html += "</div>";
                     });

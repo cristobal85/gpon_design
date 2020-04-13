@@ -8,6 +8,8 @@ const UploadPhotoTorpedoFormBuilder = require('../builder/UploadPhotoTorpedoForm
 const ApiUrl = require('../../enum/ApiUrl');
 const ROMPathBuilder = require('../../element/builder/ROMPathBuilder');
 const TreeAdapter = require('../../adapter/TreeAdapter');
+const HtmlID = require('../../enum/HtmlID');
+const PatchFormBuilder = require('../builder/PatchFormBuilder');
 
 module.exports = function () {
 
@@ -81,6 +83,25 @@ module.exports = function () {
     /**
      * @param {CustomEvent} e
      */
+    document.addEventListener(Listener.DS_BOX_SHOW_PATH, function (e) {
+        var dsBoxPortId = e.detail;
+        AjaxAdapter.get(ApiUrl.GET_DSBOX_PORT_ID + dsBoxPortId).then(async function (response) {
+            var dsBoxConector = response.data;
+
+            var conectorFiber = dsBoxConector.fiber;
+
+            var romPathBuilder = ROMPathBuilder.getInstance();
+            romPathBuilder.addDsToRomPath(conectorFiber);
+            await romPathBuilder.addOltPath();
+
+            ModalAdapter.showModal('Trayectoria', romPathBuilder.build());
+            TreeAdapter.showTree('tree');
+        });
+    });
+
+    /**
+     * @param {CustomEvent} e
+     */
     document.addEventListener(Listener.PATCH_SHOW_PATH, function (e) {
         var patchPanelConectorId = e.detail;
         AjaxAdapter.get(ApiUrl.GET_CONECTOR_ID + patchPanelConectorId).then(async function (response) {
@@ -98,23 +119,100 @@ module.exports = function () {
 
         return false;
     });
-    
+
     /**
      * @param {CustomEvent} e
      */
-    document.addEventListener(Listener.DS_BOX_SHOW_PATH, function(e) {
-        var dsBoxPortId = e.detail;
-        AjaxAdapter.get(ApiUrl.GET_DSBOX_PORT_ID + dsBoxPortId).then(async function (response) {
-            var dsBoxConector = response.data;
+    document.addEventListener(Listener.PATCH_SHOW_PROMPT, function (e) {
+        var patchPanelConectorId = e.detail;
+        AjaxAdapter.get(ApiUrl.GET_CONECTOR_ID + patchPanelConectorId).then(function (response) {
+            var patchPanelConector = response.data;
+            ModalAdapter.showPromptDescription(
+                    'Puerto de patch panel ' + patchPanelConector.number,
+                    function (result) {
+                        if (result) {
+                            AjaxAdapter.put(ApiUrl.PUT_PATCHPORT_DESCRIPTION + patchPanelConector.id,
+                                    {
+                                        'description': result
+                                    })
+                                    .then(function (response) {
+                                        AlertAdapter.success(response.data.message);
+                                    })
+                                    .catch(function (error) {
+                                        console.error(error);
+                                    });
+                        }
+                    }, patchPanelConector.description);
+        });
 
-            var conectorFiber = dsBoxConector.fiber;
-            
-            var romPathBuilder = ROMPathBuilder.getInstance();
-            romPathBuilder.addDsToRomPath(conectorFiber);
-            await romPathBuilder.addOltPath();
+        return false;
+    });
 
-            ModalAdapter.showModal('Trayectoria', romPathBuilder.build());
-            TreeAdapter.showTree('tree');
+
+    /**
+     * @param {CustomEvent} e
+     */
+    document.addEventListener(Listener.PATCH_DISCONNECT_PORT, function (e) {
+        var patchPanelConectorId = e.detail;
+
+        AjaxAdapter.get(ApiUrl.GET_CONECTOR_ID + patchPanelConectorId).then(function (response) {
+            var patchPanelConector = response.data;
+            ModalAdapter.showConfirm(
+                    'Puerto patch panel (slot ' + patchPanelConector.patchPanelSlot.number + ')',
+                    '¿Desconectar puerto ' + patchPanelConector.number + '?',
+                    function (result) {
+                        if (result) {
+                            AjaxAdapter.put(ApiUrl.PUT_PATCH_PANEL_PORT + '/' + patchPanelConectorId + '/disconnect')
+                                    .then(function (response) {
+                                        AlertAdapter.success(response.data.message);
+                                    })
+                                    .catch(function (error) {
+                                        console.error(error);
+                                    });
+                        }
+                    });
+        });
+    });
+
+    /**
+     * @param {CustomEvent} e
+     */
+    document.addEventListener(Listener.PATCH_CONNECT_PORTS, function (e) {
+        var slotId = e.detail;
+        AjaxAdapter.get(ApiUrl.GET_FORM_WIRE).then(function (response) {
+            var wires = response.data;
+
+            ModalAdapter.showModal(
+                    'Nueva conexión',
+                    new PatchFormBuilder()
+                    .addSelectWires(wires)
+                    .build(),
+                    {
+                        ok: {
+                            label: "Siguiente",
+                            className: 'btn-info',
+                            callback: function () {
+                                var wireId = document.getElementById(HtmlID.DSBOX_CONECTOR_WIRE).value;
+                                AjaxAdapter.get(ApiUrl.GET_WIRE_ID + wireId).then(function (response) {
+                                    var wire = response.data;
+                                    AjaxAdapter.get(ApiUrl.GET_SLOT_ID + slotId).then(function (response) {
+                                        var slot = response.data;
+                                        ModalAdapter.showModal(
+                                                'Conexiones',
+                                                new PatchFormBuilder()
+                                                .addSelectedWires(wire, slot)
+                                                .build()
+                                                );
+                                    });
+                                });
+                            }
+                        }
+                    }
+            );
+
+            $('select').select2({width: '100%'});
+
+
         });
     });
 
