@@ -52,22 +52,22 @@ var PatchConectorFormListener = {
 //
 //    },
 
-    /**
-     * @param {Number} id ID from database
-     * @param {HTMLElement} el
-     * @returns {undefined}
-     */
-    deleteFusion(id, el) {
-        AjaxAdapter
-                .delete(ApiUrl.DELETE_TORPEDO_FUSION + "/" + id)
-                .then(function (response) {
-                    el.parentNode.parentNode.remove();
-                    AlertAdapter.success(response.data.message);
-                })
-                .catch(function (response) {
-                    AlertAdapter.error(response.data.message);
-                });
-    }
+//    /**
+//     * @param {Number} id ID from database
+//     * @param {HTMLElement} el
+//     * @returns {undefined}
+//     */
+//    deleteFusion(id, el) {
+//        AjaxAdapter
+//                .delete(ApiUrl.DELETE_TORPEDO_FUSION + "/" + id)
+//                .then(function (response) {
+//                    el.parentNode.parentNode.remove();
+//                    AlertAdapter.success(response.data.message);
+//                })
+//                .catch(function (response) {
+//                    AlertAdapter.error(response.data.message);
+//                });
+//    }
 
 };
 

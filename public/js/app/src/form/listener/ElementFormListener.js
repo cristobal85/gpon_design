@@ -58,7 +58,6 @@ module.exports = function () {
      * @param {CustomEvent} e
      */
     document.addEventListener(Listener.TORPEDO_DELETE_FUSION, function (e) {
-        console.log(e);
         var fusionId = e.detail.fusionId;
         var el = e.detail.el;
         ModalAdapter.showConfirm(
