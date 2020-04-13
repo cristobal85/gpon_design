@@ -35,3 +35,5 @@ var LayerListener = {
     }
 
 };
+
+module.exports = LayerListener;

@@ -2,6 +2,7 @@
 const Path = require('../../enum/Path');
 const AttributeEnum = require('../enum/AttributeEnum');
 const DistributionBoxListener = require('../listener/DistributionBoxListener');
+const Listener = require('../../enum/Listener');
 
 /**
  * @return {PopupBuilder.PopupBuilderAnonym$4}
@@ -226,7 +227,7 @@ var PopupBuilder = (function () {
                             html += "<div class='fusion fiber-right' style='background-color:" + fusion.fibers[1].hexaColor + "' title='Layer " + fusion.fibers[1].tube.layer + "'></div>";
                             html += "<div class='fusion tube-right' style='background-color:" + fusion.fibers[1].tube.hexaColor + "' title='Layer " + fusion.fibers[1].tube.layer + "'></div>";
                             html += "<span style='position:relative;top:-10px;'> " + fusion.fibers[1].tube.wire.name + "</span>";
-                            html += "<span class='fusion-options'><i class='far fa-trash-alt text-danger' title='Eliminar fusión' onclick='TorpedoFusionListener.deleteFusion(" + fusion.id + ", this)'></i></span>";
+                            html += "<span class='fusion-options'><i class='far fa-trash-alt text-danger' title='Eliminar fusión' onclick='javascript:dispatch(\"" + Listener.TORPEDO_DELETE_FUSION + "\", { \"fusionId\": " + fusion.id + ", \"el\": this });'></i></span>";
                             html += "</li>";
                         }
                     });
@@ -305,7 +306,7 @@ var PopupBuilder = (function () {
                             if (conector.fiber) {
                                 classes += "bg-success";
                             }
-                            html += "<a href='#' title='" + (conector.description || 'No definido') + "' class='" + classes + "' style='display:block;' onclick='PatchPanelListener.showModal(" + conector.id + ")' oncontextmenu='javascript:PatchPanelListener.showPromptDescription(" + conector.id + ");return false;'>" + conector.number + "</a>";
+                            html += "<a href='#' title='" + (conector.description || 'No definido') + "' class='" + classes + "' style='display:block;' onclick='dispatch(\"" + Listener.PATCH_SHOW_PATH + "\", " + conector.id + ")' oncontextmenu='javascript:PatchPanelListener.showPromptDescription(" + conector.id + ");return false;'>" + conector.number + "</a>";
                         });
                         html += "<a href='#' class='mt-2' onclick='PatchConectorFormListener.showModal(" + slot.id + ")'><i class='fas fa-link'></i></a>";
                         html += "</div>";
@@ -414,7 +415,7 @@ var PopupBuilder = (function () {
                             classes += "bg-success";
                         }
                         html += "<div class='col text-center " + classes + "'>";
-                        html += "<a href='#' " + AttributeEnum.DATA_DS_BOX_ID + "='" + ports[i].id + "' style='display:block;' onclick='javascript:DistributionBoxListener.showModal(" + ports[i].id + ");return false;' oncontextmenu=\"javascript:DistributionBoxListener.dissconectPort(this);return false;\">" + ports[i].number + "</a>";
+                        html += "<a href='#' " + AttributeEnum.DATA_DS_BOX_ID + "='" + ports[i].id + "' style='display:block;' onclick='javascript:dispatch(\"" + Listener.DS_BOX_SHOW_PATH + "\", " + ports[i].id + ");' oncontextmenu=\"javascript:DistributionBoxListener.dissconectPort(this);return false;\">" + ports[i].number + "</a>";
                         html += "</div>";
                     }
                     html += "</div>";
@@ -431,7 +432,7 @@ var PopupBuilder = (function () {
                             classes += "bg-success";
                         }
                         html += "<div class='col text-center " + classes + "'>";
-                        html += "<a href='#' " + AttributeEnum.DATA_DS_BOX_ID + "='" + ports[i].id + "' style='display:block;' onclick='javascript:DistributionBoxListener.showModal(" + ports[i].id + ");return false;' oncontextmenu=\"javascript:DistributionBoxListener.dissconectPort(this);return false;\">" + ports[i].number + "</a>";
+                        html += "<a href='#' " + AttributeEnum.DATA_DS_BOX_ID + "='" + ports[i].id + "' style='display:block;' onclick='javascript:dispatch(\"" + Listener.DS_BOX_SHOW_PATH + "\", " + ports[i].id + ");' oncontextmenu=\"javascript:DistributionBoxListener.dissconectPort(this);return false;\">" + ports[i].number + "</a>";
                         html += "</div>";
                     }
                     html += "</div>";
@@ -513,30 +514,6 @@ var PopupBuilder = (function () {
 
                 return this;
             },
-
-//            /**
-//             * 
-//             * @param {string} href Resource URL
-//             * @param {Number} id ID from database
-//             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
-//             */
-//            addEditButton: function (href, id) {
-//                buttons[id] = "<a href='/" + href + "/" + id + "/edit' class='btn btn-outline-primary btn-sm' role='button'><i class='fas fa-edit'></i> Editar</a>";
-//
-//                return this;
-//            },
-//
-//            /**
-//             * @param {string} href Resource URL
-//             * @param {Number} elementId ID from database
-//             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
-//             */
-//            addDeleteBtn: function (href, elementId) {
-//                buttons['delete-btn'] = "<button type='button' class='btn btn-outline-danger btn-sm ml-2' onclick='ElementActionListener.delete(" + href + ", " + elementId + ")'><i class='far fa-trash-alt'></i> Eliminar</a>";
-//
-//                return this;
-//            },
-
             
             /**
              * @param {Number} elementId ID from database
@@ -563,40 +540,10 @@ var PopupBuilder = (function () {
              * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
              */
             addTorpedoPhotoBtn: function (elementId) {
-                buttons['add-torpedo-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='TorpedoFormListener.showPhotoModal(" + elementId + ")'><i class='fas fa-cloud-upload-alt'></i> Fotos</a>";
+                buttons['add-torpedo-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='dispatch(\"" + Listener.TORPEDO_SHOW_PHOTO_MODAL + "\"," + elementId + ")'><i class='fas fa-cloud-upload-alt'></i> Fotos</a>";
 
                 return this;
             },
-
-//            /**
-//             * @param {Number} elementId ID from database
-//             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
-//             */
-//            addDistributionPassantBtn: function (elementId) {
-//                buttons['edit-distribution-passant'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='DistributionBoxPassantListener.showModal(" + elementId + ")'><i class='fas fa-network-wired'></i> Pasante</a>";
-//
-//                return this;
-//            },
-
-//            /**
-//             * @param {Number} elementId ID from database
-//             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
-//             */
-//            addEditConectorBtn: function (elementId) {
-//                buttons['distribution-conector'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='DsBoxConectorFormListener.showModal(" + elementId + ")'><i class='fas fa-network-wired'></i> Conectar</a>";
-//
-//                return this;
-//            },
-
-//            /**
-//             * @param {Number} elementId ID from database
-//             * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
-//             */
-//            addPatchConectorBtn: function (elementId) {
-//                buttons['patch-conector'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='PatchConectorFormListener.showModal(" + elementId + ")'><i class='fas fa-network-wired'></i> Conectar</a>";
-//
-//                return this;
-//            },
 
             /**
              * @param {Number} width

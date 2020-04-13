@@ -16,22 +16,22 @@ var PatchPanelListener = {
      * @param {Number} patchPanelConectorId ID from database
      * @returns {undefined}
      */
-    showModal: function (patchPanelConectorId) {
-        AjaxAdapter.get(ApiUrl.GET_CONECTOR_ID + patchPanelConectorId).then(async function (response) {
-            var patchPanelConector = response.data;
-            var conectorFiber = patchPanelConector.fiber;
-            
-            var romPathBuilder = ROMPathBuilder.getInstance();
-            await romPathBuilder.addRomToOltPath(patchPanelConector);
-            await romPathBuilder.addDistributionBoxPath(conectorFiber);
-            
-
-            ModalAdapter.showModal('Trayectoria', romPathBuilder.build());
-            TreeAdapter.showTree('tree');
-        });
-
-        return false;
-    },
+//    showModal: function (patchPanelConectorId) {
+//        AjaxAdapter.get(ApiUrl.GET_CONECTOR_ID + patchPanelConectorId).then(async function (response) {
+//            var patchPanelConector = response.data;
+//            var conectorFiber = patchPanelConector.fiber;
+//            
+//            var romPathBuilder = ROMPathBuilder.getInstance();
+//            await romPathBuilder.addRomToOltPath(patchPanelConector);
+//            await romPathBuilder.addDistributionBoxPath(conectorFiber);
+//            
+//
+//            ModalAdapter.showModal('Trayectoria', romPathBuilder.build());
+//            TreeAdapter.showTree('tree');
+//        });
+//
+//        return false;
+//    },
 
     /**
      * @param {Number} patchPanelConectorId ID from database
@@ -81,3 +81,6 @@ var PatchPanelListener = {
         });
     }
 };
+
+
+module.exports = PatchPanelListener;

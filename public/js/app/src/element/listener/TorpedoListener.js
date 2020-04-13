@@ -34,3 +34,5 @@ var TorpedoListener = {
     }
 
 };
+
+module.exports = TorpedoListener;

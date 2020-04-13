@@ -16,21 +16,21 @@ var DistributionBoxListener = {
      * @param {Number} dsBoxPortId ID from database
      * @returns {undefined}
      */
-    showModal: function (dsBoxPortId) {
-        var self = this;
-        AjaxAdapter.get(ApiUrl.GET_DSBOX_PORT_ID + dsBoxPortId).then(async function (response) {
-            var dsBoxConector = response.data;
-
-            var conectorFiber = dsBoxConector.fiber;
-            
-            var romPathBuilder = ROMPathBuilder.getInstance();
-            romPathBuilder.addDsToRomPath(conectorFiber);
-            await romPathBuilder.addOltPath();
-
-            ModalAdapter.showModal('Trayectoria', romPathBuilder.build());
-            TreeAdapter.showTree('tree');
-        });
-    },
+//    showModal: function (dsBoxPortId) {
+//        var self = this;
+//        AjaxAdapter.get(ApiUrl.GET_DSBOX_PORT_ID + dsBoxPortId).then(async function (response) {
+//            var dsBoxConector = response.data;
+//
+//            var conectorFiber = dsBoxConector.fiber;
+//            
+//            var romPathBuilder = ROMPathBuilder.getInstance();
+//            romPathBuilder.addDsToRomPath(conectorFiber);
+//            await romPathBuilder.addOltPath();
+//
+//            ModalAdapter.showModal('Trayectoria', romPathBuilder.build());
+//            TreeAdapter.showTree('tree');
+//        });
+//    },
 
 
     /**
