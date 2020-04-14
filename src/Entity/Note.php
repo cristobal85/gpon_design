@@ -33,6 +33,7 @@ class Note implements EntityIconable
     /**
      * @ORM\Column(type="text")
      * @Groups({"note"})
+     * @Assert\NotBlank
      */
     private $description;
 
