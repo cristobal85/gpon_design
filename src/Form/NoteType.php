@@ -29,7 +29,7 @@ class NoteType extends AbstractType {
         
         $builder
                 ->add('title', null, ['label' => 'Título'])
-                ->add('description', TrixType::class, ['label' => 'Descripción'])
+                ->add('description', TrixType::class, ['label' => 'Descripción',  'required' => true])
                 ->add('observations', TrixType::class, ['label' => 'Observaciones', 'required' => false])
                 ->add('latitude', NumberType::class, ['label' => 'Latitud', 'scale' => 16, 'required' => false])
                 ->add('longitude', NumberType::class, ['label' => 'Longitud', 'scale' => 16, 'required' => false])
