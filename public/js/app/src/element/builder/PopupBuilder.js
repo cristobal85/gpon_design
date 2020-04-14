@@ -476,7 +476,7 @@ var PopupBuilder = (function () {
                             classes += "bg-success";
                         }
                         html += "<div class='col text-center " + classes + "'>";
-                        html += "<a href='#' " + AttributeEnum.DATA_DS_BOX_ID + "='" + ports[i].id + "' style='display:block;' onclick=\"javascript:DistributionBoxListener.dissconectPort(this);return false;\">" + ports[i].number + "</a>";
+                        html += "<a href='#' " + AttributeEnum.DATA_DS_BOX_ID + "='" + ports[i].id + "' style='display:block;' onclick='javascript:dispatch(\"" + Listener.DS_BOX_DISCONNECT_PORT + "\", " + ports[i].id + ");return false;'>" + ports[i].number + "</a>";
                         html += "</div>";
                     }
                     html += "</div>";
@@ -493,7 +493,7 @@ var PopupBuilder = (function () {
                             classes += "bg-success";
                         }
                         html += "<div class='col text-center " + classes + "'>";
-                        html += "<a href='#' " + AttributeEnum.DATA_DS_BOX_ID + "='" + ports[i].id + "' style='display:block;' onclick=\"javascript:DistributionBoxListener.dissconectPort(this);return false;\">" + ports[i].number + "</a>";
+                        html += "<a href='#' " + AttributeEnum.DATA_DS_BOX_ID + "='" + ports[i].id + "' style='display:block;' onclick='javascript:dispatch(\"" + Listener.DS_BOX_DISCONNECT_PORT + "\", " + ports[i].id + ");return false;'>" + ports[i].number + "</a>";
                         html += "</div>";
                     }
                     html += "</div>";
@@ -516,21 +516,21 @@ var PopupBuilder = (function () {
             },
             
             /**
-             * @param {Number} elementId ID from database
+             * @param {Number} subscriberBoxId ID from database
              * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
              */
-            addSubscriberBoxPhotoBtn: function (elementId) {
-                buttons['add-subscriber-box-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='SubscriberBoxFormListener.showPhotoModal(" + elementId + ")'><i class='fas fa-cloud-upload-alt'></i> Fotos</a>";
+            addSubscriberBoxPhotoBtn: function (subscriberBoxId) {
+                buttons['add-subscriber-box-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='javascript:dispatch(\"" + Listener.SUBSCRIBER_BOX_SHOW_PHOTO_MODAL + "\", " + subscriberBoxId + ");return false;'><i class='fas fa-cloud-upload-alt'></i> Fotos</a>";
 
                 return this;
             },
             
             /**
-             * @param {Number} elementId ID from database
+             * @param {Number} dsBoxId ID from database
              * @returns {PopupBuilderPopupBuilder.init.PopupBuilderAnonym$0}
              */
-            addDistributionBoxPhotoBtn: function (elementId) {
-                buttons['add-distribution-box-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='DistributionBoxFormListener.showPhotoModal(" + elementId + ")'><i class='fas fa-cloud-upload-alt'></i> Fotos</a>";
+            addDistributionBoxPhotoBtn: function (dsBoxId) {
+                buttons['add-distribution-box-photo-btn'] = "<a href='#' class='btn btn-outline-primary btn-sm ml-2' role='button' onclick='javascript:dispatch(\"" + Listener.DS_BOX_SHOW_PHOTO_MODAL + "\", " + dsBoxId + ");return false;'><i class='fas fa-cloud-upload-alt'></i> Fotos</a>";
 
                 return this;
             },

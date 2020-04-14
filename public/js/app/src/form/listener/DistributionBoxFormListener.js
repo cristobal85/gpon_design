@@ -7,16 +7,16 @@ const DistributionBoxFormBuilder = require('../builder/DistributionBoxFormBuilde
  */
 var DistributionBoxFormListener = {
 
-    /**
-     * @param {Number} distributionBoxId ID from database
-     * @returns {undefined}
-     */
-    showPhotoModal: function (distributionBoxId) {
-            ModalAdapter.showModal(
-                    'Fotos',
-                    new UploadPhotoDistributionBoxFormBuilder().addPhotoUpload(distributionBoxId).build()
-                    );
-    },
+//    /**
+//     * @param {Number} distributionBoxId ID from database
+//     * @returns {undefined}
+//     */
+//    showPhotoModal: function (distributionBoxId) {
+//            ModalAdapter.showModal(
+//                    'Fotos',
+//                    new UploadPhotoDistributionBoxFormBuilder().addPhotoUpload(distributionBoxId).build()
+//                    );
+//    },
     
     /**
      * @param {Number} distributionBoxId ID from database

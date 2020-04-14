@@ -9,22 +9,22 @@ const UploadPhotoSubscriberBoxFormBuilder = require('../builder/UploadPhotoSubsc
  */
 var SubscriberBoxFormListener = {
 
-    /**
-     * @param {Number} subscriberBoxId ID from database
-     * @returns {undefined}
-     */
-    showPhotoModal: function (subscriberBoxId) {
-        AjaxAdapter.get(ApiUrl.GET_SUBSCRIBER_ID + subscriberBoxId).then(function (response) {
-            var subscriberBox = response.data;
-            ModalAdapter.showModal(
-                    'Fotos',
-                    new UploadPhotoSubscriberBoxFormBuilder().addPhotoUpload(subscriberBox).build()
-                    );
-
-
-        });
-
-    },
+//    /**
+//     * @param {Number} subscriberBoxId ID from database
+//     * @returns {undefined}
+//     */
+//    showPhotoModal: function (subscriberBoxId) {
+//        AjaxAdapter.get(ApiUrl.GET_SUBSCRIBER_ID + subscriberBoxId).then(function (response) {
+//            var subscriberBox = response.data;
+//            ModalAdapter.showModal(
+//                    'Fotos',
+//                    new UploadPhotoSubscriberBoxFormBuilder().addPhotoUpload(subscriberBox).build()
+//                    );
+//
+//
+//        });
+//
+//    },
 
     /**
      * @param {Number} subscriberBoxId ID from database

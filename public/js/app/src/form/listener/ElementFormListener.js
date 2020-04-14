@@ -10,6 +10,8 @@ const ROMPathBuilder = require('../../element/builder/ROMPathBuilder');
 const TreeAdapter = require('../../adapter/TreeAdapter');
 const HtmlID = require('../../enum/HtmlID');
 const PatchFormBuilder = require('../builder/PatchFormBuilder');
+const UploadPhotoDistributionBoxFormBuilder = require('../builder/UploadPhotoDistributionBoxFormBuilder');
+const UploadPhotoSubscriberBoxFormBuilder = require('../builder/UploadPhotoSubscriberBoxFormBuilder');
 
 module.exports = function () {
 
@@ -96,6 +98,39 @@ module.exports = function () {
             ModalAdapter.showModal('Trayectoria', romPathBuilder.build());
             TreeAdapter.showTree('tree');
         });
+    });
+    
+    /**
+     * @param {CustomEvent} e
+     */
+    document.addEventListener(Listener.DS_BOX_DISCONNECT_PORT, function (e) {
+        var dsBoxPortId = e.detail;
+        ModalAdapter.showConfirm(
+                'Desconectar puerto Caja Distribución',
+                '¿Estás seguro que quieres desconectar el puerto?',
+                function (confirmed) {
+                    if (confirmed) {
+                        AjaxAdapter.put(ApiUrl.PUT_DISTRIBUTION_PORT + '/' + dsBoxPortId + '/disconnect')
+                                .then(function (response) {
+                                    AlertAdapter.success(response.data.message);
+                                })
+                                .catch(function (error) {
+                                    console.error(error);
+                                });
+                    }
+                }
+        );
+    });
+
+    /**
+     * @param {CustomEvent} e
+     */
+    document.addEventListener(Listener.DS_BOX_SHOW_PHOTO_MODAL, function (e) {
+        var dsBoxPortId = e.detail;
+        ModalAdapter.showModal(
+                'Fotos',
+                new UploadPhotoDistributionBoxFormBuilder().addPhotoUpload(dsBoxPortId).build()
+                );
     });
 
     /**
@@ -210,6 +245,23 @@ module.exports = function () {
             );
 
             $('select').select2({width: '100%'});
+
+
+        });
+    });
+    
+    
+    /**
+     * @param {CustomEvent} e
+     */
+    document.addEventListener(Listener.SUBSCRIBER_BOX_SHOW_PHOTO_MODAL, function (e) {
+        var subscriberBoxId = e.detail;
+        AjaxAdapter.get(ApiUrl.GET_SUBSCRIBER_ID + subscriberBoxId).then(function (response) {
+            var subscriberBox = response.data;
+            ModalAdapter.showModal(
+                    'Fotos',
+                    new UploadPhotoSubscriberBoxFormBuilder().addPhotoUpload(subscriberBox).build()
+                    );
 
 
         });
