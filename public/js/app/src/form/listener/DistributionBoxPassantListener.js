@@ -3,6 +3,7 @@ const ApiUrl = require('../../enum/ApiUrl');
 const ModalAdapter = require('../../adapter/ModalAdapter');
 const AlertAdapter = require('../../adapter/AlertAdapter');
 const HtmlID = require('../../enum/HtmlID');
+const DistributionBoxPassantFormBuilder = require('../builder/DistributionBoxPassantFormBuilder');
 
 /**
  * @type DistributionBoxPassantListener

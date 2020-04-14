@@ -14,6 +14,7 @@ const DistributionBoxtListener = require('./listener/DistributionBoxListener');
 const DsBoxConectorFormListener = require('../form/listener/DsBoxConectorFormListener');
 const DistributionBoxFormListener = require('../form/listener/DistributionBoxFormListener');
 const AddressModel = require('./model/AddressModel');
+const DistributionBoxPassantListener = require('../form/listener/DistributionBoxPassantListener');
 
 /**
  * @param {mapView} mapView

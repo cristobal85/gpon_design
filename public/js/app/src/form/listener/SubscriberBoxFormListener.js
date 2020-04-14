@@ -1,8 +1,7 @@
 const AjaxAdapter = require('../../adapter/AjaxAdapter');
 const ModalAdapter = require('../../adapter/ModalAdapter');
-const ApiUrl = require('../enum/../ApiUrl');
-const SubscriberBoxExtFormBuilder = require('../builder/SubscriberBoxExtFormBuilder');
-const UploadPhotoSubscriberBoxFormBuilder = require('../builder/UploadPhotoSubscriberBoxFormBuilder');
+const ApiUrl = require('../../enum/ApiUrl');
+const SubscriberBoxFormBuilder = require('../builder/SubscriberBoxFormBuilder');
 
 /**
  * @type SubscriberBoxFormListener
@@ -40,4 +39,4 @@ var SubscriberBoxFormListener = {
 
 };
 
-module.exports = UploadPhotoSubscriberBoxFormBuilder;
+module.exports = SubscriberBoxFormListener;

@@ -8,6 +8,7 @@ const AlertAdapter = require('../adapter/AlertAdapter');
 const ResourceUrl = require('../enum/ResourceUrl');
 const MarkerFactory = require('../layer/factory/MarkerFactory');
 const AddressModel = require('./model/AddressModel');
+const SubscriberBoxFormListener = require('../form/listener/SubscriberBoxFormListener');
 
 /**
  * @param {mapView} mapView

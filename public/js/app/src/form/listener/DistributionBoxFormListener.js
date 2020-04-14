@@ -34,4 +34,4 @@ var DistributionBoxFormListener = {
 
 };
 
-module.exports = DistributionBoxFormBuilder;
+module.exports = DistributionBoxFormListener;
