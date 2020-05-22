@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DistributionBoxFusion{% endblock %}
+
+{% block body %}
+    <h1>DistributionBoxFusion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ distribution_box_fusion.id }}</td>
+            </tr>
+            <tr>
+                <th>SignalLoss</th>
+                <td>{{ distribution_box_fusion.signalLoss }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('distribution_box_fusion_index') }}">back to list</a>
+
+    <a href="{{ path('distribution_box_fusion_edit', {'id': distribution_box_fusion.id}) }}">edit</a>
+
+    {{ include('distribution_box_fusion/_delete_form.html.twig') }}
+{% endblock %}

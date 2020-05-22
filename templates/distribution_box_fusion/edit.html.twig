@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit DistributionBoxFusion{% endblock %}
+
+{% block body %}
+    <h1>Edit DistributionBoxFusion</h1>
+
+    {{ include('distribution_box_fusion/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('distribution_box_fusion_index') }}">back to list</a>
+
+    {{ include('distribution_box_fusion/_delete_form.html.twig') }}
+{% endblock %}

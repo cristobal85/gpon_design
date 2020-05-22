@@ -117,8 +117,7 @@ class TorpedoFusionController extends AbstractController {
             Request $request,
             Torpedo $torpedo,
             EntityManagerInterface $em,
-            ValidatorInterface $validator,
-            TorpedoPassantRepository $torpedoRep) {
+            ValidatorInterface $validator) {
         if (!$this->getUser()->isAdmin()) {
             return new JsonResponse([
                 'message' => "No tiene permisos para realizar esta acción."

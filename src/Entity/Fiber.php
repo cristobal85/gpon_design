@@ -91,6 +91,12 @@ class Fiber
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\DistributionBoxFusion", mappedBy="fibers")
+     * @Assert\Count(
+     *      min = 0,
+     *      max = 2,
+     *      maxMessage = "Una fibra no puede estar en mas de {{ limit }} cajas de distribución."
+     * )
+     * @Groups({"map","form","path"})
      */
     private $distributionBoxFusions;
     

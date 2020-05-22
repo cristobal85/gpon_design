@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DistributionBoxFusion index{% endblock %}
+
+{% block body %}
+    <h1>DistributionBoxFusion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>SignalLoss</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for distribution_box_fusion in distribution_box_fusions %}
+            <tr>
+                <td>{{ distribution_box_fusion.id }}</td>
+                <td>{{ distribution_box_fusion.signalLoss }}</td>
+                <td>
+                    <a href="{{ path('distribution_box_fusion_show', {'id': distribution_box_fusion.id}) }}">show</a>
+                    <a href="{{ path('distribution_box_fusion_edit', {'id': distribution_box_fusion.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('distribution_box_fusion_new') }}">Create new</a>
+{% endblock %}
