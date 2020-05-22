@@ -88,6 +88,11 @@ class Fiber
      * @Groups({"map","form","path"})
      */
     private $distributionBoxPassants;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\DistributionBoxFusion", mappedBy="fibers")
+     */
+    private $distributionBoxFusions;
     
 
     public function __construct()
@@ -95,6 +100,7 @@ class Fiber
         $this->torpedoFusions = new ArrayCollection();
         $this->torpedoPassants = new ArrayCollection();
         $this->distributionBoxPassants = new ArrayCollection();
+        $this->distributionBoxFusions = new ArrayCollection();
     }
 
 
@@ -328,6 +334,34 @@ class Fiber
     {
         $this->distributionBoxPassants = $dsBoxPassants;
         
+        return $this;
+    }
+
+    /**
+     * @return Collection|DistributionBoxFusion[]
+     */
+    public function getDistributionBoxFusions(): Collection
+    {
+        return $this->distributionBoxFusions;
+    }
+
+    public function addDistributionBoxFusion(DistributionBoxFusion $distributionBoxFusion): self
+    {
+        if (!$this->distributionBoxFusions->contains($distributionBoxFusion)) {
+            $this->distributionBoxFusions[] = $distributionBoxFusion;
+            $distributionBoxFusion->addFiber($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDistributionBoxFusion(DistributionBoxFusion $distributionBoxFusion): self
+    {
+        if ($this->distributionBoxFusions->contains($distributionBoxFusion)) {
+            $this->distributionBoxFusions->removeElement($distributionBoxFusion);
+            $distributionBoxFusion->removeFiber($this);
+        }
+
         return $this;
     }
 }

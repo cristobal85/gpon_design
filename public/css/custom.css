@@ -65,6 +65,11 @@ td img {
     z-index: 1030;
 }
 
+.menu-notifications-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
 /*********************** CONTAINER */
 .crud-container {
     margin-top: 20px;

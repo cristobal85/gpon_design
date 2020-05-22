@@ -134,6 +134,11 @@ class DistributionBox implements EntityIconable
      */
     private $passants;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DistributionBoxFusion", mappedBy="distributionBox")
+     */
+    private $distributionBoxFusions;
+
     
     public function __construct()
     {
@@ -144,6 +149,7 @@ class DistributionBox implements EntityIconable
         $this->ports = new ArrayCollection();
         $this->passants = new ArrayCollection();
         $this->updatedAt = new \DateTime();
+        $this->distributionBoxFusions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -464,6 +470,37 @@ class DistributionBox implements EntityIconable
         }
         
         return false;
+    }
+
+    /**
+     * @return Collection|DistributionBoxFusion[]
+     */
+    public function getDistributionBoxFusions(): Collection
+    {
+        return $this->distributionBoxFusions;
+    }
+
+    public function addDistributionBoxFusion(DistributionBoxFusion $distributionBoxFusion): self
+    {
+        if (!$this->distributionBoxFusions->contains($distributionBoxFusion)) {
+            $this->distributionBoxFusions[] = $distributionBoxFusion;
+            $distributionBoxFusion->setDistributionBox($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDistributionBoxFusion(DistributionBoxFusion $distributionBoxFusion): self
+    {
+        if ($this->distributionBoxFusions->contains($distributionBoxFusion)) {
+            $this->distributionBoxFusions->removeElement($distributionBoxFusion);
+            // set the owning side to null (unless already changed)
+            if ($distributionBoxFusion->getDistributionBox() === $this) {
+                $distributionBoxFusion->setDistributionBox(null);
+            }
+        }
+
+        return $this;
     }
 
 }

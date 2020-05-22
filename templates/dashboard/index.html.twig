@@ -193,25 +193,25 @@
             </li>
 
             <hr class="sidebar-divider">
-            
+
             {% if is_granted('ROLE_ADMIN') %}
-            <div class="sidebar-heading">
-                Notificaciones
-            </div>
+                <div class="sidebar-heading">
+                    Notificaciones
+                </div>
 
-            <li class="nav-item {% if app.request.get('_route') starts with  'note' %}active{% endif %}">
-                <a class="nav-link" href="{{ path('note_index') }}">
-                    <i class="far fa-sticky-note"></i>
-                    <span>Notas</span></a>
-            </li>
-            
-            <li class="nav-item {% if app.request.get('_route') starts with  'alert' %}active{% endif %}">
-                <a class="nav-link" href="{{ path('alert_index') }}">
-                    <i class="far fa-bell"></i>
-                    <span>Alertas</span></a>
-            </li>
+                <li class="nav-item {% if app.request.get('_route') starts with  'note' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('note_index') }}">
+                        <i class="far fa-sticky-note"></i>
+                        <span>Notas</span></a>
+                </li>
 
-            <hr class="sidebar-divider">
+                <li class="nav-item {% if app.request.get('_route') starts with  'alert' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('alert_index') }}">
+                        <i class="far fa-bell"></i>
+                        <span>Alertas</span></a>
+                </li>
+
+                <hr class="sidebar-divider">
 
                 <div class="sidebar-heading">
                     Configuración
@@ -355,18 +355,20 @@
                                 <h6 class="dropdown-header">
                                     Notas
                                 </h6>
-                                {% for note in NOTES %}
-                                    <a class="dropdown-item d-flex align-items-center" href="{{ path('note_show', {'id':note.id}) }}">
-                                        <div class="dropdown-list-image mr-3">
-                                            <img class="rounded-circle" src="{{ asset(images_upload ~ note.user.image) }}" alt="{{ note.user }}">
-                                            <div class="status-indicator bg-success"></div>
-                                        </div>
-                                        <div class="font-weight-bold">
-                                            <div class="text-truncate">{{ note }}</div>
-                                            <div class="small text-gray-500">{{ note.user }} · {{ note.elapsedTime }}</div>
-                                        </div>
-                                    </a>
-                                {% endfor %}
+                                <div class="menu-notifications-list">
+                                    {% for note in NOTES %}
+                                        <a class="dropdown-item d-flex align-items-center" href="{{ path('note_show', {'id':note.id}) }}">
+                                            <div class="dropdown-list-image mr-3">
+                                                <img class="rounded-circle" src="{{ asset(images_upload ~ note.user.image) }}" alt="{{ note.user }}">
+                                                <div class="status-indicator bg-success"></div>
+                                            </div>
+                                            <div class="font-weight-bold">
+                                                <div class="text-truncate">{{ note }}</div>
+                                                <div class="small text-gray-500">{{ note.user }} · {{ note.elapsedTime }}</div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
                                 <a class="dropdown-item text-center small text-gray-500" href="{{ path('note_new') }}">Nueva nota</a>
                             </div>
                         </li>
@@ -382,18 +384,20 @@
                                 <h6 class="dropdown-header">
                                     Alertas
                                 </h6>
-                                {% for alert in ALERTS %}
-                                    <a class="dropdown-item d-flex align-items-center" href="{{ path('alert_show', {'id':alert.id}) }}">
-                                        <div class="dropdown-list-image mr-3">
-                                            <img class="rounded-circle" src="{{ asset(images_upload ~ alert.user.image) }}" alt="{{ alert.user }}">
-                                            <div class="status-indicator bg-success"></div>
-                                        </div>
-                                        <div class="font-weight-bold">
-                                            <div class="text-truncate">{{ alert }}</div>
-                                            <div class="small text-gray-500">{{ alert.user }} · {{ alert.elapsedTime }}</div>
-                                        </div>
-                                    </a>
-                                {% endfor %}
+                                <div class="menu-notifications-list">
+                                    {% for alert in ALERTS %}
+                                        <a class="dropdown-item d-flex align-items-center" href="{{ path('alert_show', {'id':alert.id}) }}">
+                                            <div class="dropdown-list-image mr-3">
+                                                <img class="rounded-circle" src="{{ asset(images_upload ~ alert.user.image) }}" alt="{{ alert.user }}">
+                                                <div class="status-indicator bg-success"></div>
+                                            </div>
+                                            <div class="font-weight-bold">
+                                                <div class="text-truncate">{{ alert }}</div>
+                                                <div class="small text-gray-500">{{ alert.user }} · {{ alert.elapsedTime }}</div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
                                 <a class="dropdown-item text-center small text-gray-500" href="{{ path('alert_new') }}">Nueva alerta</a>
                             </div>
                         </li>
