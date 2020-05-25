@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DistributionBoxFusionRepository")
@@ -15,22 +17,26 @@ class DistributionBoxFusion
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"distribution-box","path"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"distribution-box"})
      */
-    private $signalLoss;
+    private $signalLoss = 0.2;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Fiber", inversedBy="distributionBoxFusions")
+     * @Groups({"distribution-box","path"})
      */
     private $fibers;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\DistributionBox", inversedBy="distributionBoxFusions")
+     * @ORM\ManyToOne(targetEntity="App\Entity\DistributionBox", inversedBy="distributionBoxFusions", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"distribution-box","path"})
      */
     private $distributionBox;
 
@@ -92,5 +98,13 @@ class DistributionBoxFusion
         $this->distributionBox = $distributionBox;
 
         return $this;
+    }
+    
+    public function __toString() {
+        $name = "Caja-". $this->distributionBox;
+        foreach ($this->fibers as $fiber) {
+            $name .= "___Fibra-". $fiber;
+        }
+        return $name;
     }
 }

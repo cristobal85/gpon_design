@@ -135,7 +135,9 @@ class DistributionBox implements EntityIconable
     private $passants;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DistributionBoxFusion", mappedBy="distributionBox")
+     * @ORM\OneToMany(targetEntity="App\Entity\DistributionBoxFusion", mappedBy="distributionBox", orphanRemoval=true, cascade={"persist"})
+     * @Groups({"distribution-box"})
+     * @Assert\Valid
      */
     private $distributionBoxFusions;
 

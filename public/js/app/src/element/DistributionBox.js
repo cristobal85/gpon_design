@@ -15,6 +15,7 @@ const DsBoxConectorFormListener = require('../form/listener/DsBoxConectorFormLis
 const DistributionBoxFormListener = require('../form/listener/DistributionBoxFormListener');
 const AddressModel = require('./model/AddressModel');
 const DistributionBoxPassantListener = require('../form/listener/DistributionBoxPassantListener');
+const DistributionBoxFusionListener = require('../form/listener/DistributionBoxFusionListener');
 
 /**
  * @param {mapView} mapView
@@ -120,6 +121,10 @@ DistributionBox.prototype = {
                                         {id: 'ports', label: 'Puertos'},
                                         dsBox.ports,
                                         false)
+                                .addContentFusion(
+                                        {id: 'fusions', label: 'Fusiones'},
+                                        dsBox.distributionBoxFusions,
+                                        false)
                                 .addContentPassant(
                                         {id: 'passant', label: 'Pasantes'},
                                         dsBox.passants,
@@ -198,6 +203,12 @@ DistributionBox.prototype = {
                     text: '<i class="fas fa-plug"></i> Conectar puertos',
                     callback: function () {
                         DsBoxConectorFormListener.showModal(self.id);
+                    }
+                },
+                {
+                    text: '<i class="fas fa-link"></i> Añadir fusiones',
+                    callback: function () {
+                        DistributionBoxFusionListener.showFusionModal(self.id);
                     }
                 },
                 {

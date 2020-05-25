@@ -38,6 +38,7 @@ var ApiUrl = {
     GET_CONECTOR_ID: '/patch-panel-slot-conector/',
     GET_DSBOX_PORT_ID: '/distribution-box-port/',
     GET_TORPEDO_FUSION_ID: '/torpedo-fusion/',
+    GET_DISTRIBUTION_BOX_FUSION_ID: '/distribution-box-fusion/',
     GET_TORPEDO_ID: '/torpedo/',
     GET_SUBSCRIBER_ID: '/subscriber-box/',
     GET_SUBSCRIBER_EXT_ID: '/subscriber-box-ext/',

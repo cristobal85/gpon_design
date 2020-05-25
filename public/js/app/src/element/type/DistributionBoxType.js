@@ -19,7 +19,7 @@ DistributionBoxType.buildElement = function (data, mapView) {
             data.name,
             data.latitude,
             data.longitude,
-            data.icon,
+            data.icon
             );
 };
 
