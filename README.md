@@ -1,5 +1,7 @@
 # GPON Design
 <img width="1364" alt="image" src="https://user-images.githubusercontent.com/11557433/213283322-39890248-711a-4022-941a-79a1af624c41.png">
+![image](https://github.com/cristobal85/gpon_design/assets/11557433/e8b3693b-4700-4b22-acdc-cede96d78601)
+
 
 ## Application for design GPON Network with GIS - Open Source.
 This application is built using PHP and the Symfony framework and is useful for designing Fiber to the Home (FTTH) networks in a Geographic Information System (GIS) environment.
